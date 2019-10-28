@@ -1,1 +1,24 @@
-<p>single-course works!</p>
+<div class="course-item">
+    <div class="course-item__heading">
+        <h3>{{course.title}}</h3>
+        <div class="course-item__heading-details">
+            <div class="heading-details__time">
+                <i class="fa fa-clock-o"></i>
+                {{course.duration}} min
+            </div>
+            <div>
+                <i class="fa fa-calendar"></i>
+                {{course.creationDate | date:'d MMM, yy'}}
+            </div>
+        </div>
+    </div>
+    <div class="course-item__details">
+        <div class="course-item__details-text">
+            <p>{{course.description}}</p>
+        </div>
+        <div class="course-item__details-actions">
+            <button class="btn__actions-edit"><i class="fa fa-pencil"></i> Edit</button>
+            <button class="btn__actions-delete" (click)="onDelete($event)"><i class="fa fa-trash"></i> Delete</button>
+        </div>
+    </div>
+</div>
