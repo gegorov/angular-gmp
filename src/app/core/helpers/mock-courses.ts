@@ -16,8 +16,10 @@ export const COURSES: Array<ICourse> = [
         title: "Typescript",
         creationDate: new Date(),
         description: `
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab reprehenderit voluptate beatae iste placeat ad,
-            perspiciatis architecto saepe quasi enim.
+            Learn about where you can find course descriptions, what information they include, how they work, and
+            details about various components of a course description. Course descriptions report information about a
+            university or college's classes. They're published both in course catalogs that outline degree requirements
+            and in course schedules that contain descriptions for all courses offered during a particular semester.
         `,
         duration: 60,
     },
