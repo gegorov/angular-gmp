@@ -1,0 +1,16 @@
+footer {
+    height: 64px;
+    background-color: #414452;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+}
+
+.footer-copyright {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    line-height: 1.71;
+    color: #c0c3ce;
+    margin-top: 20px;
+    margin-right: 85px;
+}
