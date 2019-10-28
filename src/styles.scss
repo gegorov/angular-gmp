@@ -1,3 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400&display=swap");
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('./assets/fonts/SourceSansPro-Regular.ttf') format("truetype");
+    font-weight:400;
+}
