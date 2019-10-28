@@ -1,1 +1,14 @@
-<p>search works!</p>
+<div class="search-form-wrapper">
+    <form class="search-form" (ngSubmit)="onSubmit()" novalidate>
+        <div class="search-input__wrapper">
+            <span class="fa fa-search"></span>
+            <input type="text" name="searchValue" id="search" class="search-form__input" placeholder="Text to search"
+                [(ngModel)]="searchValue">
+
+        </div>
+        <button type="submit" class="btn btn_search">Search</button>
+    </form>
+    <div class="search-form__add-course">
+        <button class="btn btn__add-course"><i class="fa fa-plus"></i> Add course</button>
+    </div>
+</div>

@@ -1,7 +1,9 @@
-<p>courses-list works!</p>
-
-<app-search></app-search>
-<app-course></app-course>
-<app-course></app-course>
-<app-course></app-course>
-<app-course></app-course>
+<div class="courses-list">
+    <app-search></app-search>
+    <div *ngFor="let course of courses$ | async">
+        <app-course [course]="course" (notify)="onNotify($event)"></app-course>
+    </div>
+    <div class="load-more">
+        <button (click)="loadMore()">Load More</button>
+    </div>
+</div>
