@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+$fa-font-path: "../node_modules/font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome.scss";
+
 @font-face {
     font-family: 'Source Sans Pro';
     src: url('./assets/fonts/SourceSansPro-Regular.ttf') format("truetype");
@@ -8,6 +11,13 @@
     font-family: 'Source Sans Pro';
     src: url('./assets/fonts/SourceSansPro-SemiBold.ttf') format("truetype");
     font-weight: 600;
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
