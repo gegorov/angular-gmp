@@ -1,8 +1,6 @@
 <div class="courses-list">
     <app-search></app-search>
-    <div *ngFor="let course of courses$ | async">
-        <app-course [course]="course" (notify)="onNotify($event)"></app-course>
-    </div>
+        <app-course *ngFor="let course of courses$ | async" [course]="course" (removeItem)="onNotify($event)"></app-course>
     <div class="load-more">
         <button (click)="loadMore()">Load More</button>
     </div>

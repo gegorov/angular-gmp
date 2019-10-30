@@ -8,20 +8,20 @@ import { ICourse } from "../../core/index";
 })
 export class CourseComponent {
     /**
-     * Variable to store course that is riecived from parent component
+     * Variable to store course that is received from parent component
      */
     @Input() public course: ICourse;
 
     /**
-     * Emitemitter that is used to notify parent component about which course needs to be deleted
+     * Eventemitter that is used to notify parent component about which course needs to be deleted
      */
-    @Output() public notify: EventEmitter<number> = new EventEmitter();
+    @Output() public removeItem: EventEmitter<number> = new EventEmitter();
 
     /**
      * Function that emits course id to parent component
      */
     public onDelete(event: MouseEvent): void {
         event.preventDefault();
-        this.notify.emit(this.course.id);
+        this.removeItem.emit(this.course.id);
     }
 }

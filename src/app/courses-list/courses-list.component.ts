@@ -42,7 +42,7 @@ export class CoursesListComponent implements
     }
 
     /**
-     * Function that riecive course id if delete button is clicked
+     * Function that receive course id if delete button is clicked
      * @param value id that is emitted by course component
      */
     public onNotify(value: number): void {
@@ -53,35 +53,35 @@ export class CoursesListComponent implements
         console.log("Load More!");
     }
 
-    ngOnChanges(): void {
+    public ngOnChanges(): void {
         console.log("ngOnChanges");
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         console.log("ngOnInit");
         this.courses$ = this.courseService.getCourses();
     }
-    ngDoCheck(): void {
+    public ngDoCheck(): void {
         console.log("DoCheck");
     }
 
-    ngAfterContentInit(): void {
+    public ngAfterContentInit(): void {
         console.log("ngAfterContentInit");
     }
 
-    ngAfterContentChecked(): void {
+    public ngAfterContentChecked(): void {
         console.log("ngAfterContentChecked");
     }
 
-    ngAfterViewInit(): void {
+    public ngAfterViewInit(): void {
         console.log("ngAfterViewInit");
     }
 
-    ngAfterViewChecked(): void {
+    public ngAfterViewChecked(): void {
         console.log("ngAfterViewChecked");
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         console.log("ngOnDestroy");
     }
 
