@@ -1,0 +1,79 @@
+.course-item {
+    width: 1110px;
+    height: 163px;
+    background: #ffffff;
+    margin: 0 85px 12px;
+    border-radius: 8px;
+    box-shadow: 0 1px 24px 0 rgba(18, 21, 35, 0.08);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.course-item__heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.25;
+
+}
+.course-item__heading-details {
+    margin-right: 260px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #b9bdce;
+}
+
+.heading-details__time {
+    margin-right: 16px;
+}
+
+.course-item__details {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.course-item__details-text {
+    width: 800px;
+}
+
+.course-item__details-text p {
+    color: #525462;
+    line-height: 1.71;
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.course-item__details-actions button {
+
+    background: #30b6dd;
+    border-radius: 3px;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+.btn__actions-edit {
+    width: 75px;
+    height: 24px;
+}
+
+.btn__actions-delete {
+    width: 86px;
+    height: 24px;
+    margin-left: 12px;
+}
