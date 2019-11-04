@@ -29,4 +29,16 @@ describe("CourseComponent", () => {
     it("should create", () => {
         expect(component).toBeTruthy();
     });
+
+    it("should emit correct id when onDelete called", () => {
+        spyOn(component.removeItem, "emit");
+
+        const nativeElement = fixture.nativeElement;
+        const button = nativeElement.querySelector(".btn__actions-delete");
+        button.dispatchEvent(new Event("click"));
+
+        fixture.detectChanges();
+        expect(component.removeItem.emit).toHaveBeenCalledWith(component.course.id);
+
+    });
 });
