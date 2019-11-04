@@ -1,14 +1,4 @@
-import {
-    Component,
-    OnInit,
-    OnChanges,
-    DoCheck,
-    AfterContentInit,
-    AfterContentChecked,
-    AfterViewInit,
-    AfterViewChecked,
-    OnDestroy
-} from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
 import { CourseService, ICourse } from "../core/index";
 import { Observable } from "rxjs";
@@ -18,15 +8,7 @@ import { Observable } from "rxjs";
     templateUrl: "./courses-list.component.html",
     styleUrls: ["./courses-list.component.scss"]
 })
-export class CoursesListComponent implements
-    OnChanges,
-    OnInit,
-    DoCheck,
-    AfterContentInit,
-    AfterContentChecked,
-    AfterViewInit,
-    AfterViewChecked,
-    OnDestroy {
+export class CoursesListComponent implements OnInit {
 
 
     /**
@@ -49,40 +31,19 @@ export class CoursesListComponent implements
         console.log("Delete movie with ID# ", value);
     }
 
+    /**
+     * Load more button handler
+     */
     public loadMore(): void {
         console.log("Load More!");
     }
 
-    public ngOnChanges(): void {
-        console.log("ngOnChanges");
-    }
-
+    /**
+     * In this method we set observable to this.courses$
+     */
     public ngOnInit(): void {
         console.log("ngOnInit");
         this.courses$ = this.courseService.getCourses();
-    }
-    public ngDoCheck(): void {
-        console.log("DoCheck");
-    }
-
-    public ngAfterContentInit(): void {
-        console.log("ngAfterContentInit");
-    }
-
-    public ngAfterContentChecked(): void {
-        console.log("ngAfterContentChecked");
-    }
-
-    public ngAfterViewInit(): void {
-        console.log("ngAfterViewInit");
-    }
-
-    public ngAfterViewChecked(): void {
-        console.log("ngAfterViewChecked");
-    }
-
-    public ngOnDestroy(): void {
-        console.log("ngOnDestroy");
     }
 
 }

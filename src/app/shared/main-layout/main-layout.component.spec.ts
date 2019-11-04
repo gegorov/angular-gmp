@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { MainLayoutComponent } from "./main-layout.component";
+import { HeaderComponent } from "./header/header.component";
+import { FooterComponent } from "./footer/footer.component";
+import { LogoComponent } from "./logo/logo.component";
 
 describe("MainLayoutComponent", () => {
   let component: MainLayoutComponent;
@@ -8,7 +11,7 @@ describe("MainLayoutComponent", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainLayoutComponent ]
+      declarations: [ MainLayoutComponent, HeaderComponent, FooterComponent, LogoComponent ]
     })
     .compileComponents();
   }));
