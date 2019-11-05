@@ -53,8 +53,8 @@
             "trace"
         ],
         "no-empty": false,
-        "no-inferrable-types": [
-            true,
+            "no-inferrable-types": [
+            false,
             "ignore-params"
         ],
         "no-non-null-assertion": true,
@@ -84,7 +84,12 @@
         "template-banana-in-box": true,
         "template-no-negated-async": true,
         "use-lifecycle-interface": true,
-        "use-pipe-transform-interface": true
+        "use-pipe-transform-interface": true,
+        "typedef": [
+            true,
+            "property-declaration",
+            "variable-declaration"
+        ]
     },
     "rulesDirectory": [
         "codelyzer"

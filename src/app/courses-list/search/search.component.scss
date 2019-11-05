@@ -12,7 +12,7 @@
     margin-top: 25px;
 }
 
-.search-form__input{
+.search-form__input {
     width: 360px;
     height: 48px;
     border-radius: 3px;
@@ -29,14 +29,14 @@
     top: 10px;
     left: 10px;
     transform: scaleX(-1);
-    color:#c0c3ce;
+    color: #c0c3ce;
     font-size: 24px;
 }
 
 .search-form__input::placeholder {
-    color:#c0c3ce;
+    color: #c0c3ce;
     font-size: 14px;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
 }
 
 .search-form__add-course {
@@ -48,7 +48,7 @@
 .btn {
     border-radius: 3px;
     color: #ffffff;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
     font-weight: 600;
     border: none;
     cursor: pointer;
@@ -61,6 +61,10 @@
     font-size: 14px;
 }
 
+.btn__add-course:hover {
+    background-color: #246e92;
+}
+
 .fa-plus {
     margin-right: 10px;
 }
@@ -71,4 +75,8 @@
     font-size: 18px;
     background: #9bc837;
     margin-left: 6px;
+}
+
+.btn_search:hover {
+    background-color: #506e21;
 }
