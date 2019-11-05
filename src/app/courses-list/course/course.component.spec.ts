@@ -21,7 +21,6 @@ describe("CourseComponent", () => {
             duration: 10,
             id: 123,
             title: "Testing Course"
-
         };
         fixture.detectChanges();
     });
@@ -32,13 +31,8 @@ describe("CourseComponent", () => {
 
     it("should emit correct id when onDelete called", () => {
         spyOn(component.removeItem, "emit");
-
-        const nativeElement = fixture.nativeElement;
-        const button = nativeElement.querySelector(".btn__actions-delete");
-        button.dispatchEvent(new Event("click"));
-
+        component.onDelete(new MouseEvent("click"));
         fixture.detectChanges();
         expect(component.removeItem.emit).toHaveBeenCalledWith(component.course.id);
-
     });
 });

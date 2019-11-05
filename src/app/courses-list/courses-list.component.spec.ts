@@ -1,42 +1,33 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { FormsModule } from "@angular/forms";
 
 import { CoursesListComponent } from "./courses-list.component";
 import { CourseComponent } from "./course/course.component";
 import { SearchComponent } from "./search/search.component";
-import { FormsModule } from "@angular/forms";
-import { ServiceModule } from "../core/services/index";
 
-import { CourseService} from "../core/services/index";
-import { COURSES} from "../core/helpers/mock-courses";
-import { of } from "rxjs";
-
+import { CourseService } from "../core/index";
 
 describe("CoursesListComponent", () => {
     let component: CoursesListComponent;
     let fixture: ComponentFixture<CoursesListComponent>;
 
-    let courseService: CourseService;
-    const CourseServiceStub: Partial<CourseService> = {
-        getCourses: () => of(COURSES)
-    };
-
-
+    let courseServiceStub: jasmine.SpyObj<CourseService>;
 
     beforeEach(async(() => {
+        courseServiceStub = jasmine.createSpyObj("CourseService", ["getCourses"]);
+
         TestBed.configureTestingModule({
             declarations: [CoursesListComponent, CourseComponent, SearchComponent],
             imports: [FormsModule],
-            providers: [{provide: CourseService, useValue: CourseServiceStub}]
+            providers: [{ provide: CourseService, useValue: courseServiceStub }]
         })
-            .compileComponents();
+            .compileComponents()
+            .then(() => {
+                fixture = TestBed.createComponent(CoursesListComponent);
+                component = fixture.componentInstance;
+                fixture.detectChanges();
+            });
     }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(CoursesListComponent);
-        courseService = TestBed.get(CourseService);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
 
     it("should create", () => {
         expect(component).toBeTruthy();
@@ -44,20 +35,19 @@ describe("CoursesListComponent", () => {
 
     it("should call console.log when clicked on LoadMore", () => {
         spyOn(console, "log");
-        const message = "Load More!";
+        const message: string = "Load More!";
 
-        const nativeElement = fixture.nativeElement;
-        const button = nativeElement.querySelector(".load-more button");
+        const nativeElement: Element = fixture.nativeElement;
+        const button: Element = nativeElement.querySelector(".load-more button");
         button.dispatchEvent(new Event("click"));
 
         fixture.detectChanges();
         expect(console.log).toHaveBeenCalledWith(message);
-
     });
 
     it("should call console.log when onNotify method called", () => {
         spyOn(console, "log");
-        const data = 123;
+        const data: number = 123;
 
         component.onNotify(data);
         fixture.detectChanges();
@@ -65,8 +55,7 @@ describe("CoursesListComponent", () => {
     });
 
     it("should call courseService in ngOnInit", () => {
-        const getCoursesSpy = spyOn(courseService, "getCourses");
-        component.ngOnInit();
-        expect(getCoursesSpy).toHaveBeenCalled();
+        fixture.detectChanges();
+        expect(courseServiceStub.getCourses).toHaveBeenCalled();
     });
 });

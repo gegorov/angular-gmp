@@ -9,8 +9,6 @@ import { Observable } from "rxjs";
     styleUrls: ["./courses-list.component.scss"]
 })
 export class CoursesListComponent implements OnInit {
-
-
     /**
      * Variable to store observable with courses
      */
@@ -19,7 +17,6 @@ export class CoursesListComponent implements OnInit {
     private courseService: CourseService;
 
     constructor(courseService: CourseService) {
-        console.log("Constructor");
         this.courseService = courseService;
     }
 
@@ -42,8 +39,6 @@ export class CoursesListComponent implements OnInit {
      * In this method we set observable to this.courses$
      */
     public ngOnInit(): void {
-        console.log("ngOnInit");
         this.courses$ = this.courseService.getCourses();
     }
-
 }

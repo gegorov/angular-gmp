@@ -1,38 +1,30 @@
-import { TestBed, async } from "@angular/core/testing";
+import { TestBed, async, ComponentFixture } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { AppComponent } from "./app.component";
 
 import { SharedModule } from "./shared/shared.module";
 
 describe("AppComponent", () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule, SharedModule
-      ],
-      declarations: [
-        AppComponent,
-      ],
-    }).compileComponents();
-  }));
+    let fixture: ComponentFixture<AppComponent>;
+    let app: AppComponent;
 
-  it("should create the app", () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  });
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [RouterTestingModule, SharedModule],
+            declarations: [AppComponent]
+        })
+            .compileComponents()
+            .then(() => {
+                fixture = TestBed.createComponent(AppComponent);
+                app = fixture.debugElement.componentInstance;
+            });
+    }));
 
-  it(`should have as title 'angular-gmp'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual("angular-gmp");
-  });
+    it("should create the app", () => {
+        expect(app).toBeTruthy();
+    });
 
-  it("should render course items", () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    const expectedText = "Courses";
-    expect(compiled.querySelector(".breadcrumbs-data").innerText).toEqual(expectedText);
-  });
+    it(`should have as title 'angular-gmp'`, () => {
+        expect(app.title).toEqual("angular-gmp");
+    });
 });

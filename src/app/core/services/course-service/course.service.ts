@@ -9,7 +9,7 @@ export class CourseService {
     private courses: Array<ICourse> = COURSES;
 
     /**
-     * method that returns Observabale with courses data
+     * method that returns Observable with courses data
      */
     public getCourses(): Observable<Array<ICourse>> {
         return of(this.courses);
