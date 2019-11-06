@@ -1,20 +1,22 @@
-<div class="course-item">
+<div class="course-item" [ngClass]="{ topRated: course.topRated }">
     <div class="course-item__heading">
-        <h3>{{course.title}}</h3>
+        <h3>
+            {{ course.title }}<span *ngIf="course.topRated" class="topRated-title"><i class="fa fa-star"></i> </span>
+        </h3>
         <div class="course-item__heading-details">
             <div class="heading-details__time">
                 <i class="fa fa-clock-o"></i>
-                {{course.duration}} min
+                {{ course.duration }} min
             </div>
             <div>
                 <i class="fa fa-calendar"></i>
-                {{course.creationDate | date:'d MMM, yy'}}
+                {{ course.creationDate | date: "d MMM, yy" }}
             </div>
         </div>
     </div>
     <div class="course-item__details">
         <div class="course-item__details-text">
-            <p>{{course.description}}</p>
+            <p>{{ course.description }}</p>
         </div>
         <div class="course-item__details-actions">
             <button class="btn__actions-edit"><i class="fa fa-pencil"></i> Edit</button>

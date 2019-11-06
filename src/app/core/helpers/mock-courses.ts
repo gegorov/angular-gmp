@@ -10,6 +10,7 @@ export const COURSES: Array<ICourse> = [
             perspiciatis architecto saepe quasi enim.
         `,
         duration: 120,
+        topRated: true,
     },
     {
         id: 1,
@@ -22,6 +23,7 @@ export const COURSES: Array<ICourse> = [
             and in course schedules that contain descriptions for all courses offered during a particular semester.
         `,
         duration: 60,
+        topRated: false,
     },
     {
         id: 3,
@@ -32,5 +34,6 @@ export const COURSES: Array<ICourse> = [
             perspiciatis architecto saepe quasi enim.
         `,
         duration: 75,
+        topRated: false,
     },
 ];
