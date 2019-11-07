@@ -41,4 +41,8 @@ export class CoursesListComponent implements OnInit {
     public ngOnInit(): void {
         this.courses$ = this.courseService.getCourses();
     }
+
+    public onSubmit(): void {
+
+    }
 }
