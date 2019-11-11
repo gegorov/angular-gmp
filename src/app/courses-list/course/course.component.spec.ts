@@ -20,7 +20,8 @@ describe("CourseComponent", () => {
             description: "Testing Course And something",
             duration: 10,
             id: 123,
-            title: "Testing Course"
+            title: "Testing Course",
+            topRated: true,
         };
         fixture.detectChanges();
     });
