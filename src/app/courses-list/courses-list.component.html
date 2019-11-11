@@ -1,10 +1,10 @@
 <div class="courses-list">
-    <app-search></app-search>
+    <app-search (notify)="onSearchNotify($event)"></app-search>
 <!--    @TODO: get rid of two subscriptions to courses$-->
 <!--    @TODO: and why ngif didn't worked with ng-template -->
-    <ng-container *ngIf="(courses$ | async).length; else noCoursesFound">
+    <ng-container *ngIf="(courses$ | async ).length; else noCoursesFound">
         <app-course
-            *ngFor="let course of courses$ | async | orderBy"
+            *ngFor="let course of courses$ | async |  filter: filterString | orderBy"
             [course]="course"
             (removeItem)="onNotify($event)"
 

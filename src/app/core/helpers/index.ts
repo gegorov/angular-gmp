@@ -13,9 +13,9 @@ function calculateMillisecondsFromDays(days: number): number {
 export function generateBorderColor(courseDate: Date): string {
     const currentDate: number = Date.now();
 
-    const daysThreshold: number = 14
+    const daysThreshold: number = 14;
 
-    if (courseDate.getTime() < currentDate && courseDate.getTime() >= currentDate - calculateMillisecondsFromDays(daysThreshold )) {
+    if (courseDate.getTime() < currentDate && courseDate.getTime() >= currentDate - calculateMillisecondsFromDays(daysThreshold)) {
         return "solid 1px green";
     } else if (courseDate.getTime() > currentDate) {
         return "solid 1px blue";

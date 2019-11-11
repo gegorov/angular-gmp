@@ -14,6 +14,11 @@ export class CoursesListComponent implements OnInit {
      */
     public courses$: Observable<Array<ICourse>>;
 
+    /**
+     * Variable that is used for filtering output
+     */
+    public filterString: string = "";
+
     private courseService: CourseService;
 
     constructor(courseService: CourseService) {
@@ -26,6 +31,15 @@ export class CoursesListComponent implements OnInit {
      */
     public onNotify(value: number): void {
         console.log("Delete movie with ID# ", value);
+    }
+
+    /**
+     * Function that receives search string from search component and filters courses
+     * @param value search string that is emitted by search component
+     */
+    public onSearchNotify(value: string): void {
+        console.log("Inside courses-list: ", value);
+        this.filterString = value;
     }
 
     /**
@@ -42,7 +56,4 @@ export class CoursesListComponent implements OnInit {
         this.courses$ = this.courseService.getCourses();
     }
 
-    public onSubmit(): void {
-
-    }
 }

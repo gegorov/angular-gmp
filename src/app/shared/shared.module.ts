@@ -3,12 +3,12 @@ import { CommonModule } from "@angular/common";
 
 import { MainLayoutModule } from "./main-layout/index";
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
-import { DurationPipe, OrderByPipe } from "./pipes/index";
+import { DurationPipe, FilterPipe, OrderByPipe } from "./pipes/index";
 
 
 @NgModule({
-    declarations: [BreadcrumbsComponent, DurationPipe, OrderByPipe],
+    declarations: [BreadcrumbsComponent, DurationPipe, FilterPipe, OrderByPipe],
     imports: [CommonModule, MainLayoutModule],
-    exports: [BreadcrumbsComponent, MainLayoutModule, DurationPipe, OrderByPipe]
+    exports: [BreadcrumbsComponent, MainLayoutModule, DurationPipe, FilterPipe, OrderByPipe]
 })
 export class SharedModule {}

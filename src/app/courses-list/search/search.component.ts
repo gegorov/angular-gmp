@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 
 @Component({
     selector: "app-search",
@@ -12,10 +12,16 @@ export class SearchComponent {
     public searchValue: string;
 
     /**
+     * Emit search query string on user submit
+     */
+    @Output() public notify: EventEmitter<string> = new EventEmitter();
+
+    /**
      * function that consoles input value on submit
      */
     public onSubmit() {
         console.log("Search input value: ", this.searchValue);
+        this.notify.emit(this.searchValue);
         this.searchValue = "";
 
     }
