@@ -5,7 +5,7 @@ import { CoursesListComponent } from "./courses-list.component";
 import { CourseComponent } from "./course/course.component";
 import { SearchComponent } from "./search/search.component";
 
-import { DurationPipe, FilterPipe, OrderByPipe } from "../shared/pipes/index";
+import { DurationPipe, FilterPipe, OrderByPipe } from "../shared/index";
 import { CourseService } from "../core/index";
 
 describe("CoursesListComponent", () => {

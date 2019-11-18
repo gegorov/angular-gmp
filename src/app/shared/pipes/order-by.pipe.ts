@@ -6,6 +6,8 @@ import { ICourse } from "../../core/index";
 })
 export class OrderByPipe implements PipeTransform {
     public transform(courses: Array<ICourse>): Array<ICourse> {
-        return courses.sort((courseA: ICourse, courseB: ICourse) => courseB.creationDate.getTime() - courseA.creationDate.getTime());
+        return courses
+                .slice()
+                .sort((courseA: ICourse, courseB: ICourse) => courseB.creationDate.getTime() - courseA.creationDate.getTime());
     }
 }

@@ -4,7 +4,7 @@ import { TestBed, ComponentFixture } from "@angular/core/testing";
 import { CourseComponent } from "../course.component";
 import { BorderDecoratorDirective } from "./border-decorator.directive";
 import { ICourse } from "../../../core/index";
-import { DurationPipe, FilterPipe } from "../../../shared/pipes/index";
+import { DurationPipe, FilterPipe } from "../../../shared/index";
 import { calculateMillisecondsFromDays } from "../../../core/helpers/helper-functions";
 
 
