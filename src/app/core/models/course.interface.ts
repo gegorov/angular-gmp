@@ -5,6 +5,7 @@
  * creationDate: date of course creation, Date
  * duration: course duration (min), number
  * description: course description, string
+ * topRated: boolean
  */
 
 export interface ICourse {
@@ -13,4 +14,5 @@ export interface ICourse {
     creationDate: Date;
     duration: number;
     description: string;
+    topRated: boolean;
 }

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { CourseComponent } from "./course.component";
+import { DurationPipe } from "../../shared/index";
 
 describe("CourseComponent", () => {
     let component: CourseComponent;
@@ -8,7 +9,7 @@ describe("CourseComponent", () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [CourseComponent]
+            declarations: [CourseComponent, DurationPipe]
         }).compileComponents();
     }));
 
@@ -20,7 +21,8 @@ describe("CourseComponent", () => {
             description: "Testing Course And something",
             duration: 10,
             id: 123,
-            title: "Testing Course"
+            title: "Testing Course",
+            topRated: true,
         };
         fixture.detectChanges();
     });

@@ -5,6 +5,7 @@ import { CoursesListComponent } from "./courses-list.component";
 import { CourseComponent } from "./course/course.component";
 import { SearchComponent } from "./search/search.component";
 
+import { DurationPipe, FilterPipe, OrderByPipe } from "../shared/index";
 import { CourseService } from "../core/index";
 
 describe("CoursesListComponent", () => {
@@ -17,7 +18,7 @@ describe("CoursesListComponent", () => {
         courseServiceStub = jasmine.createSpyObj("CourseService", ["getCourses"]);
 
         TestBed.configureTestingModule({
-            declarations: [CoursesListComponent, CourseComponent, SearchComponent],
+            declarations: [CoursesListComponent, CourseComponent, SearchComponent, DurationPipe, FilterPipe, OrderByPipe],
             imports: [FormsModule],
             providers: [{ provide: CourseService, useValue: courseServiceStub }]
         })
@@ -25,7 +26,7 @@ describe("CoursesListComponent", () => {
             .then(() => {
                 fixture = TestBed.createComponent(CoursesListComponent);
                 component = fixture.componentInstance;
-                fixture.detectChanges();
+                // fixture.detectChanges();
             });
     }));
 
