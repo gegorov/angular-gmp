@@ -7,6 +7,7 @@ import { SharedModule } from "./shared/index";
 import { CoursesListModule } from "./courses-list/index";
 
 import { AppComponent } from "./app.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
@@ -18,8 +19,9 @@ import { AppComponent } from "./app.component";
         CoreModule,
         SharedModule,
         CoursesListModule,
+        BrowserAnimationsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
