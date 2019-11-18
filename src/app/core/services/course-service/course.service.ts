@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 
 import { COURSES } from "../../helpers/mock-courses";
 import { ICourse } from "../../models";
@@ -7,12 +7,13 @@ import { ICourse } from "../../models";
 @Injectable()
 export class CourseService {
     private courses: Array<ICourse> = COURSES;
+    private coursesSubject: BehaviorSubject<Array<ICourse>> = new BehaviorSubject<Array<ICourse>>(this.courses);
 
     /**
      * method that returns Observable with courses data
      */
     public getCoursesList(): Observable<Array<ICourse>> {
-        return of(this.courses);
+        return this.coursesSubject.asObservable();
     }
 
     /**
@@ -20,6 +21,7 @@ export class CourseService {
      */
     public addCourse(course: ICourse): void {
         this.courses = [...this.courses, course];
+        this.coursesSubject.next(this.courses);
     }
 
     /**
@@ -43,6 +45,7 @@ export class CourseService {
      * method that removes course
      */
     public removeCourse(id: number): void {
-        this.courses.filter((c) => c.id !== id);
+        this.courses = this.courses.filter((c) => c.id !== id);
+        this.coursesSubject.next(this.courses);
     }
 }

@@ -1,5 +1,5 @@
 import { NgModule, Optional, SkipSelf } from "@angular/core";
-import { SharedModule } from "../shared/index";
+
 
 import { ServiceModule } from "./services/index";
 
@@ -7,7 +7,7 @@ import { ServiceModule } from "./services/index";
 @NgModule({
     declarations: [],
     imports: [
-        SharedModule,
+
         ServiceModule
     ]
 })
