@@ -21,7 +21,7 @@ describe("CourseService", () => {
     });
 
     it("should return an observable", done => {
-        const courses$: Observable<Array<ICourse>> = courseService.getCourses();
+        const courses$: Observable<Array<ICourse>> = courseService.getCoursesList();
         courses$.subscribe((courses: Array<ICourse>) => {
             expect(courses).toEqual(mockedCourses);
             done();
