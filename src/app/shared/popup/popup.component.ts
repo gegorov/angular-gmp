@@ -11,28 +11,31 @@ import { Observable } from "rxjs";
 })
 export class PopupComponent implements OnInit {
 
+    /**
+     * variable to store courseId
+     */
     public courseId: number;
 
-    public data: any;
+    /**
+     * var to store
+     */
+    public course$: Observable<ICourse>;
 
-    public courseService: CourseService;
-
-    public course: Observable<ICourse>;
+    private courseService: CourseService;
 
     constructor(@Inject(MAT_DIALOG_DATA) data: any, courseService: CourseService) {
         this.courseService = courseService;
-        this.data = data;
         this.courseId = data.id;
 
     }
 
     public delete() {
-        console.log("DElete", this.courseId)
+        console.log("Delete", this.courseId);
         this.courseService.removeCourse(this.courseId);
     }
 
     ngOnInit() {
-        this.course = this.courseService.getCourse(this.data.id);
+        this.course$ = this.courseService.getCourse(this.courseId);
     }
 
 }

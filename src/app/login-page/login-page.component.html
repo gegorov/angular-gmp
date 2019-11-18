@@ -1,0 +1,15 @@
+<div class="login">
+    <div class="login-container">
+        <h3>Login</h3>
+        <form class="login-form" (ngSubmit)="onSubmit($event)">
+            <label for="login" class="login-input-label">Login</label>
+            <input type="email" name="login" id="login" class="login-input" placeholder="example@mail.com"  [(ngModel)]="loginName">
+            <label for="password" class="login-input-label">Password</label>
+            <input type="password" name="password" id="password" class="login-input" placeholder="password" [(ngModel)]="password">
+            <div class="login-controls">
+                <span class="login-forgot"><a href="#">Forgot password?</a></span>
+                <button mat-raised-button class="btn" >Login</button>
+            </div>
+        </form>
+    </div>
+</div>

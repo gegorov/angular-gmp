@@ -8,10 +8,13 @@ import { CoursesListModule } from "./courses-list/index";
 
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { LoginPageComponent } from "./login-page/login-page.component";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        LoginPageComponent
     ],
     imports: [
         BrowserModule,
@@ -19,7 +22,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         CoreModule,
         SharedModule,
         CoursesListModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        FormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

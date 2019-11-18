@@ -3,18 +3,21 @@ import { IUser } from "../../models/index";
 import { localStorageFlag } from "../../constants/index";
 
 @Injectable()
-export class AuthServiceService {
+export class AuthService {
+
+    private authStatus: boolean;
 
     /**
-     * variable to keep Auth status
+     *  to keep Auth status
      */
-    public isAuthenticated: boolean;
-
+    public isAuthenticated(): boolean {
+        return this.authStatus;
+    }
     /**
      * function sets user data to localStorage
      */
     public login(user: IUser): void {
-        this.isAuthenticated = true;
+        this.authStatus = true;
         localStorage.setItem(localStorageFlag, JSON.stringify(user));
     }
 
@@ -22,7 +25,7 @@ export class AuthServiceService {
      * function clears user data from local storage
      */
     public logout(): void {
-        this.isAuthenticated = false;
+        this.authStatus = false;
         localStorage.removeItem(localStorageFlag);
     }
 
@@ -31,6 +34,6 @@ export class AuthServiceService {
      */
     public getUserInfo(): string {
         const user: IUser = JSON.parse(localStorage.getItem(localStorageFlag));
-        return  user.login;
+        return user.login;
     }
 }
