@@ -9,6 +9,6 @@ import { DurationPipe, FilterPipe, OrderByPipe } from "./pipes/index";
 @NgModule({
     declarations: [BreadcrumbsComponent, DurationPipe, FilterPipe, OrderByPipe],
     imports: [CommonModule, MainLayoutModule],
-    exports: [BreadcrumbsComponent, MainLayoutModule, DurationPipe, FilterPipe, OrderByPipe]
+    exports: [BreadcrumbsComponent, MainLayoutModule, DurationPipe, FilterPipe, OrderByPipe, CommonModule]
 })
 export class SharedModule {}

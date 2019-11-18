@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { SearchComponent } from "./search/search.component";
 import { CourseComponent } from "./course/course.component";
 import { CoursesListComponent } from "./courses-list.component";
@@ -9,7 +8,7 @@ import { SharedModule, OrderByPipe } from "../shared/index";
 
 @NgModule({
     declarations: [SearchComponent, CourseComponent, CoursesListComponent, BorderDecoratorDirective],
-    imports: [CommonModule, FormsModule, SharedModule],
+    imports: [FormsModule, SharedModule],
     exports: [CoursesListComponent],
     providers: [OrderByPipe]
 })
