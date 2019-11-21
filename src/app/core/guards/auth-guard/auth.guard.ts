@@ -8,7 +8,9 @@ import { distinctUntilChanged, tap } from "rxjs/operators";
 export class AuthGuard implements CanActivate {
 
     private authService: AuthService;
+
     private router: Router;
+
     private isAuthenticated: Observable<boolean>;
 
     constructor(authService: AuthService, router: Router) {

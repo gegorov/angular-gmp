@@ -39,7 +39,6 @@ export class AuthService {
         return this.$isAuthenticated.pipe(
             switchMap( (value) => value ? of(this.getUserLoginFromLocalStorage()) : EMPTY )
         );
-
     }
 
     /**
@@ -51,7 +50,6 @@ export class AuthService {
 
     private getUserLoginFromLocalStorage(): string {
         const user: IUser = JSON.parse(localStorage.getItem(storageKey));
-        console.log(user);
         return user.login;
     }
 }

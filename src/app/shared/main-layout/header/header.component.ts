@@ -1,23 +1,26 @@
-import { AfterContentChecked, Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../../core/index";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { tap } from "rxjs/operators";
 
 @Component({
     selector: "app-header",
     templateUrl: "./header.component.html",
     styleUrls: ["./header.component.scss"]
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
     /**
      * placeholder for template.
      */
-    public $user: Observable<string>;
+    public user$: Observable<string>;
 
-    public $isAuthenticated: Observable<boolean>;
+    /**
+     * observable with auth status
+     */
+    public isAuthenticated$: Observable<boolean>;
 
     private authService: AuthService;
+
     private router: Router;
 
     /**
@@ -28,10 +31,13 @@ export class HeaderComponent {
         this.router.navigate(["/login"]);
     }
 
+    public ngOnInit(): void {
+        this.isAuthenticated$ = this.authService.getAuthStatus();
+        this.user$ = this.authService.getUserInfo();
+    }
+
     constructor(authService: AuthService, router: Router) {
         this.authService = authService;
         this.router = router;
-        this.$isAuthenticated = this.authService.getAuthStatus();
-        this.$user = this.authService.getUserInfo().pipe(tap(data => (console.log("user: ", data))));
     }
 }

@@ -20,9 +20,7 @@ export class SearchComponent {
      * function that consoles input value on submit
      */
     public onSubmit() {
-        console.log("Search input value: ", this.searchValue);
         this.notify.emit(this.searchValue);
         this.searchValue = "";
-
     }
 }

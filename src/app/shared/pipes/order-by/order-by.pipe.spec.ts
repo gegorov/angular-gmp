@@ -1,7 +1,7 @@
 import { OrderByPipe } from "./order-by.pipe";
 
-import { COURSES } from "../../core/helpers/mock-courses";
-import { ICourse } from "../../core/index";
+import { COURSES } from "../../../core/helpers/mock-courses";
+import { ICourse } from "../../../core/index";
 
 describe("OrderByPipe", () => {
     let pipe: OrderByPipe;

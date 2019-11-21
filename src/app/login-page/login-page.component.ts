@@ -32,9 +32,11 @@ export class LoginPageComponent {
         this.router = router;
     }
 
+    /**
+     * method that calls login from auth service and navigates to proper route
+     */
     public onSubmit(event) {
         event.preventDefault();
-        console.log(" input value: ", this.loginName, this.password);
         const user: IUser = {
             id: 0,
             login: this.loginName,
@@ -43,5 +45,4 @@ export class LoginPageComponent {
         this.authService.login(user);
         this.router.navigate(["/"]);
     }
-
 }

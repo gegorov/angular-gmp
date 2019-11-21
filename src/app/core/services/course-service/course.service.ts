@@ -7,6 +7,7 @@ import { ICourse } from "../../models";
 @Injectable()
 export class CourseService {
     private courses: Array<ICourse> = COURSES;
+
     private coursesSubject: BehaviorSubject<Array<ICourse>> = new BehaviorSubject<Array<ICourse>>(this.courses);
 
     /**

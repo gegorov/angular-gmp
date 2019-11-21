@@ -15,7 +15,7 @@ export class BorderDecoratorDirective implements OnInit {
         this.courseComponent = courseComponent;
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.element.nativeElement.style.border = generateBorderColor(this.courseComponent.course.creationDate);
     }
 }
