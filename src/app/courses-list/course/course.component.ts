@@ -15,13 +15,13 @@ export class CourseComponent {
     /**
      * Eventemitter that is used to notify parent component about which course needs to be deleted
      */
-    @Output() public removeItem: EventEmitter<number> = new EventEmitter();
+    @Output() public removeItem: EventEmitter<ICourse> = new EventEmitter();
 
     /**
      * Function that emits course id to parent component
      */
     public onDelete(event: MouseEvent): void {
         event.preventDefault();
-        this.removeItem.emit(this.course.id);
+        this.removeItem.emit(this.course);
     }
 }

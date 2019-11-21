@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 
 import { CourseService, ICourse } from "../core/index";
 import { OrderByPipe, PopupComponent } from "../shared/index";
@@ -39,12 +39,17 @@ export class CoursesListComponent implements OnInit {
 
     /**
      * Function that receive course id if delete button is clicked
-     * @param value id that is emitted by course component
+     * course
      */
-    public onNotify(value: number): void {
-        console.log("Delete movie with ID# ", value);
-        this.dialog.open(PopupComponent, {
-            data: { id: value },
+    public onNotify(course: ICourse): void {
+        const dialogRef: MatDialogRef<PopupComponent> = this.dialog.open(PopupComponent, {
+            data: { course }
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                this.courseService.removeCourse(course.id);
+            }
         });
     }
 

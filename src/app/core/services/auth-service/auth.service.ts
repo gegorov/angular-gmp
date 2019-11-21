@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { IUser } from "../../models/index";
-import { localStorageFlag } from "../../constants/index";
+import { storageKey } from "../../constants/index";
 
 @Injectable()
 export class AuthService {
@@ -18,7 +18,7 @@ export class AuthService {
      */
     public login(user: IUser): void {
         this.authStatus = true;
-        localStorage.setItem(localStorageFlag, JSON.stringify(user));
+        localStorage.setItem(storageKey, JSON.stringify(user));
     }
 
     /**
@@ -26,14 +26,14 @@ export class AuthService {
      */
     public logout(): void {
         this.authStatus = false;
-        localStorage.removeItem(localStorageFlag);
+        localStorage.removeItem(storageKey);
     }
 
     /**
      * function returns user login fro local storage
      */
     public getUserInfo(): string {
-        const user: IUser = JSON.parse(localStorage.getItem(localStorageFlag));
+        const user: IUser = JSON.parse(localStorage.getItem(storageKey));
         return user.login;
     }
 }

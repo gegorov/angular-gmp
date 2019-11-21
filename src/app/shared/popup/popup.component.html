@@ -1,9 +1,9 @@
 <h1 mat-dialog-title>Are you sure?</h1>
 <mat-dialog-content>
     Do you really want to delete course
-    <strong>{{(course$ | async).title}}</strong> ?
+    <strong>{{ data.course.title }}</strong> ?
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-raised-button class="btn" mat-dialog-close>Cancel</button>
-    <button mat-raised-button class="btn btn-delete" [mat-dialog-close]="true" (click)="delete()">Yes, delete</button>
+    <button class="btn" [mat-dialog-close]="false" mat-raised-button>Cancel</button>
+    <button [mat-dialog-close]="true" class="btn btn-delete" mat-raised-button>Yes, delete</button>
 </mat-dialog-actions>
