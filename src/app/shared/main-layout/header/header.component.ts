@@ -34,15 +34,4 @@ export class HeaderComponent {
         this.$isAuthenticated = this.authService.getAuthStatus();
         this.$user = this.authService.getUserInfo().pipe(tap(data => (console.log("user: ", data))));
     }
-
-// public checkStatus(): boolean {
-//     console.log("checking status");
-//     return this.authService.isAuthenticated();
-// }
-
-// public ngAfterContentChecked() {
-//     if (this.checkStatus()) {
-//         this.user = this.authService.getUserInfo();
-//     }
-// }
 }
