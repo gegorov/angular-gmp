@@ -3,9 +3,9 @@
         <h3>Login</h3>
         <form class="login-form" (ngSubmit)="onSubmit($event)">
             <label for="login" class="login-input-label">Login</label>
-            <input type="email" name="login" id="login" class="login-input" placeholder="example@mail.com"  [(ngModel)]="loginName">
+            <input type="email" name="login" id="login" class="login-input" placeholder="example@mail.com"  [(ngModel)]="loginName" autocomplete="username">
             <label for="password" class="login-input-label">Password</label>
-            <input type="password" name="password" id="password" class="login-input" placeholder="password" [(ngModel)]="password">
+            <input type="password" name="password" id="password" class="login-input" placeholder="password" [(ngModel)]="password" autocomplete="current-password">
             <div class="login-controls">
                 <span class="login-forgot"><a href="#">Forgot password?</a></span>
                 <button mat-raised-button class="btn" >Login</button>
