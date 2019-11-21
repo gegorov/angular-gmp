@@ -1,17 +1,21 @@
 import { AfterContentChecked, Component } from "@angular/core";
 import { AuthService } from "../../../core/index";
 import { Router } from "@angular/router";
+import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
 
 @Component({
     selector: "app-header",
     templateUrl: "./header.component.html",
     styleUrls: ["./header.component.scss"]
 })
-export class HeaderComponent implements AfterContentChecked {
+export class HeaderComponent {
     /**
      * placeholder for template.
      */
-    public user: string;
+    public $user: Observable<string>;
+
+    public $isAuthenticated: Observable<boolean>;
 
     private authService: AuthService;
     private router: Router;
@@ -27,16 +31,18 @@ export class HeaderComponent implements AfterContentChecked {
     constructor(authService: AuthService, router: Router) {
         this.authService = authService;
         this.router = router;
-
+        this.$isAuthenticated = this.authService.getAuthStatus();
+        this.$user = this.authService.getUserInfo().pipe(tap(data => (console.log("user: ", data))));
     }
 
-    public checkStatus(): boolean {
-        return this.authService.isAuthenticated();
-    }
+// public checkStatus(): boolean {
+//     console.log("checking status");
+//     return this.authService.isAuthenticated();
+// }
 
-    public ngAfterContentChecked() {
-        if (this.checkStatus()) {
-            this.user = this.authService.getUserInfo();
-        }
-    }
+// public ngAfterContentChecked() {
+//     if (this.checkStatus()) {
+//         this.user = this.authService.getUserInfo();
+//     }
+// }
 }

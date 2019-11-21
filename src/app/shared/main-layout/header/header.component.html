@@ -1,10 +1,10 @@
 <header>
     <app-logo></app-logo>
-    <div class="header__user-details" *ngIf="checkStatus()">
+    <div class="header__user-details" *ngIf="$isAuthenticated | async">
         <div class="user-details__login">
             <img alt="User Icon" class="user-details__user-icon" src="../../../../assets/img/ic-user.svg"/>
             <span>
-                {{ this.user }}
+                {{ this.$user | async }}
             </span>
         </div>
 
