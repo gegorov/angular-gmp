@@ -1,8 +1,8 @@
 import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from "@angular/core";
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
+import { tap } from "rxjs/operators";
 
 import { AuthService } from "../../../core/index";
-import { tap } from "rxjs/operators";
 
 @Directive({
     selector: "[appIsAuthorized]"
@@ -10,13 +10,9 @@ import { tap } from "rxjs/operators";
 export class IsAuthorizedDirective implements OnInit, OnDestroy {
 
     private readonly templateRef: TemplateRef<any>;
-
     private viewContainerRef: ViewContainerRef;
-
     private authSubscription: Subscription;
-
     private hasView: boolean = false;
-
     private authService: AuthService;
 
     constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, authService: AuthService) {
@@ -28,7 +24,6 @@ export class IsAuthorizedDirective implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.authSubscription = this.authService.getAuthStatus().pipe(
             tap((isAuthorized) => {
-                console.log("isAuthorized: ", isAuthorized);
                 if (isAuthorized && !this.hasView) {
                     this.viewContainerRef.createEmbeddedView(this.templateRef);
                     this.hasView = true;
@@ -40,7 +35,7 @@ export class IsAuthorizedDirective implements OnInit, OnDestroy {
         ).subscribe();
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         this.authSubscription.unsubscribe();
     }
 

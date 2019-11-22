@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { IUser } from "../../models/index";
-import { storageKey } from "../../constants/index";
 import { BehaviorSubject, EMPTY, Observable, of } from "rxjs";
 import { switchMap } from "rxjs/operators";
+
+import { storageKey } from "../../constants/index";
+import { IUser } from "../../models/index";
 
 @Injectable()
 export class AuthService {
@@ -37,7 +38,7 @@ export class AuthService {
      */
     public getUserInfo(): Observable<string> {
         return this.$isAuthenticated.pipe(
-            switchMap( (value) => value ? of(this.getUserLoginFromLocalStorage()) : EMPTY )
+            switchMap((value) => value ? of(this.getUserLoginFromLocalStorage()) : EMPTY)
         );
     }
 

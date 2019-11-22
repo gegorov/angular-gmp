@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
-import { AuthService, IUser } from "../core/index";
 import { Router } from "@angular/router";
+
+import { AuthService, IUser } from "../core/index";
 
 
 @Component({
@@ -9,6 +10,8 @@ import { Router } from "@angular/router";
     styleUrls: ["./login-page.component.scss"]
 })
 export class LoginPageComponent {
+
+    private router: Router;
 
     /**
      * variable ot store user login from input
@@ -24,8 +27,6 @@ export class LoginPageComponent {
      * variable ot store user login from input
      */
     public authService: AuthService;
-
-    private router: Router;
 
     constructor(authService: AuthService, router: Router) {
         this.authService = authService;

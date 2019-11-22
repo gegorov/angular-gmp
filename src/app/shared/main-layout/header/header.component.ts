@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { AuthService } from "../../../core/index";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
+
+import { AuthService } from "../../../core/index";
 
 @Component({
     selector: "app-header",
@@ -9,19 +10,19 @@ import { Observable } from "rxjs";
     styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnInit {
+
+    private authService: AuthService;
+    private router: Router;
+
     /**
      * placeholder for template.
      */
     public user$: Observable<string>;
 
-    /**
-     * observable with auth status
-     */
-    public isAuthenticated$: Observable<boolean>;
-
-    private authService: AuthService;
-
-    private router: Router;
+    constructor(authService: AuthService, router: Router) {
+        this.authService = authService;
+        this.router = router;
+    }
 
     /**
      * method that calls logout method of AuthService
@@ -32,12 +33,6 @@ export class HeaderComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.isAuthenticated$ = this.authService.getAuthStatus();
         this.user$ = this.authService.getUserInfo();
-    }
-
-    constructor(authService: AuthService, router: Router) {
-        this.authService = authService;
-        this.router = router;
     }
 }

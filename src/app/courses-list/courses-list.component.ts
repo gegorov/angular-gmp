@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
-import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 
 import { CourseService, ICourse } from "../core/index";
 import { OrderByPipe, PopupComponent } from "../shared/index";
@@ -12,6 +12,10 @@ import { OrderByPipe, PopupComponent } from "../shared/index";
     styleUrls: ["./courses-list.component.scss"]
 })
 export class CoursesListComponent implements OnInit {
+
+    private orderByPipe: OrderByPipe;
+    private courseService: CourseService;
+
     /**
      * Variable to store observable with courses
      */
@@ -26,10 +30,6 @@ export class CoursesListComponent implements OnInit {
      * variable for popup
      */
     public dialog: MatDialog;
-
-    private orderByPipe: OrderByPipe;
-
-    private courseService: CourseService;
 
     constructor(courseService: CourseService, orderByPipe: OrderByPipe, dialog: MatDialog) {
         this.courseService = courseService;
