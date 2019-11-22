@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { TestBed, ComponentFixture } from "@angular/core/testing";
 
-import { CourseComponent } from "../course.component";
+import { CourseComponent } from "../../../courses-list/course/course.component";
 import { BorderDecoratorDirective } from "./border-decorator.directive";
 import { ICourse } from "../../../core/index";
 import { DurationPipe, FilterPipe } from "../../../shared/index";

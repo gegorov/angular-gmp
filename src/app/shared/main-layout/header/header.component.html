@@ -1,6 +1,6 @@
 <header>
     <app-logo></app-logo>
-    <div class="header__user-details" *ngIf="isAuthenticated$ | async">
+    <div class="header__user-details" *appIsAuthorized>
         <div class="user-details__login">
             <img alt="User Icon" class="user-details__user-icon" src="../../../../assets/img/ic-user.svg"/>
             <span>

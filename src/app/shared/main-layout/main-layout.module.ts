@@ -5,6 +5,7 @@ import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 import { LogoComponent } from "./logo/logo.component";
 import { MainLayoutComponent } from "./main-layout.component";
+import { DirectivesModule } from "../directives/index";
 
 @NgModule({
     declarations: [
@@ -13,7 +14,7 @@ import { MainLayoutComponent } from "./main-layout.component";
         LogoComponent,
         MainLayoutComponent
     ],
-    imports: [CommonModule],
+    imports: [CommonModule, DirectivesModule],
     exports: [MainLayoutComponent]
 })
 export class MainLayoutModule {}

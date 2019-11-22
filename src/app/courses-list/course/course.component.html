@@ -1,4 +1,4 @@
-<div class="course-item" [ngClass]="{ topRated: course.topRated }" appBorderDecorator>
+<div class="course-item" [ngClass]="{ topRated: course.topRated }" appBorderDecorator [dateToColor]="course.creationDate">
     <div class="course-item__heading">
         <h3>
             {{ course.title | uppercase }}<span *ngIf="course.topRated" class="topRated-title"><i class="fa fa-star"></i> </span>
