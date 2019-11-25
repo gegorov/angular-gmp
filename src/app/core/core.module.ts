@@ -1,16 +1,23 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { NgModule, Optional, SkipSelf } from "@angular/core";
+import { AuthGuard } from "./guards/index";
+
 
 import { ServiceModule } from "./services/index";
-
-
 
 
 @NgModule({
     declarations: [],
     imports: [
-        CommonModule,
-        ServiceModule
+        ServiceModule,
     ],
+    providers: [AuthGuard]
 })
-export class CoreModule { }
+export class CoreModule {
+    constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+        if (parentModule) {
+            throw new Error(
+                "Core module is already loaded"
+            );
+        }
+    }
+}

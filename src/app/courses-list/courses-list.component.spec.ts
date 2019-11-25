@@ -57,6 +57,6 @@ describe("CoursesListComponent", () => {
 
     it("should call courseService in ngOnInit", () => {
         fixture.detectChanges();
-        expect(courseServiceStub.getCourses).toHaveBeenCalled();
+        expect(courseServiceStub.getCoursesList).toHaveBeenCalled();
     });
 });

@@ -1,6 +1,6 @@
 import { FilterPipe } from "./filter.pipe";
 
-import { COURSES } from "../../core/helpers/mock-courses";
+import { COURSES } from "../../../core/helpers/mock-courses";
 
 describe("FilterPipe", () => {
     let pipe: FilterPipe;

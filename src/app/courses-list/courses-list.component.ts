@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
 
 import { CourseService, ICourse } from "../core/index";
-import { OrderByPipe } from "../shared/index";
-import { tap } from "rxjs/operators";
+import { OrderByPipe, PopupComponent } from "../shared/index";
 
 @Component({
     selector: "app-courses-list",
@@ -11,6 +12,10 @@ import { tap } from "rxjs/operators";
     styleUrls: ["./courses-list.component.scss"]
 })
 export class CoursesListComponent implements OnInit {
+
+    private orderByPipe: OrderByPipe;
+    private courseService: CourseService;
+
     /**
      * Variable to store observable with courses
      */
@@ -21,21 +26,31 @@ export class CoursesListComponent implements OnInit {
      */
     public filterString: string = "";
 
-    private orderByPipe: OrderByPipe;
+    /**
+     * variable for popup
+     */
+    public dialog: MatDialog;
 
-    private courseService: CourseService;
-
-    constructor(courseService: CourseService, orderByPipe: OrderByPipe) {
+    constructor(courseService: CourseService, orderByPipe: OrderByPipe, dialog: MatDialog) {
         this.courseService = courseService;
         this.orderByPipe = orderByPipe;
+        this.dialog = dialog;
     }
 
     /**
      * Function that receive course id if delete button is clicked
-     * @param value id that is emitted by course component
+     * course
      */
-    public onNotify(value: number): void {
-        console.log("Delete movie with ID# ", value);
+    public onNotify(course: ICourse): void {
+        const dialogRef: MatDialogRef<PopupComponent> = this.dialog.open(PopupComponent, {
+            data: { course }
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                this.courseService.removeCourse(course.id);
+            }
+        });
     }
 
     /**
@@ -43,7 +58,6 @@ export class CoursesListComponent implements OnInit {
      * @param value search string that is emitted by search component
      */
     public onSearchNotify(value: string): void {
-        console.log("Inside courses-list: ", value);
         this.filterString = value;
     }
 
@@ -58,7 +72,7 @@ export class CoursesListComponent implements OnInit {
      * In this method we set observable to this.courses$
      */
     public ngOnInit(): void {
-        this.courses$ = this.courseService.getCourses().pipe(tap(data => this.orderByPipe.transform(data)));
+        this.courses$ = this.courseService.getCoursesList().pipe(tap(data => this.orderByPipe.transform(data)));
     }
 
 }

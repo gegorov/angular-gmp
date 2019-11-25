@@ -1,0 +1,20 @@
+mat-dialog-actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.btn {
+    background: #d9dbe3;
+    border-radius: 3px;
+    color: #525462;
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 600;
+
+}
+
+.btn-delete {
+
+    background: #9bc837;
+    color: #ffffff;
+}

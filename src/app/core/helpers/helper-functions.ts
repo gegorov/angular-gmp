@@ -1,4 +1,4 @@
-import { hoursInDay, secondsInHour, millisecondInSecond } from "../constants/index";
+import { hoursInDay, secondsInHour, millisecondInSecond, BORDER_BLUE, BORDER_GREEN, BORDER_NONE } from "../constants/index";
 
 /**
  * Function that calculates how many milliseconds in days.
@@ -16,10 +16,10 @@ export function generateBorderColor(courseDate: Date): string {
     const daysThreshold: number = 14;
 
     if (courseDate.getTime() < currentDate && courseDate.getTime() >= currentDate - calculateMillisecondsFromDays(daysThreshold)) {
-        return "solid 1px green";
+        return BORDER_GREEN;
     } else if (courseDate.getTime() > currentDate) {
-        return "solid 1px blue";
+        return BORDER_BLUE;
     } else {
-        return "none";
+        return BORDER_NONE;
     }
 }

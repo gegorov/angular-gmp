@@ -1,14 +1,14 @@
 <header>
     <app-logo></app-logo>
-    <div class="header__user-details">
+    <div class="header__user-details" *appIsAuthorized>
         <div class="user-details__login">
             <img alt="User Icon" class="user-details__user-icon" src="../../../../assets/img/ic-user.svg"/>
             <span>
-                {{ user }}
+                {{ this.user$ | async }}
             </span>
         </div>
 
-        <button class="user-details__button">
+        <button class="user-details__button" (click)="logoff()">
             <img alt="Logout Icon" class="user-details__logout-icon" src="../../../../assets/img/ic-exit.svg"/>
             <span>
                 Log off
