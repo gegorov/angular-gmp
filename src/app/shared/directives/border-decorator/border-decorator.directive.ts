@@ -1,23 +1,45 @@
-import { Directive, ElementRef, Input, OnInit } from "@angular/core";
-// import { CourseComponent } from "../course.component";
-import { generateBorderColor } from "../../../core/helpers/index";
+import { Directive, HostBinding, Input, OnInit } from "@angular/core";
+
+import { generateBorderColor, BORDER_BLUE, BORDER_GREEN, BORDER_NONE } from "../../../core/index";
 
 @Directive({
     selector: "[appBorderDecorator]"
 })
 export class BorderDecoratorDirective implements OnInit {
-    private readonly element: ElementRef;
+
+    @HostBinding(`class.border-green`) private borderGreen: boolean;
+    @HostBinding(`class.border-blue`) private borderBlue: boolean;
+    @HostBinding(`class.border-none`) private borderNone: boolean;
 
     /**
      * input field for directive that receives Date
      */
     @Input() public dateToColor: Date;
 
-    constructor(element: ElementRef) {
-        this.element = element;
-    }
-
     public ngOnInit(): void {
-        this.element.nativeElement.style.border = generateBorderColor(this.dateToColor);
+        const borderClass: string = generateBorderColor(this.dateToColor);
+        switch (borderClass) {
+            case BORDER_GREEN: {
+                this.borderBlue = false;
+                this.borderGreen = true;
+                this.borderNone = false;
+                break;
+            }
+
+            case BORDER_BLUE: {
+                this.borderBlue = true;
+                this.borderGreen = false;
+                this.borderNone = false;
+                break;
+            }
+
+            case BORDER_NONE:
+            default: {
+                this.borderBlue = false;
+                this.borderGreen = false;
+                this.borderNone = true;
+                break;
+            }
+        }
     }
 }
