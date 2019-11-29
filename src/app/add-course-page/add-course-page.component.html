@@ -1,1 +1,52 @@
-<p>add-course-page works!</p>
+<div class="add-course-wrapper">
+    <div class="add-course-container">
+        <h3>New Course</h3>
+        <form (ngSubmit)="onSubmit($event)" class="add-course-form">
+            <div class="label-wrapper">
+                <label class="input-label" for="title">Title</label>
+                <span class="required">*required</span>
+            </div>
+            <input class="course-input course-input-large" id="title" name="title" placeholder="Text Input" required
+                   type="text">
+
+            <div class="label-wrapper">
+                <label class="input-label" for="description">Description</label>
+                <span class="required">*required</span>
+            </div>
+            <textarea class="course-input course-input-large course-input-description" cols="20"
+                      id="description"
+                      name="description"
+                      placeholder="Add description" required rows="5"></textarea>
+
+            <div class="label-wrapper">
+                <label class="input-label" for="duration">duration</label>
+                <span class="required">*required</span>
+            </div>
+            <div class="duration-wrapper">
+                <input class="course-input course-input-small" id="duration" name="duration" placeholder="minutes"
+                       required
+                       type="text">
+                <span class="duration-label"> duration pipe</span>
+            </div>
+
+            <div class="label-wrapper">
+                <label class="input-label " for="date">date</label>
+                <span class="required">*required</span>
+            </div>
+            <input class="course-input course-input-small" id="date" name="date" placeholder="mm-dd-yyyy" required
+                   type="date">
+
+            <div class="label-wrapper">
+                <label class="input-label" for="authors">authors</label>
+                <span class="required">*required</span>
+            </div>
+            <input class="course-input course-input-medium" id="authors" name="date" placeholder="Start typing" required
+                   type="text">
+
+            <div class="course-controls">
+                <button class="btn btn-secondary" mat-raised-button>Cancel</button>
+                <button class="btn" mat-raised-button>Save</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -10,6 +10,10 @@ export class AddCoursePageComponent implements OnInit {
     constructor() {
     }
 
+    public onSubmit(event) {
+        console.log("submited", event);
+    }
+
     ngOnInit() {
     }
 

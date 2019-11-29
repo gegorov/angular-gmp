@@ -19,12 +19,12 @@ const routes: Routes = [
     {
         path: "add",
         component: AddCoursePageComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
     },
     {
         path: "course/:id/edit",
         component: AddCoursePageComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
     },
     {
         path: "**",
