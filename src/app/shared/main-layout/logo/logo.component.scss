@@ -1,6 +1,7 @@
 .logo {
     height: 64px;
     width: 140px;
-    background: center no-repeat url("../../../../assets/img/logo.png");
     margin-left: 85px;
+    display: flex;
+    align-items: center;
 }

@@ -5,4 +5,9 @@ import { Component } from "@angular/core";
     templateUrl: "./logo.component.html",
     styleUrls: ["./logo.component.scss"]
 })
-export class LogoComponent { }
+export class LogoComponent {
+    /**
+     * variable to hold url for logo
+     */
+    public imageUrl = "../../../../assets/img/logo.png";
+}

@@ -1,0 +1,104 @@
+
+.add-course-form {
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px;
+}
+
+.btn {
+    width: 68px;
+    height: 36px;
+    background: #9bc837;
+    border-radius: 3px;
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 600;
+    color: #ffffff;
+    margin-left: 12px;
+}
+
+.btn-secondary {
+    color: #5b616f;
+    background: #d9dbe3;
+}
+
+.course-input {
+    height: 36px;
+    border-radius: 3px;
+    border: solid 1px #d9dbe3;
+    background-color: #ffffff;
+    padding-left: 12px;
+    margin-top: 8px;
+    font-family: "Source Sans Pro", sans-serif;
+}
+
+.course-input-small {
+    width: 150px;
+}
+
+.course-input-medium {
+    width: 312px;
+}
+
+.course-input-description {
+    height: 108px;
+    padding-top: 12px;
+    padding-left: 12px;
+
+}
+
+.course-input-description::placeholder {
+    color: #525462;
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: normal;
+}
+
+.course-input-large {
+    width: 683px;
+}
+
+.course-input::placeholder {
+    color: #525462;
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: normal;
+}
+
+.input-label {
+    text-transform: capitalize;
+
+    color: #525462;
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 600;
+}
+
+.label-wrapper {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.required {
+    color: #6c7283;
+    font-size: 12px;
+}
+
+.duration-wrapper {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.duration-label {
+    margin-left: 10px;
+    margin-top: 8px;
+    font-size: 12px;
+    align-self: center;
+}
+
+.course-controls {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 18px;
+}
