@@ -21,7 +21,8 @@ export class CourseService {
      * method that adds course
      */
     public addCourse(course: ICourse): void {
-        this.courses = [...this.courses, course];
+        const courseWithID: ICourse = {...course, id: this.courses.length};
+        this.courses = [...this.courses, courseWithID];
         this.coursesSubject.next(this.courses);
     }
 

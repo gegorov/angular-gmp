@@ -1,7 +1,8 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { AddCoursePageComponent } from "./add-course-page/add-course-page.component";
+import { AddCoursePageComponent } from "./add-course-page/index";
 import { CoursesListComponent } from "./courses-list/index";
+import { EditCoursePageComponent } from "./edit-course-page/index";
 import { LoginPageComponent } from "./login-page/index";
 import { AuthGuard } from "./core/index";
 
@@ -23,7 +24,7 @@ const routes: Routes = [
     },
     {
         path: "course/:id/edit",
-        component: AddCoursePageComponent,
+        component: EditCoursePageComponent,
         // canActivate: [AuthGuard],
     },
     {

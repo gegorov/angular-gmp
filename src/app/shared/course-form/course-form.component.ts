@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { CourseService, ICourse } from "../../core/index";
 
@@ -8,7 +8,12 @@ import { CourseService, ICourse } from "../../core/index";
     templateUrl: "./course-form.component.html",
     styleUrls: ["./course-form.component.scss"]
 })
-export class CourseFormComponent {
+export class CourseFormComponent implements OnInit {
+
+    /**
+     * Variable to store course that is received from parent component
+     */
+    @Input() public course: ICourse;
 
     private courseService: CourseService;
     private router: Router;
@@ -16,32 +21,43 @@ export class CourseFormComponent {
     /**
      * Variable to store course title
      */
-    public courseTitle: string = "";
+    public courseTitle: string;
 
     /**
      * Variable to store course description
      */
-    public courseDescription: string = "";
+    public courseDescription: string;
 
     /**
      * Variable to store course duration
      */
-    public courseDuration: number = 0;
+    public courseDuration: number;
 
     /**
      * Variable to store course date
      */
-    public courseDate: Date = new Date();
+    public courseDate: Date;
 
     /**
      * Variable to store course author
      */
-    public courseAuthors: string = "";
+    public courseAuthors: string;
 
 
     constructor(courseService: CourseService, router: Router) {
         this.courseService = courseService;
         this.router = router;
+    }
+
+    public ngOnInit(): void {
+        if (!this.course) {
+            this.clearFields();
+        } else {
+            this.courseDate = this.course.creationDate;
+            this.courseDescription = this.course.description;
+            this.courseDuration = this.course.duration;
+            this.courseTitle = this.course.title;
+        }
     }
 
     /**
@@ -66,9 +82,9 @@ export class CourseFormComponent {
             creationDate: new Date(this.courseDate),
             description: this.courseDescription,
             duration: this.courseDuration,
-            id: 0,
             title: this.courseTitle,
-            topRated: false
+            topRated: false,
+            id: NaN,
         };
 
         this.courseService.addCourse(course);

@@ -26,7 +26,7 @@ export const COURSES: Array<ICourse> = [
         topRated: false,
     },
     {
-        id: 3,
+        id: 2,
         title: "NgRx",
         creationDate: new Date("August 1, 2019 00:00:00"),
         description: `

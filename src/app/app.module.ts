@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { FormsModule } from "@angular/forms";
+
 import { NgModule } from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -11,12 +11,14 @@ import { CoursesListModule } from "./courses-list/index";
 import { AddCoursePageComponent } from "./add-course-page/add-course-page.component";
 import { AppComponent } from "./app.component";
 import { LoginPageComponent } from "./login-page/login-page.component";
+import { EditCoursePageComponent } from './edit-course-page/edit-course-page.component';
 
 @NgModule({
     declarations: [
         AddCoursePageComponent,
         AppComponent,
         LoginPageComponent,
+        EditCoursePageComponent,
     ],
     imports: [
         BrowserModule,
@@ -25,7 +27,6 @@ import { LoginPageComponent } from "./login-page/login-page.component";
         SharedModule,
         CoursesListModule,
         BrowserAnimationsModule,
-        FormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
