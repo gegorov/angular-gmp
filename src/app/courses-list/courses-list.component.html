@@ -6,7 +6,8 @@
         <app-course
             *ngFor="let course of courses$ | async |  filter: filterString"
             [course]="course"
-            (removeItem)="onNotify($event)"
+            (removeItem)="onDeleteNotify($event)"
+            (editItem)="onEditNotify($event)"
 
         ></app-course>
         <div class="message-container">

@@ -6,7 +6,7 @@ import { CourseComponent } from "./course/course.component";
 import { SearchComponent } from "./search/search.component";
 
 import { DurationPipe, FilterPipe, OrderByPipe } from "../shared/index";
-import { CourseService } from "../core/index";
+import { CourseService, ICourse } from "../core/index";
 
 describe("CoursesListComponent", () => {
     let component: CoursesListComponent;
@@ -48,11 +48,18 @@ describe("CoursesListComponent", () => {
 
     it("should call console.log when onNotify method called", () => {
         spyOn(console, "log");
-        const data: number = 123;
+        const course: ICourse = {
+            creationDate: new Date(),
+            description: "Test course",
+            duration: 10,
+            id: 0,
+            title: "Test",
+            topRated: false
+        };
 
-        component.onNotify(data);
+        component.onNotify(course);
         fixture.detectChanges();
-        expect(console.log).toHaveBeenCalledWith("Delete movie with ID# ", data);
+        expect(console.log).toHaveBeenCalledWith("Delete course:", course);
     });
 
     it("should call courseService in ngOnInit", () => {

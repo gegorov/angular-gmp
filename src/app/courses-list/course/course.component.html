@@ -19,7 +19,7 @@
             <p>{{ course.description }}</p>
         </div>
         <div class="course-item__details-actions">
-            <button class="btn__actions-edit"><i class="fa fa-pencil"></i> Edit</button>
+            <button class="btn__actions-edit" (click)="onEdit($event)"><i class="fa fa-pencil"></i> Edit</button>
             <button class="btn__actions-delete" (click)="onDelete($event)"><i class="fa fa-trash"></i> Delete</button>
         </div>
     </div>

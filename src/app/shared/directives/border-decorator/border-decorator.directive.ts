@@ -7,9 +7,20 @@ import { generateBorderColor, BORDER_BLUE, BORDER_GREEN, BORDER_NONE } from "../
 })
 export class BorderDecoratorDirective implements OnInit {
 
-    @HostBinding(`class.border-green`) private borderGreen: boolean;
-    @HostBinding(`class.border-blue`) private borderBlue: boolean;
-    @HostBinding(`class.border-none`) private borderNone: boolean;
+    /**
+     * Variable ot store class that should be turned on by directive
+     */
+    @HostBinding(`class.border-green`) public borderGreen: boolean;
+
+    /**
+     * Variable ot store class that should be turned on by directive
+     */
+    @HostBinding(`class.border-blue`) public borderBlue: boolean;
+
+    /**
+     * Variable ot store class that should be turned on by directive
+     */
+    @HostBinding(`class.border-none`) public borderNone: boolean;
 
     /**
      * input field for directive that receives Date
