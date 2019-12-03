@@ -1,11 +1,12 @@
 import { NgModule } from "@angular/core";
-import { CourseService } from "./course-service/course.service";
 import { AuthService } from "./auth-service/auth.service";
+import { BreadcrumbsService } from "./breadcrumbs/breadcrumbs.service";
+import { CourseService } from "./course-service/course.service";
 
 @NgModule({
     declarations: [],
     imports: [],
-    providers: [CourseService, AuthService, ],
+    providers: [AuthService, BreadcrumbsService, CourseService]
 })
 
-export class ServiceModule { }
+export class ServiceModule {}

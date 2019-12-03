@@ -1,6 +1,6 @@
 <div class="breadcrumbs">
     <ul class="breadcrumb-list">
-        <li *ngFor="let breadcrumb of breadcrumbs">
+        <li *ngFor="let breadcrumb of breadcrumbs$ | async">
             <span >
               {{ breadcrumb }}
             </span>
