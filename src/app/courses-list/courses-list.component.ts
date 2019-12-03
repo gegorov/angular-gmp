@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { tap } from "rxjs/operators";
+import { map } from "rxjs/operators";
 
 import { CourseService, ICourse } from "../core/index";
 import { OrderByPipe, PopupComponent } from "../shared/index";
@@ -83,7 +83,6 @@ export class CoursesListComponent implements OnInit {
      * In this method we set observable to this.courses$
      */
     public ngOnInit(): void {
-        this.courses$ = this.courseService.getCoursesList().pipe(tap(data => this.orderByPipe.transform(data)));
+        this.courses$ = this.courseService.getCoursesList().pipe(map(data => this.orderByPipe.transform(data)));
     }
-
 }

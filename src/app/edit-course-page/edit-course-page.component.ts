@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { Observable } from "rxjs";
-import { switchMap, tap } from "rxjs/operators";
+import { switchMap } from "rxjs/operators";
 
 import { CourseService, ICourse } from "../core/index";
 
