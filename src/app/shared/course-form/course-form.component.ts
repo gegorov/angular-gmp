@@ -72,7 +72,8 @@ export class CourseFormComponent implements OnInit {
     /**
      * Method that is called on Cancel button click
      */
-    public onCancel() {
+    public onCancel(event) {
+        event.preventDefault();
         this.clearFields();
         this.router.navigate(["/"]);
     }

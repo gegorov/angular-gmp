@@ -1,3 +1,9 @@
 <div class="breadcrumbs">
-    <span class="breadcrumbs-data">{{placeholder}}</span>
+    <ul class="breadcrumb-list">
+        <li *ngFor="let breadcrumb of breadcrumbs">
+            <span >
+              {{ breadcrumb }}
+            </span>
+        </li>
+    </ul>
 </div>

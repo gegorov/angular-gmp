@@ -6,27 +6,26 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { CoreModule } from "./core/index";
 import { SharedModule } from "./shared/index";
-import { CoursesListModule } from "./courses-list/index";
 
-import { AddCoursePageComponent } from "./add-course-page/add-course-page.component";
 import { AppComponent } from "./app.component";
 import { LoginPageComponent } from "./login-page/login-page.component";
-import { EditCoursePageComponent } from './edit-course-page/edit-course-page.component';
+
+import { NotFoundComponent } from "./not-found/not-found.component";
+import { CoursesModule } from "./courses/index";
 
 @NgModule({
     declarations: [
-        AddCoursePageComponent,
         AppComponent,
         LoginPageComponent,
-        EditCoursePageComponent,
+        NotFoundComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         CoreModule,
         SharedModule,
-        CoursesListModule,
-        BrowserAnimationsModule,
+        CoursesModule,
+        BrowserAnimationsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

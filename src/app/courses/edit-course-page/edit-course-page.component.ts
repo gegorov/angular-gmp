@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { Observable } from "rxjs";
 import { switchMap } from "rxjs/operators";
 
-import { CourseService, ICourse } from "../core/index";
+import { CourseService, ICourse } from "../../core/index";
 
 @Component({
     selector: "app-edit-course-page",
