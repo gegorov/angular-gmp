@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NavigationEnd, Router, ActivatedRoute, RouterEvent } from "@angular/router";
-import { distinctUntilChanged, filter, tap } from "rxjs/operators";
+import { distinctUntilChanged, filter, startWith, tap } from "rxjs/operators";
 
 
 @Component({
@@ -26,16 +26,16 @@ export class BreadcrumbsComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        console.log("Breadcrumbs inititated");
         this.router.events.pipe(
+            startWith(new NavigationEnd(0, "/", "/")),
             filter((event: RouterEvent) => event instanceof NavigationEnd),
-            distinctUntilChanged(),
+            distinctUntilChanged()
         ).subscribe(() => {
             this.breadcrumbs = this.buildBreadCrumb(this.activatedRoute.root);
         });
     }
 
-    public buildBreadCrumb(route: ActivatedRoute,  breadcrumbs: Array<string> = []): Array<string> {
+    public buildBreadCrumb(route: ActivatedRoute, breadcrumbs: Array<string> = []): Array<string> {
         let label: string = route.routeConfig && route.routeConfig.data ? route.routeConfig.data.breadcrumb : "";
         const path: string = route.routeConfig && route.routeConfig.data ? route.routeConfig.path : "";
         console.log("label:", label);
@@ -45,7 +45,6 @@ export class BreadcrumbsComponent implements OnInit {
         if (isDynamicRoute && !!route.snapshot) {
             label = "Edit Course";
         }
-
 
 
         const newBreadcrumbs: Array<string> = label ? [...breadcrumbs, label] : [...breadcrumbs];
