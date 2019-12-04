@@ -4,8 +4,8 @@ import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { CourseService, ICourse } from "../core/index";
-import { OrderByPipe, PopupComponent } from "../shared/index";
+import { CourseService, ICourse } from "../../core/index";
+import { OrderByPipe, PopupComponent } from "../../shared/index";
 
 @Component({
     selector: "app-courses-list",
@@ -61,7 +61,7 @@ export class CoursesListComponent implements OnInit {
      * and navigates to appropriate page
      */
     public onEditNotify(course: ICourse): void {
-        this.router.navigate(["/", "course", course.id, "edit"]);
+        this.router.navigate(["/", "courses", course.id]);
     }
 
     /**

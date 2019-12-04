@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
-import { ICourse } from "../../core/index";
+import { ICourse } from "../../../core/index";
 
 @Component({
     selector: "app-course",

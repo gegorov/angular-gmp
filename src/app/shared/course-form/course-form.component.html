@@ -41,7 +41,7 @@
            type="text" [(ngModel)]="courseAuthors">
 
     <div class="course-controls">
-        <button class="btn btn-secondary" mat-raised-button (click)="onCancel()">Cancel</button>
+        <button class="btn btn-secondary" mat-raised-button (click)="onCancel($event)">Cancel</button>
         <button class="btn" mat-raised-button (click)="onSubmit($event)">Save</button>
     </div>
 </form>
