@@ -1,9 +1,14 @@
 <div class="breadcrumbs">
     <ul class="breadcrumb-list">
         <li *ngFor="let breadcrumb of breadcrumbs$ | async">
-            <span >
-              {{ breadcrumb }}
+            <span *ngIf="breadcrumb === 'Courses'; else notClickable">
+                <a [routerLink]="['/courses']">{{ breadcrumb }}</a>
             </span>
+            <ng-template #notClickable>
+                <span>
+                    {{breadcrumb}}
+                </span>
+            </ng-template>
         </li>
     </ul>
 </div>

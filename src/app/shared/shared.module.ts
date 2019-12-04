@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
 
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 import { MainLayoutModule } from "./main-layout/index";
@@ -13,7 +14,7 @@ import { CourseFormComponent } from "./course-form/course-form.component";
 
 @NgModule({
     declarations: [BreadcrumbsComponent, DurationPipe, FilterPipe, OrderByPipe, PopupComponent, CourseFormComponent],
-    imports: [CommonModule, DirectivesModule, FormsModule, MaterialModule, MainLayoutModule],
+    imports: [CommonModule, DirectivesModule, FormsModule, MaterialModule, MainLayoutModule, RouterModule],
     exports: [
         BreadcrumbsComponent,
         CommonModule,

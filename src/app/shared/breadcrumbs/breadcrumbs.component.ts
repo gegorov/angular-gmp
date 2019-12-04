@@ -2,8 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
 
-
-import {BreadcrumbsService} from "../../core/index";
+import { BreadcrumbsService } from "../../core/index";
 
 
 @Component({
@@ -15,7 +14,6 @@ export class BreadcrumbsComponent implements OnInit {
 
     private router: Router;
     private activatedRoute: ActivatedRoute;
-
     private breadcrumbsService: BreadcrumbsService;
 
     /**
@@ -26,14 +24,12 @@ export class BreadcrumbsComponent implements OnInit {
     constructor(router: Router, activatedRoute: ActivatedRoute, breadcrumbsService: BreadcrumbsService) {
         this.router = router;
         this.activatedRoute = activatedRoute;
-
         this.breadcrumbsService = breadcrumbsService;
     }
 
     public ngOnInit(): void {
-     this.breadcrumbs$ = this.breadcrumbsService.getBreadCrumbs();
+        this.breadcrumbs$ = this.breadcrumbsService.getBreadCrumbs();
     }
-
 
 
 }
