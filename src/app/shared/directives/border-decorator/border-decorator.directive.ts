@@ -25,7 +25,7 @@ export class BorderDecoratorDirective implements OnInit {
     /**
      * input field for directive that receives Date
      */
-    @Input() public dateToColor: Date;
+    @Input() public dateToColor: string;
 
     public ngOnInit(): void {
         const borderClass: string = generateBorderColor(this.dateToColor);

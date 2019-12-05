@@ -8,7 +8,10 @@ export class OrderByPipe implements PipeTransform {
     // TODO: check why it is not sorting after adding new course
     public transform(courses: Array<ICourse>): Array<ICourse> {
         return courses
-                .slice()
-                .sort((courseA: ICourse, courseB: ICourse) => courseB.creationDate.getTime() - courseA.creationDate.getTime());
+            .slice()
+            .sort((
+                courseA: ICourse,
+                courseB: ICourse,
+            ) => new Date(courseB.creationDate).getTime() - new Date(courseA.creationDate).getTime());
     }
 }

@@ -1,24 +1,8 @@
 
-.add-course-form {
+.course-form-wrapper {
     display: flex;
     flex-direction: column;
     padding: 0 24px;
-}
-
-.btn {
-    width: 68px;
-    height: 36px;
-    background: #9bc837;
-    border-radius: 3px;
-    font-family: "Source Sans Pro", sans-serif;
-    font-weight: 600;
-    color: #ffffff;
-    margin-left: 12px;
-}
-
-.btn-secondary {
-    color: #5b616f;
-    background: #d9dbe3;
 }
 
 .course-input {
@@ -95,10 +79,4 @@
     align-self: center;
 }
 
-.course-controls {
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 18px;
-}
+

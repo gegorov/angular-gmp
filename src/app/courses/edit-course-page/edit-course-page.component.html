@@ -1,6 +1,12 @@
 <div class="edit-course-wrapper">
     <div class="edit-course-container">
         <h3>Edit Course</h3>
-        <app-course-form [course]="course$ | async"></app-course-form>
+        <form (ngSubmit)="onSubmit($event)" class="form-wrapper">
+            <app-course-form [course]="course$ | async"></app-course-form>
+            <div class="course-controls">
+                <button (click)="onCancel($event)" class="btn btn-secondary" mat-raised-button>Cancel</button>
+                <button (click)="onSubmit($event)" class="btn" mat-raised-button>Save</button>
+            </div>
+        </form>
     </div>
 </div>
