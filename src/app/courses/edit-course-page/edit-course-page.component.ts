@@ -43,25 +43,11 @@ export class EditCoursePageComponent implements OnInit {
     }
 
     /**
-     * method that is called onSubmit
+     * Method that emits updated course to parent component
      */
-    public onSubmit(event) {
-        event.preventDefault();
-        this.updateCourse(this.course);
-        this.router.navigate(["/"]);
-    }
-
-    /**
-     * Method that is called on Cancel button click
-     */
-    public onCancel(event) {
-        event.preventDefault();
-
-        this.router.navigate(["/"]);
-    }
-
-    private updateCourse(course: ICourse): void {
+    public onEditNotify(course: ICourse) {
+        console.log("on edit Notify", course);
         this.courseService.updateCourses(course);
+        this.router.navigate(["/"]);
     }
-
 }

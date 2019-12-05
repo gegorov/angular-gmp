@@ -16,7 +16,7 @@ export class AddCoursePageComponent {
         id: NaN,
         topRated: false,
         duration: 0,
-        creationDate: "",
+        creationDate: (new Date(Date.now())).toUTCString(),
         description: "",
         title: ""
     };
@@ -33,18 +33,8 @@ export class AddCoursePageComponent {
     /**
      * method that is called onSubmit
      */
-    public onSubmit(event) {
-        event.preventDefault();
-        this.courseService.addCourse(this.course);
+    public onAddNotify(course: ICourse) {
+        this.courseService.addCourse(course);
         this.router.navigate(["/"]);
     }
-
-    /**
-     * Method that is called on Cancel button click
-     */
-    public onCancel(event) {
-        event.preventDefault();
-        this.router.navigate(["/"]);
-    }
-
 }
