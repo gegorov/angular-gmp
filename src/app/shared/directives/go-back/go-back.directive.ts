@@ -16,5 +16,4 @@ export class GoBackDirective {
     onClick() {
         this.location.back();
     }
-
 }

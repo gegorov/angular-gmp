@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { ICourse } from "../../core/index";
 
 @Component({
     selector: "app-course-form",
     templateUrl: "./course-form.component.html",
-    styleUrls: ["./course-form.component.scss"]
+    styleUrls: ["./course-form.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseFormComponent {
 

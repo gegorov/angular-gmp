@@ -46,7 +46,6 @@ export class EditCoursePageComponent implements OnInit {
      * Method that emits updated course to parent component
      */
     public onEditNotify(course: ICourse) {
-        console.log("on edit Notify", course);
         this.courseService.updateCourses(course);
         this.router.navigate(["/"]);
     }
