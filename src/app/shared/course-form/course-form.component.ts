@@ -1,7 +1,5 @@
-import { Component, Input } from "@angular/core";
-import { Router } from "@angular/router";
-import { CourseService, ICourse } from "../../core/index";
-
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { ICourse } from "../../core/index";
 
 @Component({
     selector: "app-course-form",
@@ -10,10 +8,7 @@ import { CourseService, ICourse } from "../../core/index";
 })
 export class CourseFormComponent {
 
-
     private courseBF: ICourse;
-    private courseService: CourseService;
-    private router: Router;
 
     /**
      * Setter to set course that is received from parent component to private
@@ -21,14 +16,7 @@ export class CourseFormComponent {
      */
     @Input()
     public set course(course: ICourse) {
-
-        if (!course) {
-            this.clearFields(course);
-            this.courseBF = course;
-        } else {
-            this.courseBF = course;
-        }
-
+        this.courseBF = course;
     }
 
     /**
@@ -38,17 +26,16 @@ export class CourseFormComponent {
         return this.courseBF;
     }
 
+    /**
+     * Event emitter to emit value to parent component
+     */
+    @Output() public notify: EventEmitter<ICourse> = new EventEmitter();
 
-    constructor(courseService: CourseService, router: Router) {
-        this.courseService = courseService;
-        this.router = router;
+    /**
+     * method that is called onSubmit
+     */
+    public onSubmit(event) {
+        event.preventDefault();
+        this.notify.emit(this.courseBF);
     }
-
-    private clearFields(course: ICourse): void {
-        course.duration = 0;
-        course.creationDate = "";
-        course.description = "";
-        course.title = "";
-    }
-
 }

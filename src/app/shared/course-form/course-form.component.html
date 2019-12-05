@@ -1,4 +1,4 @@
-<div class="course-form-wrapper">
+<form (ngSubmit)="onSubmit($event)" class="course-form-wrapper">
     <div class="label-wrapper">
         <label class="input-label" for="title">Title</label>
         <span class="required">*required</span>
@@ -42,5 +42,9 @@
     <input class="course-input course-input-medium" id="authors" name="date"
            placeholder="Start typing"
            required type="text">
-</div>
+    <div class="course-controls">
+        <button appGoBack type="button" class="btn btn-secondary" mat-raised-button>Cancel</button>
+        <button (click)="onSubmit($event)" class="btn" mat-raised-button>Save</button>
+    </div>
+</form>
 
