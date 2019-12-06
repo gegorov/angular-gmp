@@ -1,6 +1,6 @@
 <div class="add-course-wrapper">
     <div class="add-course-container">
         <h3>New Course</h3>
-        <app-course-form></app-course-form>
+        <app-course-form [course]="course" (notify)="onAddNotify($event)"></app-course-form>
     </div>
 </div>

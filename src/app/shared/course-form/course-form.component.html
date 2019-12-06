@@ -1,47 +1,50 @@
-<form (ngSubmit)="onSubmit($event)" class="add-course-form">
+<form (ngSubmit)="onSubmit($event)" class="course-form-wrapper">
     <div class="label-wrapper">
         <label class="input-label" for="title">Title</label>
         <span class="required">*required</span>
     </div>
-    <input class="course-input course-input-large" id="title" name="title" placeholder="Text Input" required
-           type="text" [(ngModel)]="courseTitle">
+    <input [(ngModel)]="course.title" class="course-input course-input-large" id="title" name="title"
+           placeholder="Text Input"
+           required type="text">
 
     <div class="label-wrapper">
         <label class="input-label" for="description">Description</label>
         <span class="required">*required</span>
     </div>
-    <textarea class="course-input course-input-large course-input-description" cols="20"
+    <textarea [(ngModel)]="course.description" class="course-input course-input-large course-input-description"
+              cols="20"
               id="description"
-              name="description"
-              placeholder="Add description" required rows="5" [(ngModel)]="courseDescription"></textarea>
+              name="description" placeholder="Add description" required rows="5"></textarea>
 
     <div class="label-wrapper">
         <label class="input-label" for="duration">duration</label>
         <span class="required">*required</span>
     </div>
     <div class="duration-wrapper">
-        <input class="course-input course-input-small" id="duration" name="duration" placeholder="minutes"
-               required
-               type="text" [(ngModel)]="courseDuration">
-        <span class="duration-label" *ngIf="courseDuration > 0"> {{courseDuration | duration }}</span>
+        <input [(ngModel)]="course.duration" class="course-input course-input-small" id="duration" name="duration"
+               placeholder="minutes"
+               required type="text">
+        <span *ngIf="course.duration > 0" class="duration-label"> {{course.duration | duration}}</span>
     </div>
 
     <div class="label-wrapper">
         <label class="input-label " for="date">date</label>
         <span class="required">*required</span>
     </div>
-    <input class="course-input course-input-small" id="date" name="date" placeholder="mm-dd-yyyy" required
-           type="date" [(ngModel)]="courseDate">
+    <input [ngModel]="course.creationDate | date: 'yyyy-MM-dd'" (ngModelChange)="course.creationDate = $event" class="course-input course-input-small" id="date" name="date"
+           placeholder="mm-dd-yyyy"
+           required type="date">
 
     <div class="label-wrapper">
         <label class="input-label" for="authors">authors</label>
         <span class="required">*required</span>
     </div>
-    <input class="course-input course-input-medium" id="authors" name="date" placeholder="Start typing" required
-           type="text" [(ngModel)]="courseAuthors">
-
+    <input class="course-input course-input-medium" id="authors" name="date"
+           placeholder="Start typing"
+           required type="text">
     <div class="course-controls">
-        <button class="btn btn-secondary" mat-raised-button (click)="onCancel($event)">Cancel</button>
-        <button class="btn" mat-raised-button (click)="onSubmit($event)">Save</button>
+        <button appGoBack type="button" class="btn btn-secondary" mat-raised-button>Cancel</button>
+        <button (click)="onSubmit($event)" class="btn" mat-raised-button>Save</button>
     </div>
 </form>
+

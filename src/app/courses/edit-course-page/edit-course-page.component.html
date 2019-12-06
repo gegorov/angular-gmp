@@ -1,6 +1,6 @@
 <div class="edit-course-wrapper">
     <div class="edit-course-container">
         <h3>Edit Course</h3>
-        <app-course-form [course]="course$ | async"></app-course-form>
+        <app-course-form [course]="course$ | async" (notify)="onEditNotify($event)"></app-course-form>
     </div>
 </div>
