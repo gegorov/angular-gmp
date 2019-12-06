@@ -1,8 +1,6 @@
+import { Location, LocationStrategy, PathLocationStrategy } from "@angular/common";
 import { GoBackDirective } from "./go-back.directive";
 
 describe("GoBackDirective", () => {
-    it("should create an instance", () => {
-        // const directive: GoBackDirective = new GoBackDirective();
-        // expect(directive).toBeTruthy();
-    });
+    it("should create an instance", () => {});
 });

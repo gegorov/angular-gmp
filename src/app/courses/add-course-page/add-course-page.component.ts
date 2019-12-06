@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
+
 import { ICourse, CourseService } from "../../core/index";
 
 @Component({
@@ -8,10 +9,12 @@ import { ICourse, CourseService } from "../../core/index";
     styleUrls: ["./add-course-page.component.scss"]
 })
 export class AddCoursePageComponent {
-
     private courseService: CourseService;
     private router: Router;
 
+    /**
+     * Variable with dummy course that ill be passed to form-component to be filled
+     */
     public course: ICourse = {
         id: NaN,
         topRated: false,
@@ -23,7 +26,6 @@ export class AddCoursePageComponent {
 
     constructor(
         courseService: CourseService,
-        route: ActivatedRoute,
         router: Router
     ) {
         this.courseService = courseService;

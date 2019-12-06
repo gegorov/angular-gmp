@@ -13,7 +13,7 @@ export class GoBackDirective {
     }
 
     @HostListener("click")
-    onClick() {
+    public onClick() {
         this.location.back();
     }
 }
