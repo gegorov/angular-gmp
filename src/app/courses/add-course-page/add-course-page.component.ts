@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
 
 import { ICourse, CourseService } from "../../core/index";
 
@@ -11,6 +12,7 @@ import { ICourse, CourseService } from "../../core/index";
 export class AddCoursePageComponent {
     private courseService: CourseService;
     private router: Router;
+    private subscription: Subscription;
 
     /**
      * Variable with dummy course that ill be passed to form-component to be filled
@@ -18,10 +20,10 @@ export class AddCoursePageComponent {
     public course: ICourse = {
         id: NaN,
         topRated: false,
-        duration: 0,
-        creationDate: (new Date(Date.now())).toUTCString(),
+        length: 0,
+        date: (new Date(Date.now())).toUTCString(),
         description: "",
-        title: ""
+        name: ""
     };
 
     constructor(
@@ -36,7 +38,11 @@ export class AddCoursePageComponent {
      * method that is called onSubmit
      */
     public onAddNotify(course: ICourse) {
-        this.courseService.addCourse(course);
-        this.router.navigate(["/"]);
+        this.courseService.addCourse(course).subscribe(
+            (data) => {
+                console.log("[onAddNotify]: ", data);
+                this.router.navigate(["/"]);
+            }
+        );
     }
 }

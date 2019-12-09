@@ -37,7 +37,7 @@ describe("BorderDecoratorDirective", () => {
         const testCourse: ICourse = {
             creationDate: new Date(),
             description: "test course",
-            duration: 120,
+            length: 120,
             id: 0,
             title: "test",
             topRated: false
@@ -54,7 +54,7 @@ describe("BorderDecoratorDirective", () => {
         const testCourse: ICourse = {
             creationDate: new Date(new Date().getTime() + calculateMillisecondsFromDays(10)),
             description: "test course",
-            duration: 120,
+            length: 120,
             id: 0,
             title: "test future",
             topRated: false
@@ -71,7 +71,7 @@ describe("BorderDecoratorDirective", () => {
         const testCourse: ICourse = {
             creationDate: new Date(new Date().getTime() - calculateMillisecondsFromDays(15)),
             description: "test course",
-            duration: 120,
+            length: 120,
             id: 0,
             title: "test future",
             topRated: false

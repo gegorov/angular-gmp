@@ -1,16 +1,16 @@
-<div class="course-item" [ngClass]="{ topRated: course.topRated }" appBorderDecorator [dateToColor]="course.creationDate">
+<div class="course-item" [ngClass]="{ topRated: course.topRated }" appBorderDecorator [dateToColor]="course.date">
     <div class="course-item__heading">
         <h3>
-            {{ course.title | uppercase }}<span *ngIf="course.topRated" class="topRated-title"><i class="fa fa-star"></i> </span>
+            {{ course.name | uppercase }}<span *ngIf="course.topRated" class="topRated-title"><i class="fa fa-star"></i> </span>
         </h3>
         <div class="course-item__heading-details">
             <div class="heading-details__time">
                 <i class="fa fa-clock-o"></i>
-                {{ course.duration | duration}}
+                {{ course.length | duration}}
             </div>
             <div>
                 <i class="fa fa-calendar"></i>
-                {{ course.creationDate | date: "d MMM, yy" }}
+                {{ course.date | date: "d MMM, yy" }}
             </div>
         </div>
     </div>

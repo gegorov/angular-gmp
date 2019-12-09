@@ -5,7 +5,7 @@ import { ICourse } from "../../core/index";
     selector: "app-course-form",
     templateUrl: "./course-form.component.html",
     styleUrls: ["./course-form.component.scss"],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseFormComponent {
 
@@ -17,6 +17,7 @@ export class CourseFormComponent {
      */
     @Input()
     public set course(course: ICourse) {
+        console.log("[inside course form]: ", course);
         this.courseBF = course;
     }
 

@@ -1,3 +1,5 @@
+import { IAuthor} from "./author.interface";
+
 /**
  * This interface is describing a Course model
  * id: course id, number
@@ -10,9 +12,12 @@
 
 export interface ICourse {
     id: number;
-    title: string;
-    creationDate: string;
-    duration: number;
+    name: string;
+    date: string;
+    length: number;
     description: string;
     topRated: boolean;
+    authors?: Array<IAuthor>;
 }
+
+

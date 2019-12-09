@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, EMPTY, Observable, of, throwError } from "rxjs";
-import { switchMap, tap, map, catchError } from "rxjs/operators";
+import { catchError, map, switchMap, tap } from "rxjs/operators";
 
 import { API_URL, storageKey } from "../../constants/index";
 import { IAuthResponse, ILoginResponse, IUser, IUserLogin } from "../../models/index";
@@ -14,9 +14,6 @@ export class AuthService {
     // tslint:disable-next-line:variable-name
     private _authToken: string;
 
-    public set authToken(token: string) {
-        this._authToken = token;
-    }
 
     public get authToken(): string {
         return this._authToken;
@@ -25,6 +22,13 @@ export class AuthService {
 
     constructor(http: HttpClient) {
         this.http = http;
+    }
+
+    /**
+     * function that checks if there is a token already received from backend
+     */
+    public isAuthenticated(): boolean {
+        return !!this.authToken;
     }
 
     /**
@@ -42,15 +46,21 @@ export class AuthService {
         return this.http.post(`${API_URL}/auth/login`, user).pipe(
             tap((data: IAuthResponse) => {
                 const { token } = data;
-                this.authToken = token;
-                this.$isAuthenticated.next(true);
-                // TODO: create a separate api call to /auth/userinfo to fetch actual user data
-                localStorage.setItem(storageKey, JSON.stringify(user));
+                this.setAuthToken(token);
             }),
-            map(() => ({
-                status: true
-            })),
-            catchError((err) => throwError({ status: false, error: err} ))
+            switchMap(({ token }) => {
+                return this.getUserInfoFromBackend(token);
+            }),
+
+            map((data) => {
+                console.log("Login data", data);
+                localStorage.setItem(storageKey, JSON.stringify(data));
+                this.$isAuthenticated.next(true);
+                return {
+                    status: true
+                };
+            }),
+            catchError((err) => throwError({ status: false, error: err }))
         );
     }
 
@@ -59,15 +69,20 @@ export class AuthService {
      */
     public logout(): void {
         this.$isAuthenticated.next(false);
-        this.clearLocalStorage();
+        this.setAuthToken(null);
     }
 
     /**
      * function returns user login fro local storage
      */
     public getUserInfo(): Observable<string> {
+        console.log("inside getUserInfo");
         return this.$isAuthenticated.pipe(
-            switchMap((value) => value ? of(this.getUserLoginFromLocalStorage()) : EMPTY)
+            tap(value => console.log("[value]: ", value)),
+            switchMap((value) => value ? of(this.getUserLoginFromLocalStorage()) : EMPTY),
+            tap((data) => {
+                console.log("userInfo: ", data);
+            })
         );
     }
 
@@ -78,8 +93,21 @@ export class AuthService {
         localStorage.removeItem(storageKey);
     }
 
+    private getUserInfoFromBackend(token: string): Observable<IUser> {
+        return this.http.post<IUser>(`${API_URL}/auth/userinfo`, { token });
+    }
+
     private getUserLoginFromLocalStorage(): string {
         const user: IUser = JSON.parse(localStorage.getItem(storageKey));
-        return user.login;
+        console.log("[USER]:", user);
+        return `${user.name.first} ${user.name.last}`;
+    }
+
+    private setAuthToken(token: string | null) {
+        if (token) {
+            this._authToken = token;
+        } else {
+            this.clearLocalStorage();
+        }
     }
 }

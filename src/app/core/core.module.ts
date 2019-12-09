@@ -1,16 +1,24 @@
-import { NgModule, Optional, SkipSelf } from "@angular/core";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { NgModule, Optional, Provider, SkipSelf } from "@angular/core";
 import { AuthGuard } from "./guards/index";
+import { AuthInterceptor } from "./interceptors/index";
 
 
 import { ServiceModule } from "./services/index";
+
+const INTERCEPTOR_PROVIDER: Provider = {
+    provide: HTTP_INTERCEPTORS,
+    multi: true,
+    useClass: AuthInterceptor,
+}
 
 
 @NgModule({
     declarations: [],
     imports: [
-        ServiceModule,
+        ServiceModule
     ],
-    providers: [AuthGuard]
+    providers: [AuthGuard, INTERCEPTOR_PROVIDER]
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
