@@ -1,6 +1,5 @@
 import { OrderByPipe } from "./order-by.pipe";
 
-import { COURSES } from "../../../core/helpers/mock-courses";
 import { ICourse } from "../../../core/index";
 
 describe("OrderByPipe", () => {
@@ -15,9 +14,9 @@ describe("OrderByPipe", () => {
     });
 
     it("should sort array in descending order by creationDate", () => {
-        const sorted: Array<ICourse> = COURSES.sort(
-            (courseA: ICourse, courseB: ICourse) => courseB.creationDate.getTime() - courseA.creationDate.getTime()
+        const sorted: Array<ICourse> = [].sort(
+            (courseA: ICourse, courseB: ICourse) => new Date(courseB.date).getTime() - new Date(courseA.date).getTime()
         );
-        expect(pipe.transform(COURSES)).toEqual(sorted);
+        expect(pipe.transform([])).toEqual(sorted);
     });
 });

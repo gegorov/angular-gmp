@@ -8,7 +8,6 @@ import { AuthService } from "../../services/index";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-
     private authService: AuthService;
     private router: Router;
 
@@ -17,7 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
         this.router = router;
     }
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         let clonedReq: HttpRequest<any>;
 
@@ -33,7 +32,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
         return next.handle(clonedReq).pipe(
             catchError((error: HttpErrorResponse) => {
-                console.log("[Interceptor Error]", error);
                 if (error.status === 401) {
                     this.authService.logout();
                     this.router.navigate(["/login"]);

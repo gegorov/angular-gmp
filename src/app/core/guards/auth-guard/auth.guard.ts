@@ -7,7 +7,6 @@ import { AuthService } from "../../services/index";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-
     private authService: AuthService;
     private router: Router;
     private isAuthenticated: Observable<boolean>;

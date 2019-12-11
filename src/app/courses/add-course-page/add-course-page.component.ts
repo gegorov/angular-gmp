@@ -39,8 +39,7 @@ export class AddCoursePageComponent {
      */
     public onAddNotify(course: ICourse) {
         this.courseService.addCourse(course).subscribe(
-            (data) => {
-                console.log("[onAddNotify]: ", data);
+            () => {
                 this.router.navigate(["/"]);
             }
         );

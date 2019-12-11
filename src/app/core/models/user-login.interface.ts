@@ -1,10 +1,14 @@
 /**
  * This interface is describing a Login model
- * login: user's login, string
- * password: user's password, string
  */
-
 export interface IUserLogin {
+    /**
+     * user's login
+     */
     login: string;
+
+    /**
+     * user's password
+     */
     password: string;
 }

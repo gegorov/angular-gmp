@@ -8,17 +8,14 @@ import { IAuthResponse, ILoginResponse, IUser, IUserLogin } from "../../models/i
 
 @Injectable()
 export class AuthService {
-
     private $isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private http: HttpClient;
     // tslint:disable-next-line:variable-name
     private _authToken: string;
 
-
     public get authToken(): string {
         return this._authToken;
     }
-
 
     constructor(http: HttpClient) {
         this.http = http;
@@ -42,7 +39,6 @@ export class AuthService {
      * function sets user data to localStorage
      */
     public login(user: IUserLogin): Observable<ILoginResponse> {
-
         return this.http.post(`${API_URL}/auth/login`, user).pipe(
             tap((data: IAuthResponse) => {
                 const { token } = data;
@@ -51,9 +47,7 @@ export class AuthService {
             switchMap(({ token }) => {
                 return this.getUserInfoFromBackend(token);
             }),
-
             map((data) => {
-                console.log("Login data", data);
                 localStorage.setItem(storageKey, JSON.stringify(data));
                 this.$isAuthenticated.next(true);
                 return {
@@ -76,13 +70,8 @@ export class AuthService {
      * function returns user login fro local storage
      */
     public getUserInfo(): Observable<string> {
-        console.log("inside getUserInfo");
         return this.$isAuthenticated.pipe(
-            tap(value => console.log("[value]: ", value)),
             switchMap((value) => value ? of(this.getUserLoginFromLocalStorage()) : EMPTY),
-            tap((data) => {
-                console.log("userInfo: ", data);
-            })
         );
     }
 
@@ -99,7 +88,6 @@ export class AuthService {
 
     private getUserLoginFromLocalStorage(): string {
         const user: IUser = JSON.parse(localStorage.getItem(storageKey));
-        console.log("[USER]:", user);
         return `${user.name.first} ${user.name.last}`;
     }
 

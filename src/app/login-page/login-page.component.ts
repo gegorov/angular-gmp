@@ -43,11 +43,9 @@ export class LoginPageComponent {
             password: this.password
         };
         this.authService.login(user)
-            .subscribe((data) => {
-                console.log("data on login page: ", data);
+            .subscribe(() => {
                 this.router.navigate(["/"]);
             }, (data) => {
-                console.log("Алярм")
                 console.error(data.error);
             });
     }

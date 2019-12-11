@@ -38,7 +38,6 @@ export class EditCoursePageComponent implements OnInit {
                 return this.courseService.getCourse(parseInt(params.id, 10));
             })
         ).pipe(
-            tap(course => console.log("[Course]: ", course)),
             tap((course: ICourse) => this.course = course)
         );
     }

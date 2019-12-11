@@ -1,6 +1,5 @@
 import { FilterPipe } from "./filter.pipe";
 
-import { COURSES } from "../../../core/helpers/mock-courses";
 
 describe("FilterPipe", () => {
     let pipe: FilterPipe;
@@ -12,16 +11,16 @@ describe("FilterPipe", () => {
     });
 
     it("should return full all courses if empty argument passed", () => {
-        expect(pipe.transform(COURSES, "")).toEqual(COURSES);
+        expect(pipe.transform([], "")).toEqual([]);
     });
 
     it("should return empty array if no matches found", () => {
         const searchString: string = "la-la-land";
-        expect(pipe.transform(COURSES, searchString)).toEqual([]);
+        expect(pipe.transform([], searchString)).toEqual([]);
     });
 
     it("should return correctly filtered array if matches found", () => {
         const searchString: string = "n";
-        expect(pipe.transform(COURSES, searchString)).toEqual(COURSES.filter(course => course.title.toLowerCase().includes(searchString)));
+        expect(pipe.transform([], searchString)).toEqual([].filter(course => course.title.toLowerCase().includes(searchString)));
     });
 });

@@ -17,7 +17,6 @@ export class CourseFormComponent {
      */
     @Input()
     public set course(course: ICourse) {
-        console.log("[inside course form]: ", course);
         this.courseBF = course;
     }
 

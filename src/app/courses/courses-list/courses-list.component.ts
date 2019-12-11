@@ -82,11 +82,7 @@ export class CoursesListComponent implements OnInit {
      * In this method we set observable to this.courses$
      */
     public ngOnInit(): void {
-        console.log("[courses-list.component initialize]");
         this.courses$ = this.courseService.getCourses().pipe(
-            tap((data) => {
-                console.log("[courses-list.component onInit]: ", data);
-            }),
             map(data => this.orderByPipe.transform(data)),
             publishReplay(1),
             refCount()
