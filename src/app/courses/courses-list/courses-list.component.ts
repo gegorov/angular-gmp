@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { map, publishReplay, refCount, tap } from "rxjs/operators";
+import { map, publishReplay, refCount } from "rxjs/operators";
 
 import { CourseService, ICourse } from "../../core/index";
 import { OrderByPipe, PopupComponent } from "../../shared/index";
@@ -65,17 +65,15 @@ export class CoursesListComponent implements OnInit {
      * @param value search string that is emitted by search component
      */
     public onSearchNotify(value: string): void {
-        this.courseService.query$.next(value);
+        this.courseService.nextQuery(value);
     }
 
     /**
-     * Load more button handler
+     * Load more button handler that triggers loadMore method on courseService
      */
     public loadMore(): void {
         const incrementByFive: number = 5;
-        const currentValue: number = this.courseService.page$.value;
-
-        this.courseService.page$.next(currentValue + incrementByFive);
+        this.courseService.loadMore(incrementByFive);
     }
 
     /**

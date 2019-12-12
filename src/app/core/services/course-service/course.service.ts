@@ -8,23 +8,21 @@ import { ICourse } from "../../models/index";
 
 @Injectable()
 export class CourseService {
-    private courses: Array<ICourse> = [];
+
     private coursesPerPage = 5;
     private http: HttpClient;
-    private coursesSubject: BehaviorSubject<Array<ICourse>> = new BehaviorSubject<Array<ICourse>>([]);
-
-    /**
-     *  subject that is used to implement pagination and load more functionality
-     */
-    public page$: BehaviorSubject<number>;
-
-    /**
-     * subject to handle search query
-     */
-    public query$: BehaviorSubject<string> = new BehaviorSubject("");
+    private page$: BehaviorSubject<number>;
+    private query$: BehaviorSubject<string> = new BehaviorSubject("");
 
     constructor(http: HttpClient) {
         this.http = http;
+    }
+
+    /**
+     * method that adds course
+     */
+    public addCourse(course: ICourse): Observable<ICourse> {
+        return this.http.post<ICourse>(`${API_URL}/courses`, course);
     }
 
     /**
@@ -42,12 +40,12 @@ export class CourseService {
         );
     }
 
-
     /**
-     * method that adds course
+     * function that triggers next on page$ subject.
      */
-    public addCourse(course: ICourse): Observable<ICourse> {
-        return this.http.post<ICourse>(`${API_URL}/courses`, course);
+    public loadMore(increment: number): void {
+        const currentValue: number = this.page$.value;
+        this.page$.next(increment + currentValue);
     }
 
     /**
@@ -55,6 +53,13 @@ export class CourseService {
      */
     public getCourse(id: number): Observable<ICourse> {
         return this.http.get<ICourse>(`${API_URL}/courses/${id}`);
+    }
+
+    /**
+     * function that triggers next on query$ subject
+     */
+    public nextQuery(query: string): void {
+        this.query$.next(query);
     }
 
     /**
