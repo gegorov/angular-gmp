@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { AuthService, IUser } from "../core/index";
+import { AuthService, IUser, IUserLogin } from "../core/index";
 
 
 @Component({
@@ -38,12 +38,15 @@ export class LoginPageComponent {
      */
     public onSubmit(event) {
         event.preventDefault();
-        const user: IUser = {
-            id: 0,
+        const user: IUserLogin = {
             login: this.loginName,
             password: this.password
         };
-        this.authService.login(user);
-        this.router.navigate(["/"]);
+        this.authService.login(user)
+            .subscribe(() => {
+                this.router.navigate(["/"]);
+            }, (data) => {
+                console.error(data.error);
+            });
     }
 }

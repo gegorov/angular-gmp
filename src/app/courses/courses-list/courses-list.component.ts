@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, publishReplay, refCount } from "rxjs/operators";
 
 import { CourseService, ICourse } from "../../core/index";
 import { OrderByPipe, PopupComponent } from "../../shared/index";
@@ -22,11 +22,6 @@ export class CoursesListComponent implements OnInit {
      * Variable to store observable with courses
      */
     public courses$: Observable<Array<ICourse>>;
-
-    /**
-     * Variable that is used for filtering output
-     */
-    public filterString: string = "";
 
     /**
      * variable for popup
@@ -51,7 +46,8 @@ export class CoursesListComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe((result) => {
             if (result) {
-                this.courseService.removeCourse(course.id);
+                this.courseService.removeCourse(course.id).subscribe();
+                this.router.navigate(["/courses"]);
             }
         });
     }
@@ -69,20 +65,25 @@ export class CoursesListComponent implements OnInit {
      * @param value search string that is emitted by search component
      */
     public onSearchNotify(value: string): void {
-        this.filterString = value;
+        this.courseService.nextQuery(value);
     }
 
     /**
-     * Load more button handler
+     * Load more button handler that triggers loadMore method on courseService
      */
     public loadMore(): void {
-        console.log("Load More!");
+        const incrementByFive: number = 5;
+        this.courseService.loadMore(incrementByFive);
     }
 
     /**
      * In this method we set observable to this.courses$
      */
     public ngOnInit(): void {
-        this.courses$ = this.courseService.getCoursesList().pipe(map(data => this.orderByPipe.transform(data)));
+        this.courses$ = this.courseService.getCourses().pipe(
+            map(data => this.orderByPipe.transform(data)),
+            publishReplay(1),
+            refCount()
+        );
     }
 }

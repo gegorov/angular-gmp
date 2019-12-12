@@ -46,7 +46,10 @@ export class EditCoursePageComponent implements OnInit {
      * Method that emits updated course to parent component
      */
     public onEditNotify(course: ICourse) {
-        this.courseService.updateCourses(course);
-        this.router.navigate(["/"]);
+        this.courseService.updateCourses(course).pipe(
+            tap(() => {
+                this.router.navigate(["/"]);
+            })
+        ).subscribe();
     }
 }

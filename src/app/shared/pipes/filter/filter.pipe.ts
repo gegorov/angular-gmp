@@ -9,7 +9,7 @@ export class FilterPipe implements PipeTransform {
     transform(courses: Array<ICourse>, searchString: string): Array<ICourse> {
         return searchString
             ? courses.filter(
-                course => course.title.toLowerCase().includes(searchString.toLowerCase())
+                course => course.name.toLowerCase().includes(searchString.toLowerCase())
             )
             : courses;
     }

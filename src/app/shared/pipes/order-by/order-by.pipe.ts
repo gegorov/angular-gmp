@@ -12,6 +12,6 @@ export class OrderByPipe implements PipeTransform {
             .sort((
                 courseA: ICourse,
                 courseB: ICourse,
-            ) => new Date(courseB.creationDate).getTime() - new Date(courseA.creationDate).getTime());
+            ) => new Date(courseB.date).getTime() - new Date(courseA.date).getTime());
     }
 }

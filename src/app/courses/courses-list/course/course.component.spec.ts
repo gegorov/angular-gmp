@@ -19,7 +19,7 @@ describe("CourseComponent", () => {
         component.course = {
             creationDate: new Date(0),
             description: "Testing Course And something",
-            duration: 10,
+            length: 10,
             id: 123,
             title: "Testing Course",
             topRated: true,
