@@ -1,22 +1,28 @@
-import { Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { map, publishReplay, refCount } from "rxjs/operators";
+import { debounceTime, filter, map, publishReplay, refCount, tap } from "rxjs/operators";
 
 import { CourseService, ICourse } from "../../core/index";
 import { OrderByPipe, PopupComponent } from "../../shared/index";
+import { SearchComponent } from "./search/search.component";
 
 @Component({
     selector: "app-courses-list",
     templateUrl: "./courses-list.component.html",
     styleUrls: ["./courses-list.component.scss"]
 })
-export class CoursesListComponent implements OnInit {
+export class CoursesListComponent implements OnInit, AfterViewInit {
 
     private orderByPipe: OrderByPipe;
     private courseService: CourseService;
     private router: Router;
+
+    /**
+     * Variable that helps to get access to EventEmitter in child  Search component
+     */
+    @ViewChild(SearchComponent, { static: false }) public searchComponent: SearchComponent;
 
     /**
      * Variable to store observable with courses
@@ -61,12 +67,12 @@ export class CoursesListComponent implements OnInit {
     }
 
     /**
-     * Function that receives search string from search component and filters courses
-     * @param value search string that is emitted by search component
+     * Function that receives search string from search component and makes api call for backend search
      */
-    public onSearchNotify(value: string): void {
-        this.courseService.nextQuery(value);
-    }
+    // public onSearchNotify(event: KeyboardEvent): void {
+    //     // this.courseService.nextQuery(value);
+    //     console.log("value: ", event);
+    // }
 
     /**
      * Load more button handler that triggers loadMore method on courseService
@@ -86,4 +92,20 @@ export class CoursesListComponent implements OnInit {
             refCount()
         );
     }
+
+    public ngAfterViewInit(): void {
+        const minQueryLength: number = 3;
+        const delayTime: number = 400;
+
+        this.searchComponent.notify
+            .pipe(
+                filter((value: string) => value.length >= minQueryLength),
+                debounceTime(delayTime),
+            )
+            .subscribe((value) => {
+                this.courseService.nextQuery(value);
+        });
+    }
+
+
 }

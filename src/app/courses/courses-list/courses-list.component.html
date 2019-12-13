@@ -1,5 +1,5 @@
 <div class="courses-list">
-    <app-search (notify)="onSearchNotify($event)"></app-search>
+    <app-search ></app-search>
 <!--    @TODO: get rid of two subscriptions to courses$-->
 <!--    @TODO: and why ngif didn't worked with ng-template -->
     <ng-container *ngIf="courses$ | async; else noCoursesFound">

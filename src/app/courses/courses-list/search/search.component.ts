@@ -19,8 +19,7 @@ export class SearchComponent {
     /**
      * function that consoles input value on submit
      */
-    public onSubmit() {
-        this.notify.emit(this.searchValue);
-        this.searchValue = "";
+    public onKeyup(event) {
+        this.notify.emit(event.target.value);
     }
 }
