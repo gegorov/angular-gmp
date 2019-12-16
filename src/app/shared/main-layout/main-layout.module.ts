@@ -7,13 +7,15 @@ import { FooterComponent } from "./footer/footer.component";
 import { LogoComponent } from "./logo/logo.component";
 import { MainLayoutComponent } from "./main-layout.component";
 import { DirectivesModule } from "../directives/index";
+import { SpinnerComponent } from "./spinner/index";
 
 @NgModule({
     declarations: [
         FooterComponent,
         HeaderComponent,
         LogoComponent,
-        MainLayoutComponent
+        MainLayoutComponent,
+        SpinnerComponent
     ],
     imports: [CommonModule, DirectivesModule, RouterModule],
     exports: [MainLayoutComponent]
