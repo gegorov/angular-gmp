@@ -6,11 +6,11 @@ export class LoadingService {
     // tslint:disable-next-line:variable-name
     private _loading: boolean = false;
 
-    get loading(): boolean {
+    public get loading(): boolean {
         return this._loading;
     }
 
-    set loading(value: boolean) {
+    public set loading(value: boolean) {
         this._loading = value;
         this.isLoading.next(value);
     }

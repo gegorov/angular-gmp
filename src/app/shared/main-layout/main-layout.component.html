@@ -1,5 +1,5 @@
 <div class="container">
-    <app-loading-spinner *ngIf="loading | async"></app-loading-spinner>
+    <app-loading-spinner *ngIf="loading$ | async"></app-loading-spinner>
     <app-header class="header"></app-header>
     <div class="main">
         <ng-content></ng-content>

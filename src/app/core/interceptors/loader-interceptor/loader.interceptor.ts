@@ -1,14 +1,13 @@
 import { Injectable } from "@angular/core";
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { finalize } from "rxjs/operators";
 
 import { LoadingService } from "../../services/index";
-import { debounceTime, finalize } from "rxjs/operators";
 
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
-
     private activeRequests: number = 0;
     private loadingService: LoadingService;
 
@@ -23,7 +22,6 @@ export class LoaderInterceptor implements HttpInterceptor {
 
         this.activeRequests++;
         return next.handle(request).pipe(
-            debounceTime(5000),
             finalize(() => {
                 this.activeRequests--;
                 if (this.activeRequests === 0) {

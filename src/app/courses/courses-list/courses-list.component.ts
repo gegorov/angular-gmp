@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { debounceTime, filter, map, publishReplay, refCount, tap } from "rxjs/operators";
 
 import { CourseService, ICourse } from "../../core/index";
@@ -13,11 +13,12 @@ import { SearchComponent } from "./search/search.component";
     templateUrl: "./courses-list.component.html",
     styleUrls: ["./courses-list.component.scss"]
 })
-export class CoursesListComponent implements OnInit, AfterViewInit {
+export class CoursesListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     private orderByPipe: OrderByPipe;
     private courseService: CourseService;
     private router: Router;
+    private subscription: Subscription;
 
     /**
      * Variable that helps to get access to EventEmitter in child  Search component
@@ -67,14 +68,6 @@ export class CoursesListComponent implements OnInit, AfterViewInit {
     }
 
     /**
-     * Function that receives search string from search component and makes api call for backend search
-     */
-    // public onSearchNotify(event: KeyboardEvent): void {
-    //     // this.courseService.nextQuery(value);
-    //     console.log("value: ", event);
-    // }
-
-    /**
      * Load more button handler that triggers loadMore method on courseService
      */
     public loadMore(): void {
@@ -97,15 +90,17 @@ export class CoursesListComponent implements OnInit, AfterViewInit {
         const minQueryLength: number = 3;
         const delayTime: number = 400;
 
-        this.searchComponent.notify
+        this.subscription = this.searchComponent.notify
             .pipe(
                 filter((value: string) => value.length >= minQueryLength),
-                debounceTime(delayTime),
+                debounceTime(delayTime)
             )
             .subscribe((value) => {
                 this.courseService.nextQuery(value);
-        });
+            });
     }
 
-
+    public ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }
 }

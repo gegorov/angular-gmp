@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { debounceTime } from "rxjs/operators";
-import { LoadingService } from "../../core/services/loading-service/loading-service.service";
+import { LoadingService } from "../../core/services/loading-service/loading.service";
 
 @Component({
     selector: "app-main-layout",
@@ -14,7 +14,7 @@ export class MainLayoutComponent implements OnInit {
     /**
      * Observable that is used to store Loader status
      */
-    public loading: Observable<boolean>;
+    public loading$: Observable<boolean>;
 
 
     constructor(loadingService: LoadingService) {
@@ -22,6 +22,6 @@ export class MainLayoutComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.loading = this.loadingService.isLoading.asObservable();
+        this.loading$ = this.loadingService.isLoading.asObservable();
     }
 }
