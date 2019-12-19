@@ -7,7 +7,7 @@ import { ICourse } from "../../../core/index";
     styleUrls: ["./course.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CourseComponent{
+export class CourseComponent {
     /**
      * Variable to store course that is received from parent component
      */
