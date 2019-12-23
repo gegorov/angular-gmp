@@ -1,27 +1,29 @@
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule, Optional, Provider, SkipSelf } from "@angular/core";
+import { StoreModule } from "@ngrx/store";
 import { AuthGuard } from "./guards/index";
 import { AuthInterceptor, LoaderInterceptor } from "./interceptors/index";
-
+import {authFeatureKey, reducers} from "./store/reducers/index";
 
 import { ServiceModule } from "./services/index";
 
 const INTERCEPTOR_PROVIDER: Provider = {
     provide: HTTP_INTERCEPTORS,
     multi: true,
-    useClass: AuthInterceptor,
+    useClass: AuthInterceptor
 };
 const LOADER_INTERCEPTOR_PROVIDER: Provider = {
     provide: HTTP_INTERCEPTORS,
     useClass: LoaderInterceptor,
     multi: true
-}
+};
 
 
 @NgModule({
     declarations: [],
     imports: [
-        ServiceModule
+        ServiceModule,
+        StoreModule.forRoot({ [authFeatureKey]: reducers })
     ],
     providers: [AuthGuard, INTERCEPTOR_PROVIDER, LOADER_INTERCEPTOR_PROVIDER]
 })

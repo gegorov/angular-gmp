@@ -38,7 +38,7 @@ export class AuthService {
     /**
      * function sets user data to localStorage
      */
-    public login(user: IUserLogin): Observable<ILoginResponse> {
+    public login(user: IUserLogin): Observable<IUser> {
         return this.http.post(`${API_URL}/auth/login`, user).pipe(
             tap((data: IAuthResponse) => {
                 const { token } = data;
@@ -47,14 +47,10 @@ export class AuthService {
             switchMap(({ token }) => {
                 return this.getUserInfoFromBackend(token);
             }),
-            map((data) => {
+            tap((data) => {
                 localStorage.setItem(storageKey, JSON.stringify(data));
                 this.$isAuthenticated.next(true);
-                return {
-                    status: true
-                };
             }),
-            catchError((err) => throwError({ status: false, error: err }))
         );
     }
 

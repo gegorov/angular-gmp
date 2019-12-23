@@ -22,6 +22,8 @@
     "@angular/platform-browser": "~8.2.4",
     "@angular/platform-browser-dynamic": "~8.2.4",
     "@angular/router": "~8.2.4",
+    "@ngrx/effects": "^8.6.0",
+    "@ngrx/store": "^8.6.0",
     "font-awesome": "^4.7.0",
     "ngrx": "0.0.1-security",
     "rxjs": "~6.4.0",
