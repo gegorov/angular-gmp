@@ -1,7 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import {HttpClientModule} from "@angular/common/http";
-
+import { HttpClientModule } from "@angular/common/http";
+import { StoreModule } from "@ngrx/store";
 import { NgModule } from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -13,6 +13,8 @@ import { LoginPageComponent } from "./login-page/login-page.component";
 
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { CoursesModule } from "./courses/index";
+import {coursesReducer} from "./store/reducers/courses.reducers";
+import * as fromRoot from "./store/app.reducer";
 
 @NgModule({
     declarations: [
@@ -27,7 +29,8 @@ import { CoursesModule } from "./courses/index";
         CoreModule,
         SharedModule,
         CoursesModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        StoreModule.forRoot(fromRoot.appReducer)
     ],
     providers: [],
     bootstrap: [AppComponent]
