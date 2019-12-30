@@ -78,7 +78,7 @@ export class AuthService {
         localStorage.removeItem(storageKey);
     }
 
-    private getUserInfoFromBackend(token: string): Observable<IUser> {
+    public getUserInfoFromBackend(token: string): Observable<IUser> {
         return this.http.post<IUser>(`${API_URL}/auth/userinfo`, { token });
     }
 
@@ -87,7 +87,7 @@ export class AuthService {
         return `${user.name.first} ${user.name.last}`;
     }
 
-    private setAuthToken(token: string | null) {
+    public setAuthToken(token: string | null) {
         if (token) {
             this._authToken = token;
         } else {

@@ -1,22 +1,13 @@
-import { Action } from "@ngrx/store";
+/* tslint:disable:typedef */
+import { Action, createReducer, on } from "@ngrx/store";
 
+import * as AuthActions from "../actions/auth.actions";
 import { IUser } from "../../core/index";
 
+
 export interface AuthState {
-    /**
-     * is a user authenticated?
-     */
     isAuthenticated: boolean;
-
-    /**
-     * if authenticated, there should be a user object
-     */
-
     user: IUser | null;
-
-    /**
-     * error message
-     */
     errorMessage: string | null;
 }
 
@@ -26,11 +17,14 @@ export const initialState: AuthState = {
     errorMessage: null
 };
 
-export function authReducer(state: AuthState = initialState, action: Action) {
-    switch (action.type) {
-        default:
-            return state;
-    }
+const authReducer = createReducer(
+    initialState,
+    on(AuthActions.loginFailed, (state, { errorMessage }) => ({ ...state, errorMessage, isAuthenticated: false })),
+    on(AuthActions.getUserSuccessful, (state, {user} ) => ({...state, user, isAuthenticated: true})),
+);
+
+export const reducer = (state: AuthState, action: Action) => {
+    return authReducer(state, action);
 }
 
 

@@ -1,7 +1,11 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { Store } from "@ngrx/store";
+import { Subscription } from "rxjs";
+import { map, tap } from "rxjs/operators";
 
-import { AuthService, IUser, IUserLogin } from "../core/index";
+import * as fromApp from "../store/app.reducer";
+import { AuthService, StoreFacadeService, IUser, IUserLogin } from "../core/index";
 
 
 @Component({
@@ -9,9 +13,10 @@ import { AuthService, IUser, IUserLogin } from "../core/index";
     templateUrl: "./login-page.component.html",
     styleUrls: ["./login-page.component.scss"]
 })
-export class LoginPageComponent {
-
+export class LoginPageComponent implements OnInit, OnDestroy {
     private router: Router;
+    private subscription: Subscription;
+    private store: Store<fromApp.AppState>;
 
     /**
      * variable ot store user login from input
@@ -28,9 +33,13 @@ export class LoginPageComponent {
      */
     public authService: AuthService;
 
-    constructor(authService: AuthService, router: Router) {
+    public storeFacadeService: StoreFacadeService;
+
+    constructor(authService: AuthService, router: Router, store: Store<fromApp.AppState>, storeFacadeService: StoreFacadeService) {
         this.authService = authService;
         this.router = router;
+        this.store = store;
+        this.storeFacadeService = storeFacadeService;
     }
 
     /**
@@ -42,11 +51,26 @@ export class LoginPageComponent {
             login: this.loginName,
             password: this.password
         };
-        this.authService.login(user)
-            .subscribe(() => {
+        this.storeFacadeService.login(user);
+    }
+
+    public ngOnInit(): void {
+
+        this.subscription = this.store.select("auth").pipe(
+            tap((data) => {
+                console.log("ngOnint login: ", data);
+            }),
+            map(authState => authState.isAuthenticated)
+        ).subscribe((
+            isAuthenticated
+        ) => {
+            if (isAuthenticated) {
                 this.router.navigate(["/"]);
-            }, (data) => {
-                console.error(data.error);
-            });
+            }
+        });
+    }
+
+    public ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 }

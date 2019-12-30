@@ -4,7 +4,6 @@ import { NgModule, Optional, Provider, SkipSelf } from "@angular/core";
 import { AuthGuard } from "./guards/index";
 import { AuthInterceptor, LoaderInterceptor } from "./interceptors/index";
 
-
 import { ServiceModule } from "./services/index";
 
 const INTERCEPTOR_PROVIDER: Provider = {
@@ -23,7 +22,7 @@ const LOADER_INTERCEPTOR_PROVIDER: Provider = {
     declarations: [],
     imports: [
         ServiceModule,
-    ],
+      ],
     providers: [AuthGuard, INTERCEPTOR_PROVIDER, LOADER_INTERCEPTOR_PROVIDER]
 })
 export class CoreModule {

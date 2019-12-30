@@ -1,7 +1,8 @@
-import { Action, ActionReducer } from "@ngrx/store";
-import { ICourse } from "../../core/index";
-import { CoursesActions, LOAD_COURSES_SUCCESS, LoadCoursesFail, LoadCoursesSuccess } from "../actions/courses.actions";
+/* tslint:disable:typedef */
+import { Action, createReducer, on } from "@ngrx/store";
 
+import { ICourse } from "../../core/index";
+import * as CoursesActions from "../actions/courses.actions";
 
 
 export interface CoursesState {
@@ -11,30 +12,15 @@ export interface CoursesState {
 
 const initialState: CoursesState = {
     courses: null,
-    errorMessage: null,
+    errorMessage: null
 };
 
-function reducer(state: CoursesState = initialState, action: CoursesActions): CoursesState {
-    switch (action.type) {
-        case LOAD_COURSES_SUCCESS:
-            const {payload } : LoadCoursesSuccess = action;
+const coursesReducer = createReducer(
+    initialState,
+    on(CoursesActions.loadCoursesSuccess, (state, { courses }) => ({ ...state, courses, errorMessage: null })),
+    on(CoursesActions.loadCoursesFail, (state, { errorMessage }) => ({ ...state, errorMessage })),
+);
 
-            return {
-                ...state,
-                courses: [...action.payload],
-            };
-        case CoursesActions.LOAD_COURSES_FAIL:
-            return {
-                ...state,
-                errorMessage: action.payload,
-            };
-        default:
-            return state;
-    }
-
-
-}
-
-export const coursesReducer: ActionReducer<CoursesState, Action> = (state, action) => {
-    return reducer(state, action as CoursesActions.CoursesActions);
+export const reducer = (state: CoursesState, action: Action) => {
+    return coursesReducer(state, action);
 };
