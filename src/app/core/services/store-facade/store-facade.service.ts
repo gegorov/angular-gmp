@@ -25,6 +25,7 @@ export class StoreFacadeService {
     }
 
     public logout() {
+        console.log("truing to logout")
         this.store.dispatch(AuthActions.logout());
     }
 
@@ -32,6 +33,12 @@ export class StoreFacadeService {
         return this.store.pipe(
             select(fromAuth.selectAuthTokenState),
             map(value => !!value)
+        );
+    }
+
+    public getToken(): Observable<string> {
+        return this.store.pipe(
+            select(fromAuth.selectAuthTokenState),
         );
     }
 

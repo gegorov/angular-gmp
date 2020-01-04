@@ -6,7 +6,7 @@ import { map, tap } from "rxjs/operators";
 
 import * as fromApp from "../store/app.reducer";
 import * as fromAuth from "../store/reducers/auth.reducers";
-import { AuthService, StoreFacadeService, IUser, IUserLogin } from "../core/index";
+import { StoreFacadeService, IUser, IUserLogin } from "../core/index";
 
 
 @Component({
@@ -32,12 +32,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     /**
      * variable ot store user login from input
      */
-    public authService: AuthService;
+        // public authService: AuthService;
 
     public storeFacadeService: StoreFacadeService;
 
-    constructor(authService: AuthService, router: Router, store: Store<fromApp.AppState>, storeFacadeService: StoreFacadeService) {
-        this.authService = authService;
+    constructor(router: Router, store: Store<fromApp.AppState>, storeFacadeService: StoreFacadeService) {
         this.router = router;
         this.store = store;
         this.storeFacadeService = storeFacadeService;
@@ -61,10 +60,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
             tap((user) => {
                 console.log("ngOnint login user: ", user);
                 if (user) {
+                    console.log("inside if");
                     this.router.navigate(["/"]);
                 }
-            }),
-
+            })
         ).subscribe();
     }
 

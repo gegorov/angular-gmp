@@ -2,43 +2,46 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { catchError, switchMap } from "rxjs/operators";
 
-import { AuthService } from "../../services/index";
+import { StoreFacadeService } from "../../services/index";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    private authService: AuthService;
+    private storeFacadeService: StoreFacadeService;
     private router: Router;
 
-    constructor(authService: AuthService, router: Router) {
-        this.authService = authService;
+    constructor(storeFacadeService: StoreFacadeService, router: Router) {
+        this.storeFacadeService = storeFacadeService;
         this.router = router;
     }
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        let clonedReq: HttpRequest<any>;
 
-        if (this.authService.isAuthenticated()) {
-            clonedReq = req.clone({
-                setHeaders: {
-                    Authorization: this.authService.authToken
+        return this.storeFacadeService.getToken().pipe(
+            switchMap((token: string) => {
+                let clonedReq: HttpRequest<any>;
+                if (token) {
+                    clonedReq = req.clone({
+                        setHeaders: {
+                            Authorization: token
+                        }
+                    });
+                } else {
+                    clonedReq = req.clone();
                 }
-            });
-        } else {
-            clonedReq = req.clone();
-        }
-
-        return next.handle(clonedReq).pipe(
-            catchError((error: HttpErrorResponse) => {
-                if (error.status === 401) {
-                    this.authService.logout();
-                    this.router.navigate(["/login"]);
-                }
-                return throwError(error);
+                return next.handle(clonedReq).pipe(
+                    catchError((error: HttpErrorResponse) => {
+                        if (error.status === 401) {
+                            this.storeFacadeService.logout();
+                            this.router.navigate(["/login"]);
+                        }
+                        return throwError(error);
+                    })
+                );
             })
         );
     }
-
 }
+

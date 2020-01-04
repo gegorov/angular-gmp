@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import { EMPTY, Observable, of } from "rxjs";
+import { map, switchMap, tap } from "rxjs/operators";
 
 import { StoreFacadeService } from "../../../core/index";
 
@@ -29,18 +29,14 @@ export class HeaderComponent implements OnInit {
      * method that calls logout method of AuthService
      */
     public logout(): void {
-        this.storeFacadeService.logout();
         this.router.navigate(["/login"]);
+        this.storeFacadeService.logout();
     }
 
     public ngOnInit(): void {
         this.user$ = this.storeFacadeService.getCurrentUser().pipe(
             tap(data => console.log("Header: ", data)),
-            map(user => {
-                if (user) {
-                    return `${user.name.first} ${user.name.last}`;
-                }
-            })
-        );
+            switchMap(user =>  user ? of(`${user.name.first} ${user.name.last}`) : EMPTY)
+         );
     }
 }
