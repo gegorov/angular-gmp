@@ -1,30 +1,49 @@
 /* tslint:disable:typedef */
-import { Action, createReducer, on } from "@ngrx/store";
+import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 
 import * as AuthActions from "../actions/auth.actions";
 import { IUser } from "../../core/index";
 
 
 export interface AuthState {
-    isAuthenticated: boolean;
+    token: string;
     user: IUser | null;
     errorMessage: string | null;
 }
 
-export const initialState: AuthState = {
-    isAuthenticated: false,
+const initialState: AuthState = {
+    token: null,
     user: null,
     errorMessage: null
 };
 
+export const authKey = "auth";
+
 const authReducer = createReducer(
     initialState,
-    on(AuthActions.loginFailed, (state, { errorMessage }) => ({ ...state, errorMessage, isAuthenticated: false })),
-    on(AuthActions.getUserSuccessful, (state, {user} ) => ({...state, user, isAuthenticated: true})),
-);
+    on(AuthActions.loginSuccessful, (state, { token }) => ({ ...state, errorMessage: null, token })),
+    on(AuthActions.loginFailed, (state, { errorMessage }) => ({ ...state, errorMessage, token: null })),
+    on(AuthActions.getUserSuccessful, (state, { user }) => ({ ...state, user })),
+    on(AuthActions.getUserFailed, (state, { errorMessage }) => ({ ...state, errorMessage, token: null })),
+    on(AuthActions.logout, () => ({ ...initialState})),
+    )
+;
 
-export const reducer = (state: AuthState, action: Action) => {
+export function reducer(state: AuthState, action: Action) {
     return authReducer(state, action);
 }
 
 
+export const selectAuthState = createFeatureSelector(
+    authKey,
+);
+
+export const selectAuthTokenState = createSelector(
+    selectAuthState,
+    (state: AuthState) => state.token,
+);
+
+export const selectAuthUserState = createSelector(
+    selectAuthState,
+    (state: AuthState) => state.user,
+);

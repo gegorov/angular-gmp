@@ -15,12 +15,15 @@ const initialState: CoursesState = {
     errorMessage: null
 };
 
+export const coursesKey = "courses";
+
 const coursesReducer = createReducer(
     initialState,
     on(CoursesActions.loadCoursesSuccess, (state, { courses }) => ({ ...state, courses, errorMessage: null })),
     on(CoursesActions.loadCoursesFail, (state, { errorMessage }) => ({ ...state, errorMessage })),
 );
 
-export const reducer = (state: CoursesState, action: Action) => {
+export function reducer(state: CoursesState | undefined, action: Action) {
     return coursesReducer(state, action);
-};
+}
+

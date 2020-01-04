@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
+import { map, tap } from "rxjs/operators";
 
-import { AuthService } from "../../../core/index";
+import { StoreFacadeService } from "../../../core/index";
 
 @Component({
     selector: "app-header",
@@ -11,7 +12,7 @@ import { AuthService } from "../../../core/index";
 })
 export class HeaderComponent implements OnInit {
 
-    private authService: AuthService;
+    private storeFacadeService: StoreFacadeService;
     private router: Router;
 
     /**
@@ -19,20 +20,27 @@ export class HeaderComponent implements OnInit {
      */
     public user$: Observable<string>;
 
-    constructor(authService: AuthService, router: Router) {
-        this.authService = authService;
+    constructor(storeFacadeService: StoreFacadeService, router: Router) {
+        this.storeFacadeService = storeFacadeService;
         this.router = router;
     }
 
     /**
      * method that calls logout method of AuthService
      */
-    public logoff(): void {
-        this.authService.logout();
+    public logout(): void {
+        this.storeFacadeService.logout();
         this.router.navigate(["/login"]);
     }
 
     public ngOnInit(): void {
-        this.user$ = this.authService.getUserInfo();
+        this.user$ = this.storeFacadeService.getCurrentUser().pipe(
+            tap(data => console.log("Header: ", data)),
+            map(user => {
+                if (user) {
+                    return `${user.name.first} ${user.name.last}`;
+                }
+            })
+        );
     }
 }

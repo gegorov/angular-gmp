@@ -1,15 +1,19 @@
 import { ActionReducerMap } from "@ngrx/store";
+import * as fromAuth from "./reducers/auth.reducers";
 
 import * as fromCourses from "./reducers/courses.reducers";
-import * as fromAuth from "./reducers/auth.reducers";
+import { coursesKey } from "./reducers/courses.reducers";
 
 
 export interface AppState {
-    courses: fromCourses.CoursesState;
-    auth: fromAuth.AuthState;
+    [fromCourses.coursesKey]: fromCourses.CoursesState;
+    [fromAuth.authKey]: fromAuth.AuthState;
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
-    courses: fromCourses.reducer,
-    auth: fromAuth.reducer,
+    [fromCourses.coursesKey]: fromCourses.reducer,
+    [fromAuth.authKey]: fromAuth.reducer,
 };
+
+
+

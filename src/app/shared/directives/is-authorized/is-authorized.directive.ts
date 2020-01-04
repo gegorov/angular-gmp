@@ -2,7 +2,7 @@ import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from "@an
 import { Subscription } from "rxjs";
 import { tap } from "rxjs/operators";
 
-import { AuthService } from "../../../core/index";
+import { StoreFacadeService } from "../../../core/index";
 
 @Directive({
     selector: "[appIsAuthorized]"
@@ -13,16 +13,16 @@ export class IsAuthorizedDirective implements OnInit, OnDestroy {
     private viewContainerRef: ViewContainerRef;
     private authSubscription: Subscription;
     private hasView: boolean = false;
-    private authService: AuthService;
+    private storeFacadeService: StoreFacadeService;
 
-    constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, authService: AuthService) {
+    constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, storeFacadeService: StoreFacadeService) {
         this.templateRef = templateRef;
         this.viewContainerRef = viewContainerRef;
-        this.authService = authService;
+        this.storeFacadeService = storeFacadeService;
     }
 
     public ngOnInit(): void {
-        this.authSubscription = this.authService.getAuthStatus().pipe(
+        this.authSubscription = this.storeFacadeService.isAuthenticated().pipe(
             tap((isAuthorized) => {
                 if (isAuthorized && !this.hasView) {
                     this.viewContainerRef.createEmbeddedView(this.templateRef);

@@ -6,9 +6,9 @@ import { StoreModule } from "@ngrx/store";
 import { NgModule } from "@angular/core";
 
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import {appReducer} from "./store/app.reducer";
+import * as fromApp from "./store/app.reducer";
 
-import { AuthEffects } from "./store/effects/auth.effects";
+import { fromEffects } from "./store/effects/index";
 
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -20,7 +20,6 @@ import { LoginPageComponent } from "./login-page/login-page.component";
 
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { CoursesModule } from "./courses/index";
-
 
 
 @NgModule({
@@ -37,8 +36,8 @@ import { CoursesModule } from "./courses/index";
         SharedModule,
         CoursesModule,
         BrowserAnimationsModule,
-        StoreModule.forRoot(appReducer),
-        EffectsModule.forRoot([AuthEffects]),
+        StoreModule.forRoot(fromApp.appReducer),
+        EffectsModule.forRoot([fromEffects.AuthEffects]),
         StoreDevtoolsModule.instrument({
             maxAge: 25
         })

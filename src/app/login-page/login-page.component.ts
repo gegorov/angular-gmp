@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 import { map, tap } from "rxjs/operators";
 
 import * as fromApp from "../store/app.reducer";
+import * as fromAuth from "../store/reducers/auth.reducers";
 import { AuthService, StoreFacadeService, IUser, IUserLogin } from "../core/index";
 
 
@@ -56,18 +57,15 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
 
-        this.subscription = this.store.select("auth").pipe(
-            tap((data) => {
-                console.log("ngOnint login: ", data);
+        this.subscription = this.store.select(fromAuth.selectAuthUserState).pipe(
+            tap((user) => {
+                console.log("ngOnint login user: ", user);
+                if (user) {
+                    this.router.navigate(["/"]);
+                }
             }),
-            map(authState => authState.isAuthenticated)
-        ).subscribe((
-            isAuthenticated
-        ) => {
-            if (isAuthenticated) {
-                this.router.navigate(["/"]);
-            }
-        });
+
+        ).subscribe();
     }
 
     public ngOnDestroy(): void {
