@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { select, Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
@@ -15,13 +16,16 @@ import { IUser } from "../../models/user.interface";
 export class StoreFacadeService {
 
     private store: Store<fromApp.AppState>;
+    private router: Router;
 
-    constructor(store: Store<fromApp.AppState>) {
+    constructor(router: Router, store: Store<fromApp.AppState>) {
         this.store = store;
+        this.router = router;
     }
 
     public login(credentials: IUserLogin) {
         this.store.dispatch(AuthActions.login({ credentials }));
+
     }
 
     public logout() {

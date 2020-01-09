@@ -56,18 +56,18 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
 
-        this.subscription = this.store.select(fromAuth.selectAuthUserState).pipe(
-            tap((user) => {
-                console.log("ngOnint login user: ", user);
-                if (user) {
-                    console.log("inside if");
-                    this.router.navigate(["/"]);
-                }
-            })
-        ).subscribe();
+        // this.subscription = this.store.select(fromAuth.selectAuthUserState).pipe(
+        //     tap((user) => {
+        //         console.log("ngOnint login user: ", user);
+        //         if (user) {
+        //             console.log("inside if");
+        //             this.router.navigate(["/"]);
+        //         }
+        //     })
+        // ).subscribe();
     }
 
     public ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+        // this.subscription.unsubscribe();
     }
 }

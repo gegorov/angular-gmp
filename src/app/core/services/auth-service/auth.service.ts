@@ -11,11 +11,7 @@ export class AuthService {
     private $isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private http: HttpClient;
     // tslint:disable-next-line:variable-name
-    private _authToken: string;
 
-    public get authToken(): string {
-        return this._authToken;
-    }
 
     constructor(http: HttpClient) {
         this.http = http;
@@ -72,26 +68,27 @@ export class AuthService {
     // }
 
     /**
-     * function that clears localstorage
+     * function that sets token to localstorage
      */
-    // public clearLocalStorage(): void {
-    //     localStorage.removeItem(storageKey);
-    // }
+
+    public setAuthToken(token: string): void {
+        if (token) {
+            localStorage.setItem(storageKey, token);
+        } else {
+            this.clearLocalStorage();
+        }
+    }
 
     // public getUserInfoFromBackend(token: string): Observable<IUser> {
     //     return this.http.post<IUser>(`${API_URL}/auth/userinfo`, { token });
     // }
 
-    // private getUserLoginFromLocalStorage(): string {
-    //     const user: IUser = JSON.parse(localStorage.getItem(storageKey));
-    //     return `${user.name.first} ${user.name.last}`;
-    // }
+    public getAuthToken(): string {
+       return localStorage.getItem(storageKey);
+    }
 
-    // public setAuthToken(token: string | null) {
-    //     if (token) {
-    //         this._authToken = token;
-    //     } else {
-    //         this.clearLocalStorage();
-    //     }
-    // }
+    public clearLocalStorage(): void {
+        localStorage.removeItem(storageKey);
+    }
+
 }
