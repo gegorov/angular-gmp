@@ -14,7 +14,6 @@ import { IUser } from "../../models/user.interface";
     providedIn: "root"
 })
 export class StoreFacadeService {
-
     private store: Store<fromApp.AppState>;
     private router: Router;
 
@@ -23,16 +22,24 @@ export class StoreFacadeService {
         this.router = router;
     }
 
+    /**
+     * function that triggers login
+     */
     public login(credentials: IUserLogin) {
         this.store.dispatch(AuthActions.login({ credentials }));
 
     }
 
+    /**
+     * function that triggers logout
+     */
     public logout() {
-        console.log("truing to logout")
         this.store.dispatch(AuthActions.logout());
     }
 
+    /**
+     * function that returns authentication status
+     */
     public isAuthenticated(): Observable<boolean> {
         return this.store.pipe(
             select(fromAuth.selectAuthTokenState),
@@ -40,16 +47,29 @@ export class StoreFacadeService {
         );
     }
 
+    /**
+     * function that returns token
+     */
     public getToken(): Observable<string> {
         return this.store.pipe(
-            select(fromAuth.selectAuthTokenState),
+            select(fromAuth.selectAuthTokenState)
         );
     }
 
+    /**
+     * function that returns current user
+     */
     public getCurrentUser(): Observable<IUser> {
         return this.store.pipe(
             select(fromAuth.selectAuthUserState)
         );
+    }
+
+    /**
+     * function that triggers loginSuccessful action
+     */
+    public loginSuccessful(token: string): void {
+        this.store.dispatch(AuthActions.loginSuccessful({ token }));
     }
 
 }
