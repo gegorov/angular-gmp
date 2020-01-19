@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Observable, Subscription } from "rxjs";
 import { debounceTime, filter, map, publishReplay, refCount, tap } from "rxjs/operators";
 
-import { CourseService, ICourse } from "../../core/index";
+import { CourseService, ICourse, StoreFacadeService } from "../../core/index";
 import { OrderByPipe, PopupComponent } from "../../shared/index";
 import { SearchComponent } from "./search/search.component";
 
@@ -14,11 +14,11 @@ import { SearchComponent } from "./search/search.component";
     styleUrls: ["./courses-list.component.scss"]
 })
 export class CoursesListComponent implements OnInit, AfterViewInit, OnDestroy {
-
     private orderByPipe: OrderByPipe;
     private courseService: CourseService;
     private router: Router;
     private subscription: Subscription;
+    private storeFacadeService: StoreFacadeService;
 
     /**
      * Variable that helps to get access to EventEmitter in child  Search component
@@ -35,8 +35,15 @@ export class CoursesListComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     public dialog: MatDialog;
 
-    constructor(courseService: CourseService, orderByPipe: OrderByPipe, dialog: MatDialog, router: Router) {
+    constructor(
+        courseService: CourseService,
+        orderByPipe: OrderByPipe,
+        dialog: MatDialog,
+        router: Router,
+        storeFacadeService: StoreFacadeService
+    ) {
         this.courseService = courseService;
+        this.storeFacadeService = storeFacadeService;
         this.orderByPipe = orderByPipe;
         this.dialog = dialog;
         this.router = router;
@@ -51,7 +58,7 @@ export class CoursesListComponent implements OnInit, AfterViewInit, OnDestroy {
             data: { course }
         });
 
-        dialogRef.afterClosed().subscribe((result) => {
+        dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.courseService.removeCourse(course.id).subscribe();
                 this.router.navigate(["/courses"]);
@@ -79,8 +86,11 @@ export class CoursesListComponent implements OnInit, AfterViewInit, OnDestroy {
      * In this method we set observable to this.courses$
      */
     public ngOnInit(): void {
-        this.courses$ = this.courseService.getCourses().pipe(
-            map(data => this.orderByPipe.transform(data)),
+        this.storeFacadeService.loadCourses();
+
+        this.courses$ = this.storeFacadeService.getCourses().pipe(
+            tap(data => console.log("DATA: ", data)),
+            // map(data => this.orderByPipe.transform(data)),
             publishReplay(1),
             refCount()
         );
@@ -95,8 +105,8 @@ export class CoursesListComponent implements OnInit, AfterViewInit, OnDestroy {
                 filter((value: string) => value.length >= minQueryLength),
                 debounceTime(delayTime)
             )
-            .subscribe((value) => {
-                this.courseService.nextQuery(value);
+            .subscribe(value => {
+                this.storeFacadeService.setQuery(value);
             });
     }
 

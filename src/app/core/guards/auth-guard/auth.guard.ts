@@ -2,9 +2,7 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
 
-
 import { AuthService } from "../../services/index";
-
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -23,9 +21,8 @@ export class AuthGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
-
         const token: string = this.authService.getAuthToken();
-        console.log("inside CanActivate token: ", token);
+        console.log({ token });
         if (!token) {
             this.router.navigate(["login"], {
                 queryParams: {

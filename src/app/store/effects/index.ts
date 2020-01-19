@@ -1,3 +1,4 @@
-import * as fromEffects from "./auth.effects";
+import { AuthEffects } from "./auth.effects";
+import { CoursesEffects } from "./courses.effects";
 
-export { fromEffects };
+export { AuthEffects, CoursesEffects };

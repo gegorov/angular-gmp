@@ -11,7 +11,6 @@ import { StoreFacadeService } from "../../../core/index";
     styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnInit {
-
     private storeFacadeService: StoreFacadeService;
     private router: Router;
 
@@ -34,9 +33,8 @@ export class HeaderComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.user$ = this.storeFacadeService.getCurrentUser().pipe(
-            tap(data => console.log("Header: ", data)),
-            switchMap(user =>  user ? of(`${user.name.first} ${user.name.last}`) : EMPTY)
-         );
+        this.user$ = this.storeFacadeService
+            .getCurrentUser()
+            .pipe(switchMap(user => (user ? of(`${user.name.first} ${user.name.last}`) : EMPTY)));
     }
 }

@@ -8,7 +8,6 @@ import { ICourse } from "../../models/index";
 
 @Injectable()
 export class CourseService {
-
     private coursesPerPage = 5;
     private http: HttpClient;
     private page$: BehaviorSubject<number>;
@@ -31,12 +30,9 @@ export class CourseService {
     public getCourses(): Observable<Array<ICourse>> {
         return this.query$.pipe(
             switchMap((query: string) => {
-                    this.page$ = new BehaviorSubject(this.coursesPerPage);
-                    return this.page$.pipe(
-                        switchMap((count: number) => this.fetchData(query, count))
-                    );
-                }
-            )
+                this.page$ = new BehaviorSubject(this.coursesPerPage);
+                return this.page$.pipe(switchMap((count: number) => this.fetchData(query, count)));
+            })
         );
     }
 
@@ -55,12 +51,12 @@ export class CourseService {
         return this.http.get<ICourse>(`${API_URL}/courses/${id}`);
     }
 
-    /**
-     * function that triggers next on query$ subject
-     */
-    public nextQuery(query: string): void {
-        this.query$.next(query);
-    }
+    // /**
+    //  * function that triggers next on query$ subject
+    //  */
+    // public nextQuery(query: string): void {
+    //     this.query$.next(query);
+    // }
 
     /**
      * method that updates course
@@ -76,12 +72,12 @@ export class CourseService {
     public removeCourse(id: number): Observable<any> {
         return this.http.delete(`${API_URL}/courses/${id}`).pipe(
             tap(() => {
-                    this.query$.next("");
-                }
-            ));
+                this.query$.next("");
+            })
+        );
     }
 
-    private fetchData(query: string, count: number): Observable<Array<ICourse>> {
+    public fetchData(query: string, count: number): Observable<Array<ICourse>> {
         return this.http.get<Array<ICourse>>(`${API_URL}/courses`, {
             params: new HttpParams()
                 .append("textFragment", query)
