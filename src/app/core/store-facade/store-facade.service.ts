@@ -1,18 +1,15 @@
-import { loadCourses } from "./../../../store/actions/courses.actions";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { select, Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { IUserLogin } from "../../models/user-login.interface";
+import { IUserLogin, IUser, ICourse } from "../models/index";
 
-import * as fromApp from "../../../store/app.reducer";
-import * as fromAuth from "../../../store/reducers/auth.reducers";
-import * as fromCourses from "../../../store/reducers/courses.reducers";
-import * as AuthActions from "../../../store/actions/auth.actions";
-import * as CoursesActions from "../../../store/actions/courses.actions";
-import { IUser } from "../../models/user.interface";
-import { ICourse } from "../../models";
+import * as fromApp from "../store/app.reducer";
+import * as fromAuth from "../store/reducers/auth.reducers";
+import * as fromCourses from "../store/reducers/courses.reducers";
+import * as AuthActions from "../store/actions/auth.actions";
+import * as CoursesActions from "../store/actions/courses.actions";
 
 @Injectable({
     providedIn: "root"

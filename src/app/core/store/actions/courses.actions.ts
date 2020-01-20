@@ -1,6 +1,6 @@
 /* tslint:disable:typedef */
 import { createAction, props } from "@ngrx/store";
-import { ICourse } from "../../core/index";
+import { ICourse } from "../../models/index";
 
 const LOAD_COURSES: string = "[COURSES] LOAD COURSES";
 const LOAD_COURSES_SUCCESS: string = "[COURSES] LOAD COURSES SUCCESS";

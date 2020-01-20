@@ -1,7 +1,7 @@
 /* tslint:disable:typedef */
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 
-import { ICourse } from "../../core/index";
+import { ICourse } from "../../models/index";
 import * as CoursesActions from "../actions/courses.actions";
 
 export interface CoursesState {

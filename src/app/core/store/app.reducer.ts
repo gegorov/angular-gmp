@@ -1,8 +1,7 @@
 import { ActionReducerMap } from "@ngrx/store";
 import * as fromAuth from "./reducers/auth.reducers";
-
 import * as fromCourses from "./reducers/courses.reducers";
-import { coursesKey } from "./reducers/courses.reducers";
+
 
 
 export interface AppState {

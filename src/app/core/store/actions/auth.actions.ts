@@ -1,6 +1,6 @@
 /* tslint:disable:typedef */
 import { createAction, props } from "@ngrx/store";
-import { IUserLogin, IUser } from "../../core/index";
+import { IUserLogin, IUser } from "../../models/index";
 
 const LOGIN = "[AUTH] LOGIN";
 const LOGOUT = "[AUTH] LOGOUT";

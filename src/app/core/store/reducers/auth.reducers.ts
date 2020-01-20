@@ -2,7 +2,7 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 
 import * as AuthActions from "../actions/auth.actions";
-import { IUser } from "../../core/index";
+import { IUser } from "../../models/index";
 
 
 export interface AuthState {

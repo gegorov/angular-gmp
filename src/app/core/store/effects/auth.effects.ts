@@ -5,7 +5,10 @@ import { Router } from "@angular/router";
 import { catchError, exhaustMap, switchMap, take, tap } from "rxjs/operators";
 import { Observable, of } from "rxjs";
 
-import { AuthService, StoreFacadeService, IUserLogin, IUser, IAuthResponse } from "../../core/index";
+import { IUserLogin, IUser, IAuthResponse } from "../../models/index";
+import { AuthService } from "../../services/index";
+import { StoreFacadeService } from "../../store-facade/store-facade.service";
+
 import * as AuthActions from "../actions/auth.actions";
 
 

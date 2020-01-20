@@ -3,7 +3,9 @@ import { Actions, ofType, createEffect } from "@ngrx/effects";
 import { combineLatest, Observable, of, zip } from "rxjs";
 import { switchMap, catchError, map } from "rxjs/operators";
 
-import { CourseService, StoreFacadeService, ICourse } from "../../core/index";
+import { ICourse } from "../../models/index";
+import { CourseService } from "../../services/index";
+import { StoreFacadeService } from "../../store-facade/store-facade.service";
 import * as CourseActions from "../actions/courses.actions";
 
 @Injectable()
