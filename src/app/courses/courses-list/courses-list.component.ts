@@ -60,7 +60,7 @@ export class CoursesListComponent implements OnInit, AfterViewInit, OnDestroy {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.courseService.removeCourse(course.id).subscribe();
+                this.storeFacadeService.deleteCourse(course.id);
                 this.router.navigate(["/courses"]);
             }
         });

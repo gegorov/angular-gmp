@@ -25,4 +25,4 @@ export const addCourse = createAction(ADD_COURSE);
 
 export const editCourse = createAction(EDIT_COURSE);
 
-export const deleteCourse = createAction(DELETE_COURSE);
+export const deleteCourse = createAction(DELETE_COURSE, props<{ courseIdToDelete: number }>());

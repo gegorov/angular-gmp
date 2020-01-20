@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, ofType, createEffect } from "@ngrx/effects";
-import { combineLatest, Observable, of, zip } from "rxjs";
-import { switchMap, catchError, map } from "rxjs/operators";
+import { combineLatest, Observable, of } from "rxjs";
+import { switchMap, catchError } from "rxjs/operators";
 
 import { ICourse } from "../../models/index";
 import { CourseService } from "../../services/index";
@@ -32,4 +32,11 @@ export class CoursesEffects {
             catchError(error => of(CourseActions.loadCoursesFail({ errorMessage: error.message })))
         )
     );
+
+    public deleteCourse$: Observable<any> = createEffect(() => this.actions$.pipe(
+        ofType(CourseActions.deleteCourse),
+        switchMap(({courseIdToDelete}) => this.courseService.removeCourse(courseIdToDelete)),
+        switchMap(() => of(CourseActions.loadCourses())),
+        catchError(error => of(CourseActions.loadCoursesFail({ errorMessage: error.message })))
+    ));
 }

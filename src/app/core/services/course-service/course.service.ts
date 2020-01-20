@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { switchMap, tap } from "rxjs/operators";
 
 import { API_URL } from "../../constants/index";
@@ -10,8 +10,6 @@ import { ICourse } from "../../models/index";
 export class CourseService {
     private coursesPerPage = 5;
     private http: HttpClient;
-    private page$: BehaviorSubject<number>;
-    private query$: BehaviorSubject<string> = new BehaviorSubject("");
 
     constructor(http: HttpClient) {
         this.http = http;
@@ -25,38 +23,11 @@ export class CourseService {
     }
 
     /**
-     * method that returns Observable with courses data
-     */
-    public getCourses(): Observable<Array<ICourse>> {
-        return this.query$.pipe(
-            switchMap((query: string) => {
-                this.page$ = new BehaviorSubject(this.coursesPerPage);
-                return this.page$.pipe(switchMap((count: number) => this.fetchData(query, count)));
-            })
-        );
-    }
-
-    /**
-     * function that triggers next on page$ subject.
-     */
-    public loadMore(increment: number): void {
-        const currentValue: number = this.page$.value;
-        this.page$.next(increment + currentValue);
-    }
-
-    /**
      * method that returns specific course by id
      */
     public getCourse(id: number): Observable<ICourse> {
         return this.http.get<ICourse>(`${API_URL}/courses/${id}`);
     }
-
-    // /**
-    //  * function that triggers next on query$ subject
-    //  */
-    // public nextQuery(query: string): void {
-    //     this.query$.next(query);
-    // }
 
     /**
      * method that updates course
@@ -70,11 +41,9 @@ export class CourseService {
      * method that removes course
      */
     public removeCourse(id: number): Observable<any> {
-        return this.http.delete(`${API_URL}/courses/${id}`).pipe(
-            tap(() => {
-                this.query$.next("");
-            })
-        );
+        return this.http.delete(`${API_URL}/courses/${id}`).pipe(tap((response) => {
+            console.log("resp: ", response);
+        }));
     }
 
     public fetchData(query: string, count: number): Observable<Array<ICourse>> {

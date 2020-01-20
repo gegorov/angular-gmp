@@ -31,9 +31,9 @@ export class AuthEffects {
             switchMap(({ credentials }: { credentials: IUserLogin }) => {
                 if (credentials) {
                     return this.authService.login(credentials).pipe(
-                        tap((data: IAuthResponse) => {
-                            this.authService.setAuthToken(data.token);
-                        }),
+                        // tap((data: IAuthResponse) => {
+                        //     this.authService.setAuthToken(data.token);
+                        // }),
                         exhaustMap((data: IAuthResponse) => {
                             this.storeFacadeService.loginSuccessful(data.token);
                             return of(AuthActions.getUser());
@@ -70,13 +70,13 @@ export class AuthEffects {
     public getUserSuccess$: Observable<any> = createEffect(
         () => this.actions$.pipe(
             ofType(AuthActions.loginRedirect),
-            tap(() => {
-                    const token: string = this.authService.getAuthToken();
+            switchMap(() => this.storeFacadeService.getToken().pipe(
+                tap((token: string) => {
                     if (token) {
                         this.router.navigate(["/"]);
                     }
-                }
-            )
+                })
+            )),
         ),
         { dispatch: false }
     );
@@ -86,7 +86,6 @@ export class AuthEffects {
             ofType(AuthActions.logout),
             tap(() => {
                 this.router.navigate(["/login"]);
-                this.authService.clearLocalStorage();
             })
         ),
         { dispatch: false }
