@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, ofType, createEffect } from "@ngrx/effects";
-import { Observable, of, zip } from "rxjs";
+import { combineLatest, Observable, of, zip } from "rxjs";
 import { switchMap, catchError, map } from "rxjs/operators";
 
 import { CourseService, StoreFacadeService, ICourse } from "../../core/index";
@@ -12,13 +12,15 @@ export class CoursesEffects {
         private actions$: Actions,
         private courseService: CourseService,
         private storeFacadeService: StoreFacadeService
-    ) {}
+    ) {
+    }
 
     public loadCourses$L: Observable<any> = createEffect(() =>
         this.actions$.pipe(
             ofType(CourseActions.loadCourses),
-            switchMap(() => zip(this.storeFacadeService.getQuery(), this.storeFacadeService.getCoursesAmount())),
-
+            switchMap(
+                () => combineLatest(this.storeFacadeService.getQuery(), this.storeFacadeService.getCoursesAmount())
+            ),
             switchMap(value => {
                 console.log("loadCourses: ", value);
                 const [query, amount]: [string, number] = value;

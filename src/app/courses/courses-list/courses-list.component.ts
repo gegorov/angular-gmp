@@ -79,7 +79,7 @@ export class CoursesListComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     public loadMore(): void {
         const incrementByFive: number = 5;
-        this.courseService.loadMore(incrementByFive);
+        this.storeFacadeService.loadMore(incrementByFive);
     }
 
     /**

@@ -99,4 +99,11 @@ export class StoreFacadeService {
     public getCoursesAmount(): Observable<number> {
         return this.store.pipe(select(fromCourses.selectCoursesAmountState));
     }
+
+    /**
+     * function that triggers loadMore with increment
+     */
+    public loadMore(increment: number): void {
+        this.store.dispatch(CoursesActions.loadMore({ coursesToLoad: increment }));
+    }
 }
