@@ -28,20 +28,21 @@ export class AuthEffects {
     public authLogin$: Observable<any> = createEffect(
         () => this.actions$.pipe(
             ofType(AuthActions.login),
-            take(1),
             switchMap(({ credentials }: { credentials: IUserLogin }) => {
-                return this.authService.login(credentials).pipe(
-                    tap((data: IAuthResponse) => {
-                        this.authService.setAuthToken(data.token);
-                    }),
-                    exhaustMap((data: IAuthResponse) => {
-                        this.storeFacadeService.loginSuccessful(data.token);
-                        return of(AuthActions.getUser());
-                    }),
-                    catchError(error => {
-                        return of(AuthActions.loginFailed({ errorMessage: error.message }));
-                    })
-                );
+                if (credentials) {
+                    return this.authService.login(credentials).pipe(
+                        tap((data: IAuthResponse) => {
+                            this.authService.setAuthToken(data.token);
+                        }),
+                        exhaustMap((data: IAuthResponse) => {
+                            this.storeFacadeService.loginSuccessful(data.token);
+                            return of(AuthActions.getUser());
+                        }),
+                        catchError(error => {
+                            return of(AuthActions.loginFailed({ errorMessage: error.message }));
+                        })
+                    );
+                }
             })
         )
     );
@@ -49,7 +50,6 @@ export class AuthEffects {
     public getUser$: Observable<any> = createEffect(
         () => this.actions$.pipe(
             ofType(AuthActions.getUser),
-            take(1),
             switchMap(() => {
                 return this.storeFacadeService.getToken().pipe(
                     switchMap((token) => {
