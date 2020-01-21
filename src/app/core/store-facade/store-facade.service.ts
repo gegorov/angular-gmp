@@ -104,6 +104,10 @@ export class StoreFacadeService {
         this.store.dispatch(CoursesActions.loadMore({ coursesToLoad: increment }));
     }
 
+    public addCourse(course: ICourse): void {
+        this.store.dispatch(CoursesActions.addCourse({course}));
+    }
+
     public deleteCourse(id: number): void {
         this.store.dispatch(CoursesActions.deleteCourse({courseIdToDelete: id}));
     }

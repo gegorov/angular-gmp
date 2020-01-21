@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Actions, ofType, createEffect } from "@ngrx/effects";
 import { combineLatest, Observable, of } from "rxjs";
-import { switchMap, catchError } from "rxjs/operators";
+import { switchMap, catchError, tap } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 import { ICourse } from "../../models/index";
 import { CourseService } from "../../services/index";
@@ -13,6 +14,7 @@ export class CoursesEffects {
     constructor(
         private actions$: Actions,
         private courseService: CourseService,
+        private router: Router,
         private storeFacadeService: StoreFacadeService
     ) {
     }
@@ -33,9 +35,30 @@ export class CoursesEffects {
         )
     );
 
+    public addCourse$: Observable<any> = createEffect(() => this.actions$.pipe(
+        ofType(CourseActions.addCourse),
+        switchMap(({ course }) => this.courseService.addCourse(course)),
+        switchMap((response) => {
+                console.log({ response });
+                return [CourseActions.loadCourses(), CourseActions.coursesRedirect()];
+            }
+        ),
+        catchError(error => of(CourseActions.loadCoursesFail({ errorMessage: error.message })))
+    ));
+
+    public coursesRedirect$: Observable<any> = createEffect(
+        () => this.actions$.pipe(
+            ofType(CourseActions.coursesRedirect),
+            tap(() => {
+                this.router.navigate(["/"]);
+            })
+        ),
+        { dispatch: false }
+    );
+
     public deleteCourse$: Observable<any> = createEffect(() => this.actions$.pipe(
         ofType(CourseActions.deleteCourse),
-        switchMap(({courseIdToDelete}) => this.courseService.removeCourse(courseIdToDelete)),
+        switchMap(({ courseIdToDelete }) => this.courseService.removeCourse(courseIdToDelete)),
         switchMap(() => of(CourseActions.loadCourses())),
         catchError(error => of(CourseActions.loadCoursesFail({ errorMessage: error.message })))
     ));

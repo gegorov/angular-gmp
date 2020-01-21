@@ -10,6 +10,7 @@ const LOAD_MORE: string = "[COURSES] LOAD MORE";
 const ADD_COURSE: string = "[COURSES] ADD COURSE";
 const EDIT_COURSE: string = "[COURSES] EDIT COURSE";
 const DELETE_COURSE: string = "[COURSES] DELETE COURSE";
+const COURSES_REDIRECT: string = "[COURSES] REDIRECT";
 
 export const loadCourses = createAction(LOAD_COURSES);
 
@@ -21,8 +22,10 @@ export const setQuery = createAction(SET_QUERY, props<{ query: string }>());
 
 export const loadMore = createAction(LOAD_MORE, props<{ coursesToLoad: number }>());
 
-export const addCourse = createAction(ADD_COURSE);
+export const addCourse = createAction(ADD_COURSE, props<{course: ICourse}>());
 
 export const editCourse = createAction(EDIT_COURSE);
 
 export const deleteCourse = createAction(DELETE_COURSE, props<{ courseIdToDelete: number }>());
+
+export const coursesRedirect = createAction(COURSES_REDIRECT);
