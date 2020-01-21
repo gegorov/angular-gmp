@@ -1,12 +1,12 @@
 import { TestBed } from "@angular/core/testing";
 
-import { BreadcrumbsService } from "./breadcrumbs.service";
+import { StoreFacadeService } from "./store-facade.service";
 
-describe("BreadcrumbsService", () => {
+describe("StoreFacadeService", () => {
     beforeEach(() => TestBed.configureTestingModule({}));
 
     it("should be created", () => {
-        const service: BreadcrumbsService = TestBed.get(BreadcrumbsService);
+        const service: StoreFacadeService = TestBed.get(StoreFacadeService);
         expect(service).toBeTruthy();
     });
 });

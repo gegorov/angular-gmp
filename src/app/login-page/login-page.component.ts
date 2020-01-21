@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { AuthService, IUser, IUserLogin } from "../core/index";
+import { StoreFacadeService, IUserLogin } from "../core/index";
 
 
 @Component({
@@ -10,7 +10,6 @@ import { AuthService, IUser, IUserLogin } from "../core/index";
     styleUrls: ["./login-page.component.scss"]
 })
 export class LoginPageComponent {
-
     private router: Router;
 
     /**
@@ -26,11 +25,13 @@ export class LoginPageComponent {
     /**
      * variable ot store user login from input
      */
-    public authService: AuthService;
+        // public authService: AuthService;
 
-    constructor(authService: AuthService, router: Router) {
-        this.authService = authService;
+    public storeFacadeService: StoreFacadeService;
+
+    constructor(router: Router, storeFacadeService: StoreFacadeService) {
         this.router = router;
+        this.storeFacadeService = storeFacadeService;
     }
 
     /**
@@ -42,11 +43,7 @@ export class LoginPageComponent {
             login: this.loginName,
             password: this.password
         };
-        this.authService.login(user)
-            .subscribe(() => {
-                this.router.navigate(["/"]);
-            }, (data) => {
-                console.error(data.error);
-            });
+        this.storeFacadeService.login(user);
     }
+
 }

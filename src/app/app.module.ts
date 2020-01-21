@@ -1,8 +1,8 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import {HttpClientModule} from "@angular/common/http";
-
+import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
+
 
 import { AppRoutingModule } from "./app-routing.module";
 import { CoreModule } from "./core/index";
@@ -15,11 +15,7 @@ import { NotFoundComponent } from "./not-found/not-found.component";
 import { CoursesModule } from "./courses/index";
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        LoginPageComponent,
-        NotFoundComponent
-    ],
+    declarations: [AppComponent, LoginPageComponent, NotFoundComponent],
     imports: [
         BrowserModule,
         HttpClientModule,
@@ -27,7 +23,8 @@ import { CoursesModule } from "./courses/index";
         CoreModule,
         SharedModule,
         CoursesModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+
     ],
     providers: [],
     bootstrap: [AppComponent]

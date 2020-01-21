@@ -1,8 +1,6 @@
 import { Component } from "@angular/core";
-import { Router } from "@angular/router";
-import { Subscription } from "rxjs";
 
-import { ICourse, CourseService } from "../../core/index";
+import { ICourse, StoreFacadeService } from "../../core/index";
 
 @Component({
     selector: "app-add-course-page",
@@ -10,9 +8,8 @@ import { ICourse, CourseService } from "../../core/index";
     styleUrls: ["./add-course-page.component.scss"]
 })
 export class AddCoursePageComponent {
-    private courseService: CourseService;
-    private router: Router;
-    private subscription: Subscription;
+    private storeFacadeService: StoreFacadeService;
+
 
     /**
      * Variable with dummy course that ill be passed to form-component to be filled
@@ -26,22 +23,14 @@ export class AddCoursePageComponent {
         name: ""
     };
 
-    constructor(
-        courseService: CourseService,
-        router: Router
-    ) {
-        this.courseService = courseService;
-        this.router = router;
+    constructor(storeFacadeService: StoreFacadeService) {
+        this.storeFacadeService = storeFacadeService;
     }
 
     /**
      * method that is called onSubmit
      */
     public onAddNotify(course: ICourse) {
-        this.courseService.addCourse(course).subscribe(
-            () => {
-                this.router.navigate(["/"]);
-            }
-        );
+        this.storeFacadeService.addCourse(course);
     }
 }

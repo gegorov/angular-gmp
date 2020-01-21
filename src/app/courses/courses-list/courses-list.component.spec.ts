@@ -5,8 +5,8 @@ import { CoursesListComponent } from "./courses-list.component";
 import { CourseComponent } from "./course/course.component";
 import { SearchComponent } from "./search/search.component";
 
-import { DurationPipe, FilterPipe, OrderByPipe } from "../shared/index";
-import { CourseService, ICourse } from "../core/index";
+import { DurationPipe, FilterPipe, OrderByPipe } from "../../shared/index";
+import { CourseService } from "../../core/index";
 
 describe("CoursesListComponent", () => {
     let component: CoursesListComponent;
@@ -26,7 +26,6 @@ describe("CoursesListComponent", () => {
             .then(() => {
                 fixture = TestBed.createComponent(CoursesListComponent);
                 component = fixture.componentInstance;
-                // fixture.detectChanges();
             });
     }));
 
@@ -46,24 +45,10 @@ describe("CoursesListComponent", () => {
         expect(console.log).toHaveBeenCalledWith(message);
     });
 
-    it("should call console.log when onNotify method called", () => {
-        spyOn(console, "log");
-        const course: ICourse = {
-            creationDate: new Date(),
-            description: "Test course",
-            duration: 10,
-            id: 0,
-            title: "Test",
-            topRated: false
-        };
 
-        component.onNotify(course);
-        fixture.detectChanges();
-        expect(console.log).toHaveBeenCalledWith("Delete course:", course);
-    });
 
     it("should call courseService in ngOnInit", () => {
         fixture.detectChanges();
-        expect(courseServiceStub.getCoursesList).toHaveBeenCalled();
+        expect(courseServiceStub.fetchData).toHaveBeenCalled();
     });
 });

@@ -7,11 +7,6 @@ import { Component, EventEmitter, Output } from "@angular/core";
 })
 export class SearchComponent {
     /**
-     * variable to store search value form search input
-     */
-    public searchValue: string;
-
-    /**
      * Emit search query string on user submit
      */
     @Output() public notify: EventEmitter<string> = new EventEmitter();

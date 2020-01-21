@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { EMPTY, Observable, of } from "rxjs";
+import { switchMap } from "rxjs/operators";
 
-import { AuthService } from "../../../core/index";
+import { StoreFacadeService } from "../../../core/index";
 
 @Component({
     selector: "app-header",
@@ -10,8 +11,7 @@ import { AuthService } from "../../../core/index";
     styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnInit {
-
-    private authService: AuthService;
+    private storeFacadeService: StoreFacadeService;
     private router: Router;
 
     /**
@@ -19,20 +19,22 @@ export class HeaderComponent implements OnInit {
      */
     public user$: Observable<string>;
 
-    constructor(authService: AuthService, router: Router) {
-        this.authService = authService;
+    constructor(storeFacadeService: StoreFacadeService, router: Router) {
+        this.storeFacadeService = storeFacadeService;
         this.router = router;
     }
 
     /**
      * method that calls logout method of AuthService
      */
-    public logoff(): void {
-        this.authService.logout();
+    public logout(): void {
         this.router.navigate(["/login"]);
+        this.storeFacadeService.logout();
     }
 
     public ngOnInit(): void {
-        this.user$ = this.authService.getUserInfo();
+        this.user$ = this.storeFacadeService
+            .getCurrentUser()
+            .pipe(switchMap(user => (user ? of(`${user.name.first} ${user.name.last}`) : EMPTY)));
     }
 }

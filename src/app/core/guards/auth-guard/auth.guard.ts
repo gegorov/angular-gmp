@@ -1,20 +1,21 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
-import { tap } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 
 import { AuthService } from "../../services/index";
+import { StoreFacadeService } from "../../store-facade/index";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
     private authService: AuthService;
     private router: Router;
-    private isAuthenticated: Observable<boolean>;
+    private storeFacadeService: StoreFacadeService;
 
-    constructor(authService: AuthService, router: Router) {
+    constructor(authService: AuthService, router: Router, storeFacadeService: StoreFacadeService) {
         this.authService = authService;
         this.router = router;
-        this.isAuthenticated = this.authService.getAuthStatus();
+        this.storeFacadeService = storeFacadeService;
     }
 
     /**
@@ -24,16 +25,13 @@ export class AuthGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
-        return this.isAuthenticated.pipe(
-            tap((value) => {
-                if (!value) {
-                    this.router.navigate(["login"], {
-                        queryParams: {
-                            loginAgain: true
-                        }
-                    });
-                    this.authService.clearLocalStorage();
+        return this.storeFacadeService.getToken().pipe(
+            map(token => !!token),
+            tap(token => {
+                if (!token) {
+                    this.router.navigate(["login"], { queryParams: { loginAgain: true } });
                 }
-            }));
+            })
+        );
     }
 }
