@@ -6,7 +6,7 @@ import { CourseComponent } from "./course/course.component";
 import { SearchComponent } from "./search/search.component";
 
 import { DurationPipe, FilterPipe, OrderByPipe } from "../../shared/index";
-import { CourseService, ICourse } from "../../core/index";
+import { CourseService } from "../../core/index";
 
 describe("CoursesListComponent", () => {
     let component: CoursesListComponent;
@@ -26,7 +26,6 @@ describe("CoursesListComponent", () => {
             .then(() => {
                 fixture = TestBed.createComponent(CoursesListComponent);
                 component = fixture.componentInstance;
-                // fixture.detectChanges();
             });
     }));
 

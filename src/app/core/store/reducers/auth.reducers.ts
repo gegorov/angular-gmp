@@ -1,5 +1,5 @@
 /* tslint:disable:typedef */
-import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
+import { Action, createReducer, on } from "@ngrx/store";
 
 import * as AuthActions from "../actions/auth.actions";
 import { IUser } from "../../models/index";
@@ -32,18 +32,3 @@ const authReducer = createReducer(
 export function reducer(state: AuthState, action: Action) {
     return authReducer(state, action);
 }
-
-
-export const selectAuthState = createFeatureSelector(
-    authKey,
-);
-
-export const selectAuthTokenState = createSelector(
-    selectAuthState,
-    (state: AuthState) => state.token,
-);
-
-export const selectAuthUserState = createSelector(
-    selectAuthState,
-    (state: AuthState) => state.user,
-);

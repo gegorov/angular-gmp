@@ -1,14 +1,13 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { switchMap, tap } from "rxjs/operators";
+
 
 import { API_URL } from "../../constants/index";
 import { ICourse } from "../../models/index";
 
 @Injectable()
 export class CourseService {
-    private coursesPerPage = 5;
     private http: HttpClient;
 
     constructor(http: HttpClient) {
@@ -41,9 +40,7 @@ export class CourseService {
      * method that removes course
      */
     public removeCourse(id: number): Observable<any> {
-        return this.http.delete(`${API_URL}/courses/${id}`).pipe(tap((response) => {
-            console.log("resp: ", response);
-        }));
+        return this.http.delete(`${API_URL}/courses/${id}`);
     }
 
     public fetchData(query: string, count: number): Observable<Array<ICourse>> {

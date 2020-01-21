@@ -1,4 +1,6 @@
+/* tslint:disable:typedef */
 import { AuthEffects } from "./auth.effects";
 import { CoursesEffects } from "./courses.effects";
 
-export { AuthEffects, CoursesEffects };
+export const effects = [AuthEffects, CoursesEffects];
+

@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, OnDestroy, ViewChild } from "@angular
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { Observable, Subscription } from "rxjs";
-import { debounceTime, filter, map, publishReplay, refCount, tap } from "rxjs/operators";
+import { debounceTime, filter, publishReplay, refCount } from "rxjs/operators";
 
 import { CourseService, ICourse, StoreFacadeService } from "../../core/index";
 import { OrderByPipe, PopupComponent } from "../../shared/index";
@@ -89,7 +89,6 @@ export class CoursesListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.storeFacadeService.loadCourses();
 
         this.courses$ = this.storeFacadeService.getCourses().pipe(
-            tap(data => console.log("DATA: ", data)),
             // map(data => this.orderByPipe.transform(data)),
             publishReplay(1),
             refCount()

@@ -23,13 +23,4 @@ describe("SearchComponent", () => {
     it("should create", () => {
         expect(component).toBeTruthy();
     });
-
-    it("should console.log if onSubmit method called", () => {
-        const searchInput: string = "test";
-
-        spyOn(console, "log");
-        component.searchValue = searchInput;
-        component.onSubmit();
-        expect(console.log).toHaveBeenCalledWith("Search input value: ", searchInput);
-    });
 });

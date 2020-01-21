@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { TestBed, ComponentFixture } from "@angular/core/testing";
 
-import { CourseComponent } from "../../../courses-list/course/course.component";
+import { CourseComponent } from "../../../courses/courses-list/course/course.component";
 import { BorderDecoratorDirective } from "./border-decorator.directive";
 import { ICourse } from "../../../core/index";
 import { DurationPipe, FilterPipe } from "../../../shared/index";
@@ -35,16 +35,16 @@ describe("BorderDecoratorDirective", () => {
 
     it("should paint border green in new course", () => {
         const testCourse: ICourse = {
-            creationDate: new Date(),
+            date: "2134",
             description: "test course",
             length: 120,
             id: 0,
-            title: "test",
+            name: "test",
             topRated: false
         };
 
         testHostComponent.setCourse(testCourse);
-        console.log("Green border date: ", testCourse.creationDate)
+        console.log("Green border date: ", testCourse.date);
         testHostFixture.detectChanges();
         expect(testHostFixture.nativeElement.querySelector("div").style.border).toEqual("1px solid green");
 
@@ -52,11 +52,11 @@ describe("BorderDecoratorDirective", () => {
 
     it("should paint border blue in new course", () => {
         const testCourse: ICourse = {
-            creationDate: new Date(new Date().getTime() + calculateMillisecondsFromDays(10)),
+            date: `${new Date(new Date().getTime() + calculateMillisecondsFromDays(10))}`,
             description: "test course",
             length: 120,
             id: 0,
-            title: "test future",
+            name: "test future",
             topRated: false
         };
 
@@ -69,11 +69,11 @@ describe("BorderDecoratorDirective", () => {
 
     it("should not have border if course is older than 14 days", () => {
         const testCourse: ICourse = {
-            creationDate: new Date(new Date().getTime() - calculateMillisecondsFromDays(15)),
+            date: `${new Date(new Date().getTime() - calculateMillisecondsFromDays(15))}`,
             description: "test course",
             length: 120,
             id: 0,
-            title: "test future",
+            name: "test future",
             topRated: false
         };
 

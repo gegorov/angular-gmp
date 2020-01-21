@@ -1,5 +1,5 @@
 /* tslint:disable:typedef */
-import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
+import { Action, createReducer, on } from "@ngrx/store";
 
 import { ICourse } from "../../models/index";
 import * as CoursesActions from "../actions/courses.actions";
@@ -36,20 +36,3 @@ const coursesReducer = createReducer(
 export function reducer(state: CoursesState | undefined, action: Action) {
     return coursesReducer(state, action);
 }
-
-export const selectCoursesState = createFeatureSelector(coursesKey);
-
-export const selectCoursesQueryState = createSelector(
-    selectCoursesState,
-    (state: CoursesState) => state.query
-);
-
-export const selectCoursesAmountState = createSelector(
-    selectCoursesState,
-    (state: CoursesState) => state.coursesAmount
-);
-
-export const selectCourses = createSelector(
-    selectCoursesState,
-    (state: CoursesState) => state.courses
-);

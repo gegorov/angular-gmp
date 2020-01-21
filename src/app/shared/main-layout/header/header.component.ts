@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { EMPTY, Observable, of } from "rxjs";
-import { map, switchMap, tap } from "rxjs/operators";
+import { switchMap } from "rxjs/operators";
 
 import { StoreFacadeService } from "../../../core/index";
 

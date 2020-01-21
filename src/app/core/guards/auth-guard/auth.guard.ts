@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
-import { Observable, of } from "rxjs";
-import { switchMap, take } from "rxjs/operators";
+import { Observable } from "rxjs";
+import { map, tap } from "rxjs/operators";
 
 import { AuthService } from "../../services/index";
-import { StoreFacadeService } from "../../store-facade/store-facade.service";
+import { StoreFacadeService } from "../../store-facade/index";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -26,18 +26,12 @@ export class AuthGuard implements CanActivate {
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
         return this.storeFacadeService.getToken().pipe(
-            take(1),
-            switchMap((token: string) => {
-                    if (!token) {
-                        this.router.navigate(["login"], {
-                            queryParams: {
-                                loginAgain: true
-                            }
-                        });
-                        return of(false);
-                    }
-                    return of(true);
+            map(token => !!token),
+            tap(token => {
+                if (!token) {
+                    this.router.navigate(["login"], { queryParams: { loginAgain: true } });
                 }
-            ));
+            })
+        );
     }
 }

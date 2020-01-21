@@ -1,39 +1,23 @@
 import { Injectable } from "@angular/core";
 import { Actions, ofType, createEffect } from "@ngrx/effects";
 import { Router } from "@angular/router";
-
 import { catchError, exhaustMap, switchMap, take, tap } from "rxjs/operators";
 import { Observable, of } from "rxjs";
 
 import { IUserLogin, IUser, IAuthResponse } from "../../models/index";
 import { AuthService } from "../../services/index";
-import { StoreFacadeService } from "../../store-facade/store-facade.service";
-
+import { StoreFacadeService } from "../../store-facade/index";
 import * as AuthActions from "../actions/auth.actions";
 
 
 @Injectable()
 export class AuthEffects {
-
-
-    constructor(
-        private actions$: Actions,
-        private router: Router,
-        private authService: AuthService,
-        private storeFacadeService: StoreFacadeService
-    ) {
-    }
-
-
     public authLogin$: Observable<any> = createEffect(
         () => this.actions$.pipe(
             ofType(AuthActions.login),
             switchMap(({ credentials }: { credentials: IUserLogin }) => {
                 if (credentials) {
                     return this.authService.login(credentials).pipe(
-                        // tap((data: IAuthResponse) => {
-                        //     this.authService.setAuthToken(data.token);
-                        // }),
                         exhaustMap((data: IAuthResponse) => {
                             this.storeFacadeService.loginSuccessful(data.token);
                             return of(AuthActions.getUser());
@@ -90,4 +74,12 @@ export class AuthEffects {
         ),
         { dispatch: false }
     );
+
+    constructor(
+        private actions$: Actions,
+        private router: Router,
+        private authService: AuthService,
+        private storeFacadeService: StoreFacadeService
+    ) {
+    }
 }

@@ -6,10 +6,8 @@ import { map } from "rxjs/operators";
 import { IUserLogin, IUser, ICourse } from "../models/index";
 
 import * as fromApp from "../store/app.reducer";
-import * as fromAuth from "../store/reducers/auth.reducers";
-import * as fromCourses from "../store/reducers/courses.reducers";
-import * as AuthActions from "../store/actions/auth.actions";
-import * as CoursesActions from "../store/actions/courses.actions";
+import {AuthActions, AuthSelectors, CoursesActions, CoursesSelectors} from "../store/index";
+
 
 @Injectable({
     providedIn: "root"
@@ -42,7 +40,7 @@ export class StoreFacadeService {
      */
     public isAuthenticated(): Observable<boolean> {
         return this.store.pipe(
-            select(fromAuth.selectAuthTokenState),
+            select(AuthSelectors.selectAuthTokenState),
             map(value => !!value)
         );
     }
@@ -51,14 +49,14 @@ export class StoreFacadeService {
      * function that returns token
      */
     public getToken(): Observable<string> {
-        return this.store.pipe(select(fromAuth.selectAuthTokenState));
+        return this.store.pipe(select(AuthSelectors.selectAuthTokenState));
     }
 
     /**
      * function that returns current user
      */
     public getCurrentUser(): Observable<IUser> {
-        return this.store.pipe(select(fromAuth.selectAuthUserState));
+        return this.store.pipe(select(AuthSelectors.selectAuthUserState));
     }
 
     /**
@@ -72,7 +70,7 @@ export class StoreFacadeService {
      * function that returns observable with query
      */
     public getQuery(): Observable<string> {
-        return this.store.pipe(select(fromCourses.selectCoursesQueryState));
+        return this.store.pipe(select(CoursesSelectors.selectCoursesQueryState));
     }
 
     public setQuery(query: string): void {
@@ -87,14 +85,14 @@ export class StoreFacadeService {
     }
 
     public getCourses(): Observable<Array<ICourse>> {
-        return this.store.pipe(select(fromCourses.selectCourses));
+        return this.store.pipe(select(CoursesSelectors.selectCourses));
     }
 
     /**
      * function that returns observable with courses amount to load
      */
     public getCoursesAmount(): Observable<number> {
-        return this.store.pipe(select(fromCourses.selectCoursesAmountState));
+        return this.store.pipe(select(CoursesSelectors.selectCoursesAmountState));
     }
 
     /**

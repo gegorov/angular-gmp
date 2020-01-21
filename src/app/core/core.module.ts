@@ -6,12 +6,12 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 import { AuthGuard } from "./guards/index";
 import { AuthInterceptor, LoaderInterceptor } from "./interceptors/index";
-import { StoreFacadeService } from "./store-facade/store-facade.service";
+import { StoreFacadeService } from "./store-facade/index";
 import { ServiceModule } from "./services/index";
 
+import { effects } from "./store/effects/index";
 import * as fromApp from "./store/app.reducer";
 
-import * as fromEffects from "./store/effects/index";
 
 const INTERCEPTOR_PROVIDER: Provider = {
     provide: HTTP_INTERCEPTORS,
@@ -30,11 +30,11 @@ const LOADER_INTERCEPTOR_PROVIDER: Provider = {
     imports: [
         ServiceModule,
         StoreModule.forRoot(fromApp.appReducer),
-        EffectsModule.forRoot([fromEffects.AuthEffects, fromEffects.CoursesEffects]),
+        EffectsModule.forRoot([...effects]),
         StoreDevtoolsModule.instrument({
             maxAge: 25
         })
-      ],
+    ],
     providers: [AuthGuard, INTERCEPTOR_PROVIDER, LOADER_INTERCEPTOR_PROVIDER, StoreFacadeService]
 })
 export class CoreModule {

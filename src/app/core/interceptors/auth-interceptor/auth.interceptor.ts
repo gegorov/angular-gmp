@@ -2,10 +2,10 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, throwError } from "rxjs";
-import { catchError, switchMap, map, take } from "rxjs/operators";
+import { catchError, switchMap, take } from "rxjs/operators";
 
 import { AuthService } from "../../services/index";
-import { StoreFacadeService } from "../../store-facade/store-facade.service";
+import { StoreFacadeService } from "../../store-facade/index";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
