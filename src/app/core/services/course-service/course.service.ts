@@ -33,7 +33,7 @@ export class CourseService {
      * TODO: looks like PATCH is not working on backend
      */
     public updateCourses(course: ICourse): Observable<ICourse> {
-        return this.http.patch<ICourse>(`${API_URL}/courses`, course);
+        return this.http.patch<ICourse>(`${API_URL}/courses/${course.id}`, course);
     }
 
     /**
