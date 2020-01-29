@@ -1,9 +1,9 @@
-<form (ngSubmit)="onSubmit($event)" class="course-form-wrapper" *ngIf="course">
+<form class="course-form-wrapper" *ngIf="course" [formGroup]="courseForm" (ngSubmit)="onSubmit()">
     <div class="label-wrapper">
         <label class="input-label" for="title">Title</label>
         <span class="required">*required</span>
     </div>
-    <input [(ngModel)]="course.name" class="course-input course-input-large" id="title" name="title"
+    <input [formControlName]="'name'" class="course-input course-input-large" id="title" name="title"
            placeholder="Text Input"
            required type="text">
 
@@ -11,7 +11,7 @@
         <label class="input-label" for="description">Description</label>
         <span class="required">*required</span>
     </div>
-    <textarea [(ngModel)]="course.description" class="course-input course-input-large course-input-description"
+    <textarea [formControlName]="'description'" class="course-input course-input-large course-input-description"
               cols="20"
               id="description"
               name="description" placeholder="Add description" required rows="5"></textarea>
@@ -21,7 +21,7 @@
         <span class="required">*required</span>
     </div>
     <div class="duration-wrapper">
-        <input [(ngModel)]="course.length" class="course-input course-input-small" id="duration" name="duration"
+        <input [formControlName]="'length'" class="course-input course-input-small" id="duration" name="duration"
                placeholder="minutes"
                required type="text">
         <span *ngIf="course.length > 0" class="duration-label"> {{course.length | duration}}</span>
@@ -31,7 +31,7 @@
         <label class="input-label " for="date">date</label>
         <span class="required">*required</span>
     </div>
-    <input [ngModel]="course.date | date: 'yyyy-MM-dd'" (ngModelChange)="course.date = $event" class="course-input course-input-small" id="date" name="date"
+    <input [formControlName]="'date' | date: 'yyyy-MM-dd'" class="course-input course-input-small" id="date" name="date"
            placeholder="mm-dd-yyyy"
            required type="date">
 
@@ -44,7 +44,7 @@
            required type="text">
     <div class="course-controls">
         <button appGoBack type="button" class="btn btn-secondary" mat-raised-button>Cancel</button>
-        <button (click)="onSubmit($event)" class="btn" mat-raised-button>Save</button>
+        <button (click)="onSubmit()" class="btn" mat-raised-button [disabled]="courseForm.invalid">Save</button>
     </div>
 </form>
 
