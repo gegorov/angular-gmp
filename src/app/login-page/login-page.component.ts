@@ -4,7 +4,6 @@ import { Router } from "@angular/router";
 
 import { StoreFacadeService, IUserLogin } from "../core/index";
 
-
 @Component({
     selector: "app-login-page",
     templateUrl: "./login-page.component.html",
@@ -14,22 +13,13 @@ export class LoginPageComponent implements OnInit {
     private router: Router;
 
     /**
-     * variable ot store user login from input
+     * variable to keep StoreFacadeService
      */
-    public loginName: string;
-
-    /**
-     * variable ot store user pass from input
-     */
-    public password: string;
-
-    /**
-     * variable ot store user login from input
-     */
-        // public authService: AuthService;
-
     public storeFacadeService: StoreFacadeService;
 
+    /**
+     * variable for loginForm FormGroup
+     */
     public loginForm: FormGroup;
 
     constructor(router: Router, storeFacadeService: StoreFacadeService) {
@@ -40,23 +30,24 @@ export class LoginPageComponent implements OnInit {
     /**
      * method that calls login from auth service and navigates to proper route
      */
-    public onSubmit() {
-        // event.preventDefault();
-        // const user: IUserLogin = {
-        //     login: this.loginName,
-        //     password: this.password
-        // };
-        // this.storeFacadeService.login(user);
+    public onSubmit(): void {
+        if (this.loginForm.invalid) {
+            return;
+        }
 
-        console.log("Form", this.loginForm);
+        const user: IUserLogin = {
+            login: this.loginForm.value.username,
+            password: this.loginForm.value.password
+        };
+
+        this.storeFacadeService.login(user);
     }
 
     public ngOnInit(): void {
-        // TODO: Add Validators
         this.loginForm = new FormGroup({
-            username: new FormControl(null, Validators.required),
-            password: new FormControl(null, Validators.required)
+            // TODO: enable Validators.email for username later
+            username: new FormControl(null, [Validators.required, Validators.minLength(1)]),
+            password: new FormControl(null, [Validators.required, Validators.minLength(1)])
         });
     }
-
 }
