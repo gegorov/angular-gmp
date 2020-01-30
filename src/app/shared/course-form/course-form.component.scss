@@ -62,7 +62,7 @@
 }
 
 .required {
-    color: #6c7283;
+    color: red;
     font-size: 12px;
 }
 
@@ -104,3 +104,6 @@
     background: #d9dbe3;
 }
 
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}

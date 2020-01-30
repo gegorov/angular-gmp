@@ -92,3 +92,7 @@ h3 {
 .login-input-wrapper {
     position: relative;
 }
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}

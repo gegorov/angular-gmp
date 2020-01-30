@@ -1,7 +1,7 @@
 <form class="course-form-wrapper" *ngIf="course" [formGroup]="courseForm" (ngSubmit)="onSubmit()">
     <div class="label-wrapper">
         <label class="input-label" for="title">Title</label>
-        <span class="required">*required</span>
+        <span class="required" *ngIf="courseForm.get('name').touched && courseForm.get('name').invalid">Required Field, Max length 50 characters</span>
     </div>
     <input [formControlName]="'name'" class="course-input course-input-large" id="title" name="title"
            placeholder="Text Input"
@@ -9,7 +9,7 @@
 
     <div class="label-wrapper">
         <label class="input-label" for="description">Description</label>
-        <span class="required">*required</span>
+        <span class="required" *ngIf="courseForm.get('description').touched && courseForm.get('description').invalid">Required Field, Max length 500 characters</span>
     </div>
     <textarea [formControlName]="'description'" class="course-input course-input-large course-input-description"
               cols="20"
@@ -17,8 +17,8 @@
               name="description" placeholder="Add description" required rows="5"></textarea>
 
     <div class="label-wrapper">
-        <label class="input-label" for="duration">duration</label>
-        <span class="required">*required</span>
+        <label class="input-label" for="duration">Duration</label>
+        <span class="required" *ngIf="courseForm.get('length').touched && courseForm.get('length').invalid">Required, only numbers allowed</span>
     </div>
     <div class="duration-wrapper">
         <input [formControlName]="'length'" class="course-input course-input-small" id="duration" name="duration"
@@ -29,15 +29,15 @@
 
     <div class="label-wrapper">
         <label class="input-label " for="date">date</label>
-        <span class="required">*required</span>
+        <span class="required"  *ngIf="courseForm.get('date').touched && courseForm.get('date').invalid">*Required, Date should be in "DD-MM-YYYY or DD/MM/YYYY" format</span>
     </div>
     <input [formControlName]="'date'" class="course-input course-input-small" id="date" name="date"
            placeholder="mm-dd-yyyy"
-           required type="date">
+           required type="text">
 
     <div class="label-wrapper">
         <label class="input-label" for="authors">authors</label>
-        <span class="required">*required</span>
+        <span class="required" ></span>
     </div>
     <input class="course-input course-input-medium" id="authors" name="date"
            placeholder="Start typing"
