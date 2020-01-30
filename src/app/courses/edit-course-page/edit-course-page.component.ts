@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { switchMap, tap } from "rxjs/operators";
+import { switchMap, take, tap } from "rxjs/operators";
 
-import { CourseService, ICourse } from "../../core/index";
+import { CourseService, ICourse, StoreFacadeService } from "../../core/index";
 
 @Component({
     selector: "app-edit-course-page",
@@ -13,9 +13,10 @@ import { CourseService, ICourse } from "../../core/index";
 export class EditCoursePageComponent implements OnInit {
 
     private courseService: CourseService;
+    private storeFacadeService: StoreFacadeService;
     private route: ActivatedRoute;
     private router: Router;
-    private course: ICourse;
+
 
     /**
      * variable to hold observable with course
@@ -24,21 +25,19 @@ export class EditCoursePageComponent implements OnInit {
 
     constructor(
         courseService: CourseService,
+        storeFacadeService: StoreFacadeService,
         route: ActivatedRoute,
         router: Router
     ) {
         this.courseService = courseService;
+        this.storeFacadeService = storeFacadeService;
         this.route = route;
         this.router = router;
     }
 
     public ngOnInit() {
-        this.course$ = this.route.params.pipe(
-            switchMap((params: Params) => {
-                return this.courseService.getCourse(parseInt(params.id, 10));
-            })
-        ).pipe(
-            tap((course: ICourse) => this.course = course)
+        this.course$ = this.storeFacadeService.getSingleCourse().pipe(
+            take(1),
         );
     }
 

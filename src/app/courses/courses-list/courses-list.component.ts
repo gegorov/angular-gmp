@@ -71,7 +71,7 @@ export class CoursesListComponent implements OnInit, AfterViewInit, OnDestroy {
      * and navigates to appropriate page
      */
     public onEditNotify(course: ICourse): void {
-        this.router.navigate(["/", "courses", course.id]);
+        this.storeFacadeService.loadCourseToEdit(course.id);
     }
 
     /**

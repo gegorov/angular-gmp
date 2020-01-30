@@ -18,3 +18,8 @@ export const selectCourses = createSelector(
     selectCoursesState,
     (state: CoursesState) => state.courses
 );
+
+export const selectCourseToEdit = createSelector(
+    selectCoursesState,
+    (state: CoursesState) => state.courseToEdit
+);

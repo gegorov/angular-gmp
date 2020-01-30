@@ -1,27 +1,27 @@
-<form (ngSubmit)="onSubmit($event)" class="course-form-wrapper" *ngIf="course">
+<form class="course-form-wrapper" *ngIf="course" [formGroup]="courseForm" (ngSubmit)="onSubmit()">
     <div class="label-wrapper">
         <label class="input-label" for="title">Title</label>
-        <span class="required">*required</span>
+        <span class="required" *ngIf="courseForm.get('name').touched && courseForm.get('name').invalid">Required Field, Max length 50 characters</span>
     </div>
-    <input [(ngModel)]="course.name" class="course-input course-input-large" id="title" name="title"
+    <input [formControlName]="'name'" class="course-input course-input-large" id="title" name="title"
            placeholder="Text Input"
            required type="text">
 
     <div class="label-wrapper">
         <label class="input-label" for="description">Description</label>
-        <span class="required">*required</span>
+        <span class="required" *ngIf="courseForm.get('description').touched && courseForm.get('description').invalid">Required Field, Max length 500 characters</span>
     </div>
-    <textarea [(ngModel)]="course.description" class="course-input course-input-large course-input-description"
+    <textarea [formControlName]="'description'" class="course-input course-input-large course-input-description"
               cols="20"
               id="description"
               name="description" placeholder="Add description" required rows="5"></textarea>
 
     <div class="label-wrapper">
-        <label class="input-label" for="duration">duration</label>
-        <span class="required">*required</span>
+        <label class="input-label" for="duration">Duration</label>
+        <span class="required" *ngIf="courseForm.get('length').touched && courseForm.get('length').invalid">Required, only numbers allowed</span>
     </div>
     <div class="duration-wrapper">
-        <input [(ngModel)]="course.length" class="course-input course-input-small" id="duration" name="duration"
+        <input [formControlName]="'length'" class="course-input course-input-small" id="duration" name="duration"
                placeholder="minutes"
                required type="text">
         <span *ngIf="course.length > 0" class="duration-label"> {{course.length | duration}}</span>
@@ -29,22 +29,22 @@
 
     <div class="label-wrapper">
         <label class="input-label " for="date">date</label>
-        <span class="required">*required</span>
+        <span class="required"  *ngIf="courseForm.get('date').touched && courseForm.get('date').invalid">*Required, Date should be in "DD-MM-YYYY or DD/MM/YYYY" format</span>
     </div>
-    <input [ngModel]="course.date | date: 'yyyy-MM-dd'" (ngModelChange)="course.date = $event" class="course-input course-input-small" id="date" name="date"
+    <input [formControlName]="'date'" class="course-input course-input-small" id="date" name="date"
            placeholder="mm-dd-yyyy"
-           required type="date">
+           required type="text">
 
     <div class="label-wrapper">
         <label class="input-label" for="authors">authors</label>
-        <span class="required">*required</span>
+        <span class="required" ></span>
     </div>
     <input class="course-input course-input-medium" id="authors" name="date"
            placeholder="Start typing"
            required type="text">
     <div class="course-controls">
         <button appGoBack type="button" class="btn btn-secondary" mat-raised-button>Cancel</button>
-        <button (click)="onSubmit($event)" class="btn" mat-raised-button>Save</button>
+        <button class="btn" mat-raised-button [disabled]="courseForm.invalid">Save</button>
     </div>
 </form>
 

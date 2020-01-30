@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
@@ -10,11 +11,12 @@ import { MaterialModule } from "../shared/material/index";
 import { PopupComponent } from "./popup/popup.component";
 import { DirectivesModule } from "./directives/index";
 import { CourseFormComponent } from "./course-form/course-form.component";
+import { DurationValidator, DateValidator } from "./form-validators/index";
 
 
 @NgModule({
-    declarations: [BreadcrumbsComponent, DurationPipe, FilterPipe, OrderByPipe, PopupComponent, CourseFormComponent],
-    imports: [CommonModule, DirectivesModule, FormsModule, MaterialModule, MainLayoutModule, RouterModule],
+    declarations: [BreadcrumbsComponent, DurationPipe, FilterPipe, OrderByPipe, PopupComponent, CourseFormComponent, DurationValidator, DateValidator],
+    imports: [CommonModule, DirectivesModule, FormsModule, MaterialModule, MainLayoutModule, ReactiveFormsModule, RouterModule],
     exports: [
         BreadcrumbsComponent,
         CommonModule,
@@ -26,6 +28,9 @@ import { CourseFormComponent } from "./course-form/course-form.component";
         MaterialModule,
         OrderByPipe,
         FormsModule,
+        ReactiveFormsModule,
+        DurationValidator,
+        DateValidator
     ],
     entryComponents: [PopupComponent]
 })

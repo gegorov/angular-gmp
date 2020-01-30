@@ -1,33 +1,26 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { StoreFacadeService, IUserLogin } from "../core/index";
-
 
 @Component({
     selector: "app-login-page",
     templateUrl: "./login-page.component.html",
     styleUrls: ["./login-page.component.scss"]
 })
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit {
     private router: Router;
 
     /**
-     * variable ot store user login from input
+     * variable to keep StoreFacadeService
      */
-    public loginName: string;
-
-    /**
-     * variable ot store user pass from input
-     */
-    public password: string;
-
-    /**
-     * variable ot store user login from input
-     */
-        // public authService: AuthService;
-
     public storeFacadeService: StoreFacadeService;
+
+    /**
+     * variable for loginForm FormGroup
+     */
+    public loginForm: FormGroup;
 
     constructor(router: Router, storeFacadeService: StoreFacadeService) {
         this.router = router;
@@ -37,13 +30,24 @@ export class LoginPageComponent {
     /**
      * method that calls login from auth service and navigates to proper route
      */
-    public onSubmit(event) {
-        event.preventDefault();
+    public onSubmit(): void {
+        if (this.loginForm.invalid) {
+            return;
+        }
+
         const user: IUserLogin = {
-            login: this.loginName,
-            password: this.password
+            login: this.loginForm.value.username,
+            password: this.loginForm.value.password
         };
+
         this.storeFacadeService.login(user);
     }
 
+    public ngOnInit(): void {
+        this.loginForm = new FormGroup({
+            // TODO: enable Validators.email for username later
+            username: new FormControl("", [Validators.required, Validators.minLength(1)]),
+            password: new FormControl("", [Validators.required, Validators.minLength(1)])
+        });
+    }
 }

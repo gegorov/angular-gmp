@@ -53,6 +53,26 @@ export class CoursesEffects {
         catchError(error => of(CourseActions.loadCoursesFail({ errorMessage: error.message })))
     ));
 
+    public loadCourseToEdit: Observable<any> = createEffect( () => this.actions$.pipe(
+        ofType(CourseActions.loadCourse),
+        switchMap(({id}) => this.courseService.getCourse(id)),
+        switchMap((course: ICourse) => {
+            return [CourseActions.loadCourseSuccess({course}), CourseActions.coursesRedirectToEditPage({courseId: course.id})];
+        }),
+        catchError(error => of(CourseActions.loadCourseFail({ errorMessage: error.message })))
+    ));
+
+    public courseRedirectToEditPage$: Observable<any> = createEffect(
+        () => this.actions$.pipe(
+            ofType(CourseActions.coursesRedirectToEditPage),
+            tap(({courseId}) => {
+                this.router.navigate(["/", "courses", courseId]);
+            })
+        ),
+        { dispatch: false }
+    );
+
+
     constructor(
         private actions$: Actions,
         private courseService: CourseService,

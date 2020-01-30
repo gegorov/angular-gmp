@@ -1,14 +1,46 @@
 <div class="login">
     <div class="login-container">
         <h3>Login</h3>
-        <form class="login-form" (ngSubmit)="onSubmit($event)">
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <label for="login" class="login-input-label">Login</label>
-            <input type="email" name="login" id="login" class="login-input" placeholder="example@mail.com"  [(ngModel)]="loginName" autocomplete="username">
+            <div class="login-input-wrapper">
+                <input
+                    type="email"
+                    name="login"
+                    id="login"
+                    class="login-input"
+                    placeholder="example@mail.com"
+                    formControlName="username"
+                    autocomplete="username"
+                />
+                <span
+                    class="login-validation"
+                    *ngIf="loginForm.get('username').touched && loginForm.get('username').invalid"
+                    >login is required and should be more than 1 char</span
+                >
+            </div>
+
             <label for="password" class="login-input-label">Password</label>
-            <input type="password" name="password" id="password" class="login-input" placeholder="password" [(ngModel)]="password" autocomplete="current-password">
+            <div class="login-input-wrapper">
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="login-input"
+                    placeholder="password"
+                    formControlName="password"
+                    autocomplete="current-password"
+                />
+                <span
+                    class="login-validation"
+                    *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid"
+                    >password is required and should be more than 1 char</span
+                >
+            </div>
+
             <div class="login-controls">
                 <span class="login-forgot"><a href="#">Forgot password?</a></span>
-                <button mat-raised-button class="btn" >Login</button>
+                <button mat-raised-button class="btn" [disabled]="loginForm.invalid">Login</button>
             </div>
         </form>
     </div>

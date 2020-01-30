@@ -80,3 +80,19 @@ h3 {
 .login-forgot {
     font-size: 12px;
 }
+
+.login-validation {
+    color: red;
+    font-size: 10px;
+    position: absolute;
+    top: 45px;
+    left: 5px;
+}
+
+.login-input-wrapper {
+    position: relative;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
