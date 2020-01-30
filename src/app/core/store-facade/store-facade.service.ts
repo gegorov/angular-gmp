@@ -109,4 +109,12 @@ export class StoreFacadeService {
     public deleteCourse(id: number): void {
         this.store.dispatch(CoursesActions.deleteCourse({courseIdToDelete: id}));
     }
+
+    public loadCourseToEdit(id: number): void {
+        this.store.dispatch(CoursesActions.loadCourse({id}));
+    }
+
+    public getSingleCourse(): Observable<ICourse> {
+        return this.store.pipe(select(CoursesSelectors.selectCourseToEdit));
+    }
 }

@@ -9,6 +9,7 @@ export interface CoursesState {
     errorMessage: string;
     query: string;
     coursesAmount: number;
+    courseToEdit: ICourse;
 }
 
 const initialCoursesAmount: number = 5;
@@ -17,7 +18,8 @@ const initialState: CoursesState = {
     courses: null,
     errorMessage: null,
     query: "",
-    coursesAmount: initialCoursesAmount
+    coursesAmount: initialCoursesAmount,
+    courseToEdit: null,
 };
 
 export const coursesKey = "courses";
@@ -30,7 +32,9 @@ const coursesReducer = createReducer(
         coursesAmount: state.coursesAmount + coursesToLoad
     })),
     on(CoursesActions.loadCoursesSuccess, (state, { courses }) => ({ ...state, courses, errorMessage: null })),
-    on(CoursesActions.loadCoursesFail, (state, { errorMessage }) => ({ ...state, errorMessage }))
+    on(CoursesActions.loadCoursesFail, (state, { errorMessage }) => ({ ...state, errorMessage })),
+    on(CoursesActions.loadCourseSuccess, (state, { course}) => ({...state, courseToEdit: course, errorMessage: null})),
+    on(CoursesActions.loadCourseFail, (state, { errorMessage }) => ({ ...state, errorMessage })),
 );
 
 export function reducer(state: CoursesState | undefined, action: Action) {

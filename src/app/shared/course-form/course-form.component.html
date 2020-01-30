@@ -31,7 +31,7 @@
         <label class="input-label " for="date">date</label>
         <span class="required">*required</span>
     </div>
-    <input [formControlName]="'date' | date: 'yyyy-MM-dd'" class="course-input course-input-small" id="date" name="date"
+    <input [formControlName]="'date'" class="course-input course-input-small" id="date" name="date"
            placeholder="mm-dd-yyyy"
            required type="date">
 
@@ -44,7 +44,7 @@
            required type="text">
     <div class="course-controls">
         <button appGoBack type="button" class="btn btn-secondary" mat-raised-button>Cancel</button>
-        <button (click)="onSubmit()" class="btn" mat-raised-button [disabled]="courseForm.invalid">Save</button>
+        <button class="btn" mat-raised-button [disabled]="courseForm.invalid">Save</button>
     </div>
 </form>
 

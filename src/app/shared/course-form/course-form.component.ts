@@ -1,3 +1,4 @@
+import { DatePipe } from "@angular/common";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from "@angular/core";
 
@@ -13,20 +14,9 @@ export class CourseFormComponent implements OnInit {
     private courseBF: ICourse;
 
     /**
-     * Setter to set course that is received from parent component to private
-     * variable courseBF
+     * Variable to set course that is received from parent component
      */
-    @Input()
-    public set course(course: ICourse) {
-        this.courseBF = course;
-    }
-
-    /**
-     * getter for courseBF
-     */
-    public get course(): ICourse {
-        return this.courseBF;
-    }
+    @Input() public course: ICourse;
 
     /**
      * Event emitter to emit value to parent component
@@ -42,7 +32,7 @@ export class CourseFormComponent implements OnInit {
         if (this.courseForm.invalid) {
             return;
         }
-        this.course = {
+        this.courseBF = {
             name: this.courseForm.value.name,
             description: this.courseForm.value.description,
             length: this.courseForm.value.length,
@@ -54,13 +44,14 @@ export class CourseFormComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+        const { id, name, date, description, length, topRated } = this.course;
         this.courseForm = new FormGroup({
-            id: new FormControl(null),
-            name: new FormControl(this.course.name, [Validators.required, Validators.maxLength(50)]),
-            description: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
-            length: new FormControl(null, [Validators.required]),
-            date: new FormControl([Validators.required]),
-            topRated: new FormControl(null)
+            id: new FormControl(id),
+            name: new FormControl(name, [Validators.required, Validators.maxLength(50)]),
+            description: new FormControl(description, [Validators.required, Validators.maxLength(50)]),
+            length: new FormControl(length, [Validators.required]),
+            date: new FormControl(new DatePipe(navigator.language).transform(date, "yyyy-MM-dd"), [Validators.required]),
+            topRated: new FormControl(topRated)
         });
     }
 }
